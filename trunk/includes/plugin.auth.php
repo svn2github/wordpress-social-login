@@ -102,8 +102,8 @@ function wsl_process_login()
 		// generate a valid user login
 		$user_login = trim( str_replace( ' ', '_', strtolower( $hybridauth_user_profile->displayName ) ) );
 
-		if( empty( $user_login ) || ! validate_username( $user_login ) ){
-			$user_login = strtolower( $provider ) . "_user_" . md5( $hybridauth_user_profile->identifier );
+		if( empty( $user_login ) ){
+			$user_login = $hybridauth_user_profile->lastName . " " . $hybridauth_user_profile->firstName;
 		}
 
 		// user name should be unique
@@ -133,6 +133,10 @@ function wsl_process_login()
 		} 
 
 		$user_login = sanitize_user ($user_login, true);
+
+		if( ! validate_username( $user_login ) ){
+			$user_login = strtolower( $provider ) . "_user_" . md5( $hybridauth_user_profile->identifier );
+		}
 
 		$userdata = array(
 			'user_login'    => $user_login,
