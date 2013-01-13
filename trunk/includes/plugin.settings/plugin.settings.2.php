@@ -9,7 +9,7 @@
 	
 	<h3>Credits</h3>
 	<p style="margin-left:20px;">
-		HybridAuth was created by <a href="http://profiles.wordpress.org/miled/" target="_blank">Mohamed Mrassi</a> (a.k.a Miled) and <a href="https://github.com/hybridauth/WordPress-Social-Login/graphs/contributors" target="_blank">contributors</a>. 
+		WordPress Social Login was created by <a href="http://profiles.wordpress.org/miled/" target="_blank">Mohamed Mrassi</a> (a.k.a Miled) and <a href="https://github.com/hybridauth/WordPress-Social-Login/graphs/contributors" target="_blank">contributors</a>. 
 		Many other people have also contributed  with constructive discussions, support and by submitting patches.
 	</p>
 

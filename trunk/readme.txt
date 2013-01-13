@@ -4,8 +4,8 @@ Tags:  facebook, google, yahoo, twitter, windows live, myspace, foursquare, link
 Requires at least: 3.0
 Tested up to: 3.2.1
 Stable tag: 1.2.3 
-License: MIT License
-License URI: http://www.opensource.org/licenses/MIT
+License: MIT and GPLv3 
+License URI: http://hybridauth.sourceforge.net/licenses.html
 
 WordPress Social Login allow your visitors to comment and login with social networks such as Twitter, Facebook, Google, Yahoo and more.
 
