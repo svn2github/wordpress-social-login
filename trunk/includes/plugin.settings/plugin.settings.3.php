@@ -1,11 +1,11 @@
-<div style="margin-left:10px;">
+<div style="margin-left:20px;">
 <form method="post" id="wsl_setup_form" action="options.php">  
 <?php settings_fields( 'wsl-settings-group-development' ); ?>
 
 <h3>Requirements test</h3> 
 
 <p style="margin-left:25px;"> 
-	Please click on the button below to make sure your server settings meet this plugin requirements:
+	Click on the button below to make sure your server settings meet this plugin requirements:
 	
 	<br />
 	<br />

@@ -91,6 +91,7 @@ If you want to add the social login widget to another location in your theme, yo
 1. **Comment** - Buttons for 3rd party services are also provided on the comment form.
 2. **Login** - On the login and registration form, buttons for 3rd party services are provided.
 3. **Setup** - To correctly setup these Identity Providers please carefully follow the help section of each one.
+4. **Customize** - WordPress Social Login customization form
 
 == Changelog ==
 
