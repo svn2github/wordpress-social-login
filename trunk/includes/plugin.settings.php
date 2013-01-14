@@ -12,7 +12,7 @@ function wsl_render_settings()
 	$wslp = @ (int) $_REQUEST["wslp"];
 
 	if( $wslp < 1 || $wslp > 6 ){
-		$wslp = 4;
+		$wslp = 1;
 	}
 
 	include "plugin.settings/plugin.settings.0.php";
@@ -25,9 +25,10 @@ function wsl_check_requirements()
 	if
 	(
 		   ! version_compare( PHP_VERSION, '5.2.0', '>=' )
-		|| ! isset( $_SESSION["wsl::plugin"] )	
+		|| ! isset( $_SESSION["wsl::plugin"] )
 		|| ! function_exists('curl_init')
-		|| ! function_exists('json_decode') 
+		|| ! function_exists('json_decode')
+		||   ini_get('register_globals')
 	)
 	return false;
 	

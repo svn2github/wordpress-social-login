@@ -95,13 +95,22 @@ function wsl_render_login_form_login()
 	wsl_render_login_form();
 }
 
-add_action( 'login_form', 'wsl_render_login_form_login' );
-add_action( 'register_form', 'wsl_render_login_form_login' );
-add_action( 'after_signup_form', 'wsl_render_login_form_login' );
 add_action( 'wordpress_social_login', 'wsl_render_login_form_login' );
 
+function wsl_render_login_form_login_on_register_and_login()
+{
+	if( get_option( 'wsl_settings_widget_display' ) != 1 ){
+		return null;
+	}
 
-function wsl_shortcode_handler ($args)
+	wsl_render_login_form();
+}
+
+add_action( 'login_form', 'wsl_render_login_form_login_on_register_and_login' );
+add_action( 'register_form', 'wsl_render_login_form_login_on_register_and_login' );
+add_action( 'after_signup_form', 'wsl_render_login_form_login_on_register_and_login' );
+
+function wsl_shortcode_handler($args)
 {
 	if ( ! is_user_logged_in () ){
 		wsl_render_login_form();

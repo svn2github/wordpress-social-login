@@ -1,170 +1,71 @@
-<form method="post" id="wsl_setup_form" action="options.php"> 
-
-
-<div class="metabox-holder columns-2" id="post-body">
-
-<table width="100%">
-<tbody>
-<tr valign="top">
-<td>
-							
-<div  id="post-body-content"> 
- 
-	<div id="namediv" class="stuffbox">
-		<h3>
-			<label for="name">Basic Settings</label>
-		</h3>
-		<div class="inside">
-			<?php settings_fields( 'wsl-settings-group-customize' ); ?> 
-			
-			<table width="100%" border="0" cellpadding="5" cellspacing="2" > 
-			  <tr>
-				<td width="135" align="right"><strong>Connect with caption :</strong></td>
-				<td>
-
-			<?php 
-				$wsl_settings_connect_with_label = get_option( 'wsl_settings_connect_with_label' );
-
-				if( empty( $wsl_settings_connect_with_label ) ){
-					$wsl_settings_connect_with_label = "Connect with:";
-				}
-			?>
-				<input type="text" class="inputgnrc" value="<?php echo $wsl_settings_connect_with_label; ?>" name="wsl_settings_connect_with_label" >
-				
-				</td>
-			  </tr>
-
-			  <tr>
-				<td align="right"><strong>Social icon set :</strong></td>
-				<td> 
-					<select name="wsl_settings_social_icon_set">
-						<option <?php if( get_option( 'wsl_settings_social_icon_set' )   == "wpzoom" ) echo "selected"; ?>   value="wpzoom">WPZOOM social networking icon set</option>
-						<option <?php if( get_option( 'wsl_settings_social_icon_set' ) == "icondock" ) echo "selected"; ?> value="icondock">Icondock vector social media icons</option> 
-					</select> 
-				</td>
-			  </tr>
-			  
-			  <tr>
-				<td align="right"><strong>Users avatars :</strong></td>
-				<td>
-					<select name="wsl_settings_users_avatars">
-						<option <?php if( ! get_option( 'wsl_settings_users_avatars' ) ) echo "selected"; ?> value="0">Display the default users avatars</option> 
-						<option <?php if(   get_option( 'wsl_settings_users_avatars' ) ) echo "selected"; ?> value="1">Display users avatars from social networks when available</option>
-					</select> 
-				</td>
-			  </tr> 
-			</table> 
-			<br>  
-		</div>
-	</div>
+<div class="wslgn"> 
+	<h3>Documentation</h3>
+	<p>
+		WordPress Social Login user guide can be found on 
+		<a href="http://hybridauth.sourceforge.net/userguide/Plugin_WordPress_Social_Login.html" target="_blank">http://hybridauth.sourceforge.net/userguide/Plugin_WordPress_Social_Login.html</a>
+	</p>
 	
-	<div id="namediv" class="stuffbox">
-		<h3>
-			<label for="name">Advanced Settings</label>
-		</h3>
-		<div class="inside">
-			<?php settings_fields( 'wsl-settings-group-customize' ); ?> 
-			
-			<table width="100%" border="0" cellpadding="5" cellspacing="2" >
-			 
-			  <tr>
-				<td align="right"><strong>Authentication flow:</strong></td>
-				<td>
-					<select name="wsl_settings_use_popup">
-						<option <?php if( get_option( 'wsl_settings_use_popup' ) == 1 || ! get_option( 'wsl_settings_use_popup' ) ) echo "selected"; ?> value="1">Using popup window</option> 
-						<option <?php if( get_option( 'wsl_settings_use_popup' ) == 2 ) echo "selected"; ?> value="2">No popup window</option> 
-					</select>  
-				</td>
-			  </tr> 
+	<hr />
+	
+	<h3>Credits</h3>
+	<p>
+		WordPress Social Login was created by <a href="http://profiles.wordpress.org/miled/" target="_blank">Mohamed Mrassi</a> (a.k.a Miled) and <a href="https://github.com/hybridauth/WordPress-Social-Login/graphs/contributors" target="_blank">contributors</a>. 
+		Many other people have also contributed  with constructive discussions, support and by submitting patches.
+	</p>
 
-			  <tr>
+	<hr />
+	
+	<h3>Support</h3>
+	<p>
+		To get help and support, here is where you can reach me:
+	</p>
+	
+	<ul style="margin-left:40px;">
+		<li><b>Google Group</b>: <a href="https://groups.google.com/d/forum/hybridauth-plugins" target="_blank">https://groups.google.com/d/forum/hybridauth-plugins</a> (a community support group.)</li>
+		<li><b>Wordpress support forum</b>: <a href="http://wordpress.org/support/plugin/wordpress-social-login" target="_blank">http://wordpress.org/support/plugin/wordpress-social-login</a> (try to avoid this one, I hate it.)</li> 
+		<li><b>Email</b>: <a href="mailto:hybridauth@gmail.com">hybridauth@gmail.com</a></li> 
+	</ul>
+ 
+<pre class="wslpre" style="margin-left:20px;">
+Keep in mind I'm a busy man and providing customer support is not my cup of tea.
 
-			<?php 
-				$wsl_settings_redirect_url = get_option( 'wsl_settings_redirect_url' );
+If I did not answer your question or I took too long to, then its either :
+   * I didn't understand it, 
+   * It has been asked before on the google group or wordpress forum,
+   * Your "question" is too stupid,
+   * I'm simply too busy or hibernating irl,
+   * also, be friendly, questions and requests containing hi, hello and thank you 
+     can make a diffrence :P.
+</pre>   
 
-				if( empty( $wsl_settings_redirect_url ) ){
-					$wsl_settings_redirect_url = site_url();
-				}
-			?>
-				<td width="135" align="right" valign="top"><strong>Redirect URL :</strong></td>
-				<td>
-					<input type="text" name="wsl_settings_redirect_url" value="<?php echo $wsl_settings_redirect_url; ?>" class="inputgnrc">
-					<br />
-					<i>
-						Where should users be redirected to after registring? (<b>By default, to where he comes from</b>)
-					</i>
-				</td>
-			  </tr>
-			 
-			  <tr>
-				<td align="right" valign="top"><strong>Notification :</strong></td>
-				<td>
-					<select name="wsl_settings_users_notification">
-						<option <?php if( ! get_option( 'wsl_settings_users_notification' )      ) echo "selected"; ?> value="0">No notification</option> 
-						<option <?php if(   get_option( 'wsl_settings_users_notification' ) == 1 ) echo "selected"; ?> value="1">Send notification to blog admin at (<?php echo get_option('admin_email') ?>)</option>
-						<!--
-						meh.. another day maybe..
-						<option <?php if(   get_option( 'wsl_settings_users_notification' ) == 2 ) echo "selected"; ?> value="2">Send notification to blog admin and user</option>
-						-->
-					</select> 
-					<br />
-					<i>
-						Should we send a notification when a new user register with <b>WSL</b>?
-					</i>
-				</td>
-			  </tr> 
-			</table>
+	<br />
+	<hr />
+	
+	<h3>License</h3>
+	<p>
+		<b>WordPress Social Login</b> is an open source software licenced under The MIT License (MIT)
+	</p>
+<pre class="wslpre" style="margin-left:20px;">
+	Copyright (C) 2011-2013 Mohamed Mrassi and contributors
 
-			<br>  
-		</div>
-	</div>
+	Permission is hereby granted, free of charge, to any person obtaining
+	a copy of this software and associated documentation files (the
+	"Software"), to deal in the Software without restriction, including
+	without limitation the rights to use, copy, modify, merge, publish,
+	distribute, sublicense, and/or sell copies of the Software, and to
+	permit persons to whom the Software is furnished to do so, subject to
+	the following conditions:
+
+	The above copyright notice and this permission notice shall be
+	included in all copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+	EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+	NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+	LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+	OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+	WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</pre>  
 
 </div>
-
-</td>
-<td width="600">
-
-
-<div class="postbox " id="linksubmitdiv"> 
-	<div class="inside">
-		<div id="submitlink" class="submitbox"> 
-			<h3 style="cursor: default;">Custom integration</h3>
-			<div id="minor-publishing">  
-				<div id="misc-publishing-actions"> 
-						<p style="margin:10px;"> 
-						WordPress Social Login will attempts to work with the default WordPress comment, login and registration forms. 
-						</p>
-
-						<ul style="list-style:disc inside;margin-left:25px;"> 
-							
-							<li>If you want to add the social login widget to another location in your theme, you can insert the following code in that location:
-							<pre style="width: 440px;background-color: #FFFFE0;border:1px solid #E6DB55; border-radius: 3px;padding: 10px;margin-top:15px;margin-left:10px;"> &lt;?php do_action( 'wordpress_social_login' ); ?&gt; </pre>  
-							</li> 
-
-							<li>Also, if you are a developer or designer then you can customize it to your heart's content: 
-								<ul style="list-style:circle inside;margin-left:25px;margin-top:10px;">
-									<li>The default css styles are found at <strong>/wordpress-social-login/assets/css/style.css</strong></li> 
-									<li>Social icons are found at <strong>/wordpress-social-login/assets/img/32x32/</strong></li> 
-									<li>The widget view can be found at <strong>/wordpress-social-login/includes/plugin.ui.php</strong>, function <strong>wsl_render_login_form()</strong></li> 
-									<li>The popup and loading screens are found at <strong>/wordpress-social-login/authenticate.php</strong></li> 
-								</ul>
-							</li> 
-						</ul> 
-				</div> 
-			</div> 
-		</div>
-	</div>
-</div> 
-
-</td>
-</tr>
-</table>
-
-</div> 
-
-<div style="margin-left:5px;margin-top:-20px;"> 
-	<input type="submit" class="button-primary" value="Save Settings" /> 
-</div>
-
-
-</form>

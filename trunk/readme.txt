@@ -4,8 +4,8 @@ Tags:  facebook, google, yahoo, twitter, windows live, myspace, foursquare, link
 Requires at least: 3.0
 Tested up to: 3.2.1
 Stable tag: 1.2.3 
-License: MIT and GPLv3 
-License URI: http://hybridauth.sourceforge.net/licenses.html
+License: MIT License
+License URI: http://opensource.org/licenses/MIT
 
 WordPress Social Login allow your visitors to comment and login with social networks such as Twitter, Facebook, Google, Yahoo and more.
 
@@ -31,30 +31,29 @@ Using <strong>WordPress Social Login</strong>, your blog's users will be able to
 
 <strong>Supported services :</strong>
 <ol>
- <li>Facebook</li>  
- <li>Google</li>  
- <li>Yahoo</li>  
- <li>Twitter</li>  
- <li>Windows Live</li>  
+ <li>Facebook</li>
+ <li>Google</li>
+ <li>Yahoo</li>
+ <li>Twitter</li>
+ <li>Windows Live</li>
  <li>Myspace</li>  
  <li>Foursquare</li>  
  <li>Linkedin</li>  
- <li>Tumblr</li>  
- <li>Gowalla</li>  
- <li>Last.fm</li>  
- <li>Instagram</li>  
- <li>Goodreads</li>  
- <li>AOL</li>  
- <li>Vkontakte</li>  
- <li>Stackoverflow</li>  
- <li>Github</li>  
- <li>500px</li>  
- <li>Skyrock</li>  
- <li>Mixi.jp</li>  
- <li>Steam</li>  
- <li>Mail.ru</li>  
- <li>Yandex</li>  
- <li>Odnoklassniki</li>  
+ <li>Tumblr</li>
+ <li>Last.fm</li>
+ <li>Instagram</li>
+ <li>Goodreads</li>
+ <li>AOL</li>
+ <li>Vkontakte</li>
+ <li>Stackoverflow</li>
+ <li>Github</li>
+ <li>500px</li>
+ <li>Skyrock</li>
+ <li>Mixi.jp</li>
+ <li>Steam</li>
+ <li>Mail.ru</li>
+ <li>Yandex</li>
+ <li>Odnoklassniki</li>
 </ol> 
 	
 <strong>Credits:</strong>
@@ -94,6 +93,14 @@ If you want to add the social login widget to another location in your theme, yo
 4. **Customize** - WordPress Social Login customization form
 
 == Changelog ==
+
+= 1.2.4-dev =
+
+* WSL admin ui Relooking
+* Code refactoring
+* add Widget display on advanced settings
+* RIP Gowalla
+* WordPress Social Login is now licenced under The MIT License only (should be GPL compatible) 
 
 = 1.2.3 =
 

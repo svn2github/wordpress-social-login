@@ -1,8 +1,8 @@
 <style>
-.about-text { 
-    display: block;
-    height: 34px;
-    min-height: auto;
+.about-text{ 
+	display: block;
+	height: 40px;
+	min-height: 40px; 
 }
 h1 {
     color: #333333;
@@ -24,23 +24,42 @@ hr{
 	border-style: none none solid;
 	border-width: 0 0 1px;
 	margin: 2px 0 15px;
-}
-.wrap { 
+} 
+.wsldiv { 
     margin: 25px 40px 0 20px; 
+}
+.wsldiv p{  
+	line-height: 1.8em;
+}
+.wslgn{ 
+    margin-left:20px;
+}
+.wslgn p{ 
+	margin-left:20px;
+}
+.wslpre{ 
+    font-size:14m;
+	border:1px solid #E6DB55; 
+	border-radius: 3px;
+	padding:5px;
+	width:650px;
+}
+ul {
+    list-style: disc outside none;
 }
 </style>
 
-<div class="wrap">
+<div class="wsldiv">
 
-<h1>WordPress Social Login 2.1</h1>
+<h1>WordPress Social Login 1.2.3</h1>
 
 <div class="about-text">Allow your visitors to comment and login with social networks such as Twitter, Facebook, Google, Yahoo and more. </div>
 
 <h2 class="nav-tab-wrapper">
 	&nbsp;
-    <a class="nav-tab <?php if( $wslp == 4 ) echo "nav-tab-active"; ?>" href="options-general.php?page=wordpress-social-login&wslp=4">Settings</a> 
-    <a class="nav-tab <?php if( $wslp == 5 ) echo "nav-tab-active"; ?>" href="options-general.php?page=wordpress-social-login&wslp=5">Customize</a>   
-    <a class="nav-tab <?php if( $wslp == 6 ) echo "nav-tab-active"; ?>" href="options-general.php?page=wordpress-social-login&wslp=6">Insights</a>   
-    <a class="nav-tab <?php if( $wslp == 3 ) echo "nav-tab-active"; ?>" style="float:right" href="options-general.php?page=wordpress-social-login&wslp=3">Diagnostics</a>  
-    <a class="nav-tab <?php if( $wslp == 2 ) echo "nav-tab-active"; ?>" style="float:right" href="options-general.php?page=wordpress-social-login&wslp=2">Help & Support</a> 
+    <a class="nav-tab <?php if( $wslp == 1 ) echo "nav-tab-active"; ?>" href="options-general.php?page=wordpress-social-login&wslp=1">Settings</a> 
+    <a class="nav-tab <?php if( $wslp == 2 ) echo "nav-tab-active"; ?>" href="options-general.php?page=wordpress-social-login&wslp=2">Customize</a>   
+    <a class="nav-tab <?php if( $wslp == 3 ) echo "nav-tab-active"; ?>" href="options-general.php?page=wordpress-social-login&wslp=3">Insights</a>   
+    <a class="nav-tab <?php if( $wslp == 4 ) echo "nav-tab-active"; ?>" style="float:right" href="options-general.php?page=wordpress-social-login&wslp=4">Diagnostics</a>  
+    <a class="nav-tab <?php if( $wslp == 5 ) echo "nav-tab-active"; ?>" style="float:right" href="options-general.php?page=wordpress-social-login&wslp=5">Help & Support</a> 
 </h2>

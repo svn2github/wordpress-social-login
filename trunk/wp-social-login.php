@@ -27,24 +27,6 @@ function wsl_activate()
 		die( "This plugin requires WordPress 3.0 or newer. Please update your WordPress installation to activate this plugin." );
 	}
 
-	if ( ! session_id() )
-	{
-		deactivate_plugins (basename (dirname (__FILE__)) . '/' . basename (__FILE__));
-		die( "This plugin requires the <a href='http://www.php.net/manual/en/book.session.php'>PHP Sessions</a> to be enabled." );
-	}
-
-	if ( ! function_exists ( 'curl_version' ) )
-	{
-		deactivate_plugins (basename (dirname (__FILE__)) . '/' . basename (__FILE__));
-		die( "This plugin requires the <a href='http://www.php.net/manual/en/intro.curl.php'>PHP libcurl extension</a> be installed." );
-	}
-
-	if ( ! version_compare( PHP_VERSION, '5.2.0', '>=' ) )
-	{
-		deactivate_plugins (basename (dirname (__FILE__)) . '/' . basename (__FILE__));
-		die( "This plugin requires the <a href='http://php.net/'>PHP 5.2</a> be installed." ); 
-	}
-
 	do_action( 'wsl_activate' );
 }
 
