@@ -8,9 +8,9 @@
 <p style="margin-left:25px;font-size: 14px;"> 
 	In order for <b>WordPress Social Login</b> to work properly, your server should meet certain requirements. These "requirements" 
 	<br />
-	and "services" are usually offered by default by most "modern" web hosting providers, but keep in mind that some complications
+	and "services" are usually offered by default by most "modern" web hosting providers, however some complications may 
 	<br />
-	 may occur with <b>shared hosting</b> and, or <b>custom wordpress installations</b>. 
+	occur with <b>shared hosting</b> and, or <b>custom wordpress installations</b>. 
 	<br />
 	The minimum server requirements are:
 </p>
