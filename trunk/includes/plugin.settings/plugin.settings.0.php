@@ -51,7 +51,7 @@ ul {
 
 <div class="wsldiv">
 
-<h1>WordPress Social Login 1.2.3</h1>
+<h1>WordPress Social Login 1.2.4</h1>
 
 <div class="about-text">Allow your visitors to comment and login with social networks such as Twitter, Facebook, Google, Yahoo and more. </div>
 
