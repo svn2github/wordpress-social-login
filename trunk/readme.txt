@@ -20,7 +20,7 @@ Using <strong>WordPress Social Login</strong>, your blog's users will be able to
  <li>White label, Customizable,</li> 
  <li>Social sign on solution,</li> 
  <li>With data kept in house</li> 
-</ul>  
+</ul>
 
 <strong>Getting started is as simple as :</strong>
 <ol>
@@ -77,13 +77,9 @@ Using <strong>WordPress Social Login</strong>, your blog's users will be able to
 
 == Frequently Asked Questions ==
 
-= Do I need to add template tags to my theme? =
+= Where do I find the plugin Documentation & FAQ ? =
 
-WordPress Social Login will attempts to work with the default WordPress comment, login and registration forms.
-
-If you want to add the social login widget to another location in your theme, you can insert the following code in that location:
-
-`<?php do_action( 'wordpress_social_login' ); ?>`
+WordPress Social Login user guide and frequently asked questions can be found at http://bit.ly/TYy2CM
 
 == Screenshots ==
 
