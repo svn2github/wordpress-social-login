@@ -23,7 +23,7 @@
 	<ul style="margin-left:40px;">
 		<li><b>Google Group</b>: <a href="https://groups.google.com/d/forum/hybridauth-plugins" target="_blank">https://groups.google.com/d/forum/hybridauth-plugins</a> (a community support group.)</li>
 		<li><b>Wordpress support forum</b>: <a href="http://wordpress.org/support/plugin/wordpress-social-login" target="_blank">http://wordpress.org/support/plugin/wordpress-social-login</a> (try to avoid this one, I hate it.)</li> 
-		<li><b>Email</b>: <a href="mailto:hybridauth@gmail.com">hybridauth@gmail.com</a></li> 
+		<li><b>Email</b>: <a href="mailto:hybridauth@gmail.com">hybridauth@gmail.com</a> (I recive <a href="https://bitly.com/XzHZ9f" target="_blank">more than 50 emails per week</a> on this address, so be patient.)</li> 
 	</ul>
  
 <pre class="wslpre" style="margin-left:20px;">
