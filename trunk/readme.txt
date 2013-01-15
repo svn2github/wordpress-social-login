@@ -2,8 +2,8 @@
 Contributors: miled
 Tags:  facebook, google, yahoo, twitter, windows live, myspace, foursquare, linkedin, gowalla, last.fm, instagram, goodreads, tumblr, aol, vkontakte, stackoverflow, github, 500px, skyrock, mixi.jp, steam, login, register, comment, social, social networks, social login
 Requires at least: 3.0
-Tested up to: 3.2.1
-Stable tag: 1.2.3 
+Tested up to: 3.5
+Stable tag: 1.2.4
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
@@ -79,7 +79,7 @@ Using <strong>WordPress Social Login</strong>, your blog's users will be able to
 
 = Where do I find the plugin Documentation & FAQ ? =
 
-WordPress Social Login user guide and frequently asked questions can be found at http://bit.ly/TYy2CM
+The complete user guide and frequently asked questions can be found at http://bit.ly/TYy2CM
 
 == Screenshots ==
 
@@ -90,7 +90,7 @@ WordPress Social Login user guide and frequently asked questions can be found at
 
 == Changelog ==
 
-= 1.2.4-dev =
+= 1.2.4 =
 
 * WSL admin ui Relooking
 * Code refactoring
