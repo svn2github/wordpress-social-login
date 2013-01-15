@@ -43,9 +43,9 @@ ul {
 		and maintenance. <b style='color:red;'>Your server failed the requirements check for this plugin!</b>
 	</p> 
 	<p> 
-		These requirements are usually met by default by most "modern" web hosting providers, but keep in mind that some complications
+		These requirements are usually met by default by most "modern" web hosting providers, however some complications may 
 		<br />
-		 may occur with <b>shared hosting</b> and, or <b>custom wordpress installations</b>.  
+		occur with <b>shared hosting</b> and, or <b>custom wordpress installations</b>.  
 	</p> 
 	<p> 
 		To determine what may cause this failure, run the <b>WordPress Social Login Requirements Test</b> by clicking the button bellow:
