@@ -4,7 +4,7 @@ $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG = ARRAY(
 		"provider_id"       => "Facebook",
 		"provider_name"     => "Facebook", 
 		"require_client_id" => TRUE, 
-		"new_app_link"      => "https://www.facebook.com/developers/", 
+		"new_app_link"      => "https://developers.facebook.com/apps", 
 	)
 	,
 	ARRAY(
