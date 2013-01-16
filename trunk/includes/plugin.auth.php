@@ -103,7 +103,11 @@ function wsl_process_login()
 		$user_login = trim( str_replace( ' ', '_', strtolower( $hybridauth_user_profile->displayName ) ) );
 
 		if( empty( $user_login ) ){
-			$user_login = $hybridauth_user_profile->lastName . " " . $hybridauth_user_profile->firstName;
+			$user_login = trim( $hybridauth_user_profile->lastName . " " . $hybridauth_user_profile->firstName );
+		}
+
+		if( empty( $user_login ) ){
+			$user_login = strtolower( $provider ) . "_user_" . md5( $hybridauth_user_profile->identifier );
 		}
 
 		// user name should be unique
