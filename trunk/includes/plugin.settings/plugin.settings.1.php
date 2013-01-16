@@ -123,8 +123,9 @@
 				<br />
 				<div class="wsl_div_settings_help_<?php echo $provider_id; ?>" style="display:none;"> 
 					<hr class="wsl" />
-					Application ID, key and secret (also sometimes referred as "customer key and secret") are what we call an application credentials. 
-					This application will link your website to <b><?php echo $provider_name ?> API</b> and these credentials are needed in order for <b><?php echo $provider_name ?></b> users to access your website. 
+					<span style="color:#CB4B16;">Application</span> id and secret (also sometimes referred as <span style="color:#CB4B16;">Customer</span> key and secret or <span style="color:#CB4B16;">Client</span> id and secret) are what we call an application credentials. 
+					This application will link your website <code><?php echo $_SERVER["SERVER_NAME"] ?></code> to <code><?php echo $provider_name ?> API</code> and these credentials are needed in order for <b><?php echo $provider_name ?></b> users to access your website. 
+					<br />
 					These credentials may also differ in format, name and content depending on the social network.
 					<br />
 					<br />
@@ -176,8 +177,7 @@
 								<?php endif; ?> 
 
 								<?php if ( $provider_id == "Twitter" ) : ?>
-										<p><?php echo "<b>" . ++$setupsteps . "</b>." ?> Put your website domain in the <b>Application Website</b> and <b>Application Callback URL</b> fields. This should match with the current hostname <em style="color:#CB4B16;"><?php echo $_SERVER["SERVER_NAME"] ?></em>.</p>  
-										<p><?php echo "<b>" . ++$setupsteps . "</b>." ?> Set the <b>Default Access Type</b> to <em style="color:#CB4B16;">Read</em>.</p> 
+										<p><?php echo "<b>" . ++$setupsteps . "</b>." ?> Put your website domain in the <b>Application Website</b> and <b>Application Callback URL</b> fields. This should match with the current hostname <em style="color:#CB4B16;"><?php echo $_SERVER["SERVER_NAME"] ?></em>.</p>   
 								<?php endif; ?> 
 								
 								<p><?php echo "<b>" . ++$setupsteps . "</b>." ?> Once you have registered, copy and past the created application credentials into this setup page.</p>  
@@ -185,9 +185,14 @@
 								<p>No registration required for OpenID based providers</p> 
 						<?php endif; ?> 
 							<p>
-								<b>And that's it!</b> but if you still can't figure it out for some reason or want to know more about <b><?php echo $provider_name ?> Authentication</b> 
-								then refer to <a href="http://hybridauth.sourceforge.net/userguide.html" target="_blank">hybridauth.sourceforge.net</a> 
-								or simply <a href="https://www.google.com/search?q=<?php echo $provider_name ?> create application" target="_blank">Google it!</a>
+								<b>And that's it!</b> 
+								<br />
+								If for some reason you still can't figure it out then try first to 
+									a) <a class="button-primary" href="https://www.google.com/search?q=<?php echo $provider_name ?> API create application" target="_blank">Google that</a> 
+									or on b) 
+									<a class="button-primary" href="http://www.youtube.com/results?search_query=<?php echo $provider_name ?> API create application " target="_blank">Youtube</a>
+									and if not c) 
+									<a class="button-primary" href="options-general.php?page=wordpress-social-login&wslp=5 ">ask for support</a>.
 							</p>
 					</div>  
 
