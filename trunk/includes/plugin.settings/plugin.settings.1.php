@@ -184,14 +184,42 @@
 						<?php else: ?>  
 								<p>No registration required for OpenID based providers</p> 
 						<?php endif; ?> 
+						
+						<?php if ( $provider_id == "Facebook" ) : ?>
+							<hr /> 
+							<table style="text-align: center;margin-bottom:12px;">
+								<td><a class="span4 thumbnail" href="http://hybridauth.sf.net/userguide/img/setup/facebook/1.png" target="_blank"><img src="http://hybridauth.sf.net/userguide/img/setup/facebook/1.png"></a></td>
+								<td><a class="span4 thumbnail" href="http://hybridauth.sf.net/userguide/img/setup/facebook/2.png" target="_blank"><img src="http://hybridauth.sf.net/userguide/img/setup/facebook/2.png"></a></td>
+								<td><a class="span4 thumbnail" href="http://hybridauth.sf.net/userguide/img/setup/facebook/3.png" target="_blank"><img src="http://hybridauth.sf.net/userguide/img/setup/facebook/3.png"></a></td>
+							</table> 
+							<hr />
+						<?php endif; ?> 
+						<?php if ( $provider_id == "Google" ) : ?>
+							<hr /> 
+							<table style="text-align: center;margin-bottom:12px;">
+								<td><a class="span4 thumbnail" href="http://hybridauth.sf.net/userguide/img/setup/google/1.png" target="_blank"><img src="http://hybridauth.sf.net/userguide/img/setup/google/1.png"></a></td>
+								<td><a class="span4 thumbnail" href="http://hybridauth.sf.net/userguide/img/setup/google/2.png" target="_blank"><img src="http://hybridauth.sf.net/userguide/img/setup/google/2.png"></a></td>
+								<td><a class="span4 thumbnail" href="http://hybridauth.sf.net/userguide/img/setup/google/3.png" target="_blank"><img src="http://hybridauth.sf.net/userguide/img/setup/google/3.png"></a></td>
+							</table> 
+							<hr />
+						<?php endif; ?> 
+						<?php if ( $provider_id == "Twitter" ) : ?>
+							<hr /> 
+							<table style="text-align: center;margin-bottom:12px;">
+								<td><a class="span4 thumbnail" href="http://hybridauth.sf.net/userguide/img/setup/twitter/1.png" target="_blank"><img src="http://hybridauth.sf.net/userguide/img/setup/twitter/1.png"></a></td>
+								<td><a class="span4 thumbnail" href="http://hybridauth.sf.net/userguide/img/setup/twitter/2.png" target="_blank"><img src="http://hybridauth.sf.net/userguide/img/setup/twitter/2.png"></a></td>
+								<td><a class="span4 thumbnail" href="http://hybridauth.sf.net/userguide/img/setup/twitter/3.png" target="_blank"><img src="http://hybridauth.sf.net/userguide/img/setup/twitter/3.png"></a></td>
+							</table> 
+							<hr />
+						<?php endif; ?> 
 							<p>
 								<b>And that's it!</b> 
 								<br />
-								If for some reason you still can't figure it out then try first to 
-									a) <a class="button-primary" href="https://www.google.com/search?q=<?php echo $provider_name ?> API create application" target="_blank">Google that</a> 
-									or on b) 
+								If for some reason you still can't figure it out, first try to 
+									a) <a class="button-primary" href="https://www.google.com/search?q=<?php echo $provider_name ?> API create application" target="_blank">Google it</a>, 
+									then check it on b) 
 									<a class="button-primary" href="http://www.youtube.com/results?search_query=<?php echo $provider_name ?> API create application " target="_blank">Youtube</a>
-									and if not c) 
+									and if nothing works c) 
 									<a class="button-primary" href="options-general.php?page=wordpress-social-login&wslp=5 ">ask for support</a>.
 							</p>
 					</div>  
