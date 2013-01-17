@@ -107,10 +107,8 @@ function wsl_render_login_form_login_on_register_and_login()
 	}
 
 	if( get_option( 'wsl_settings_widget_display' ) == 1 ){
-		return null;
-	}
-
-	wsl_render_login_form();
+		wsl_render_login_form();
+	} 
 }
 
 add_action( 'login_form', 'wsl_render_login_form_login_on_register_and_login' );
