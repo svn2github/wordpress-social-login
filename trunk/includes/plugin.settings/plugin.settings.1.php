@@ -248,7 +248,7 @@
 				<div id="misc-publishing-actions">
 					<div class="misc-pub-section"> 
 						<p style="line-height: 19px;font-size: 13px;" align="justify">
-							If you are still new to things, we recommend that you read the <b><a href="http://hybridauth.sourceforge.net/userguide/Plugin_WordPress_Social_Login.html" target="_blank">Plugin User Guide</a></b>
+							If you are still new to things, we recommend that you read the <b><a href="http://hybridauth.sourceforge.net/wsl/index.html#networks" target="_blank">Plugin User Guide</a></b>
 							and to make sure your server settings meet this <b><a href="options-general.php?page=wordpress-social-login&amp;wslp=3">Plugin Requirements</a></b>.
 						</p>
 						<p style="line-height: 19px;" align="justify">

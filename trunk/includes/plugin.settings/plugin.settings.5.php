@@ -1,16 +1,8 @@
 <div class="wslgn"> 
 	<h3>Documentation</h3>
 	<p>
-		WordPress Social Login user guide can be found on 
-		<a href="http://hybridauth.sourceforge.net/userguide/Plugin_WordPress_Social_Login.html" target="_blank">http://hybridauth.sourceforge.net/userguide/Plugin_WordPress_Social_Login.html</a>
-	</p>
-	
-	<hr />
-	
-	<h3>Credits</h3>
-	<p>
-		WordPress Social Login was created by <a href="http://profiles.wordpress.org/miled/" target="_blank">Mohamed Mrassi</a> (a.k.a Miled) and <a href="https://github.com/hybridauth/WordPress-Social-Login/graphs/contributors" target="_blank">contributors</a>. 
-		Many other people have also contributed  with constructive discussions, support and by submitting patches.
+		The complete <b>User Guide</b> and <b>Frequently asked questions</b> can be found at
+		<a href="http://hybridauth.sourceforge.net/wsl/index.html" target="_blank">http://hybridauth.sourceforge.net/wsl/index.html</a>
 	</p>
 
 	<hr />
@@ -21,24 +13,30 @@
 	</p>
 	
 	<ul style="margin-left:40px;">
-		<li><b>Google Group</b>: <a href="https://groups.google.com/d/forum/hybridauth-plugins" target="_blank">https://groups.google.com/d/forum/hybridauth-plugins</a> (a community support group.)</li>
-		<li><b>Wordpress support forum</b>: <a href="http://wordpress.org/support/plugin/wordpress-social-login" target="_blank">http://wordpress.org/support/plugin/wordpress-social-login</a> (try to avoid this one, I hate it.)</li> 
-		<li><b>Email</b>: <a href="mailto:hybridauth@gmail.com">hybridauth@gmail.com</a> (I recive <a href="https://bitly.com/XzHZ9f" target="_blank">more than 50 emails per week</a> on this address, so be patient.)</li> 
+		<li><b>Wordpress support forum</b>: <a href="http://wordpress.org/support/plugin/wordpress-social-login" target="_blank">http://wordpress.org/support/plugin/wordpress-social-login</a></li> 
+		<li><b>Email</b>: <a href="mailto:hybridauth@gmail.com">hybridauth@gmail.com</a></li> 
 	</ul>
  
 <pre class="wslpre" style="margin-left:20px;">
-Keep in mind I'm a busy man and providing customer support is not my cup of tea.
+Please note: 
 
-If I did not answer your question or I took too long to, then its either :
+if I did not answer your question or I took too long to, then its either :
+   * I'm too busy or hibernating irl,
+   * It has been asked before on the wordpress support forum, 
    * I didn't understand it, 
-   * It has been asked before on the google group or wordpress forum,
-   * Your "question" is too stupid,
-   * I'm simply too busy or hibernating irl,
-   * also, be friendly, questions and requests containing hi, hello and thank you 
-     can make a diffrence :P.
+   * also, be friendly, questions and requests containing hi, hello and thanks can make
+     a diffrence :P 
 </pre>   
-
+	
 	<br />
+	<hr />
+	
+	<h3>Credits</h3>
+	<p>
+		WordPress Social Login was created by <a href="http://profiles.wordpress.org/miled/" target="_blank">Mohamed Mrassi</a> (a.k.a Miled) and <a href="https://github.com/hybridauth/WordPress-Social-Login/graphs/contributors" target="_blank">contributors</a>. 
+		Many other people have also contributed  with constructive discussions, support and by submitting patches.
+	</p>
+ 
 	<hr />
 	
 	<h3>License</h3>
