@@ -99,14 +99,14 @@ add_action( 'wordpress_social_login', 'wsl_render_login_form_login' );
 
 function wsl_render_login_form_login_on_register_and_login()
 {
-	// buggy?
+	// compatibility
 	if( ! get_option( 'wsl_settings_widget_display' ) ){
 		wsl_render_login_form();
 		
 		return null;
 	}
 
-	if( get_option( 'wsl_settings_widget_display' ) != 1 ){
+	if( get_option( 'wsl_settings_widget_display' ) == 1 ){
 		return null;
 	}
 
