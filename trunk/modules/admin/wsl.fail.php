@@ -52,7 +52,7 @@ ul {
 		
 		<br />
 		<br />
-		<a class="button-primary" href='<?php echo WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL ?>/diagnostics.php' target='_blank'>Run the plugin requirements test</a> 
+		<a class="button-primary" href='<?php echo WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL ?>/services/diagnostics.php' target='_blank'>Run the plugin requirements test</a> 
 	</p> 
  
 	<br /> 

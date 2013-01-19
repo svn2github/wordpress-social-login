@@ -7,6 +7,13 @@
 
 	<hr />
 	
+	<h3>Troubleshooting</h3>
+	<p>
+		If you run into any issue, you can access the <b><a href="options-general.php?page=wordpress-social-login&amp;wslp=diagnostics">WSL Diagnostics</a></b> tabs to check the <b style="color:red">Plugin Requirements</b> or to enable the <b style="color:red">Development mode</b>. 
+	</p>
+
+	<hr />
+	
 	<h3>Support</h3>
 	<p>
 		To get help and support, here is where you can reach me:
@@ -34,7 +41,7 @@ if I did not answer your question or I took too long to, then its either :
 	<h3>Credits</h3>
 	<p>
 		WordPress Social Login was created by <a href="http://profiles.wordpress.org/miled/" target="_blank">Mohamed Mrassi</a> (a.k.a Miled) and <a href="https://github.com/hybridauth/WordPress-Social-Login/graphs/contributors" target="_blank">contributors</a>. 
-		Many other people have also contributed  with constructive discussions, support and by submitting patches.
+		Many other people have also contributed with <br />constructive discussions, support and by submitting patches.
 	</p>
  
 	<hr />

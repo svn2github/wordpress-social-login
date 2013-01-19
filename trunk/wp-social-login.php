@@ -11,7 +11,9 @@ License: GPL2
 
 @ session_start(); 
 
-$_SESSION["wsl::plugin"] = "WordPress Social Login 1.2.4"; 
+$WORDPRESS_SOCIAL_LOGIN_VERSION = "2.0.0"; // i know
+
+$_SESSION["wsl::plugin"] = "WordPress Social Login " . $WORDPRESS_SOCIAL_LOGIN_VERSION; 
 
 /**
  * Check technical requirements before activating the plugin.
@@ -64,10 +66,55 @@ require_once( dirname( dirname( dirname( dirname( __FILE__ )))) . '/wp-load.php'
 define( 'WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL', plugins_url() . '/' . basename( dirname( __FILE__ ) ) ); 
 define( 'WORDPRESS_SOCIAL_LOGIN_HYBRIDAUTH_ENDPOINT_URL', WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL . '/hybridauth/' ); 
 
-/* Includes */ 
-require_once( dirname (__FILE__) . '/includes/hybridauth.settings.php' ); 
-require_once( dirname (__FILE__) . '/includes/plugin.init.php'         ); 
-require_once( dirname (__FILE__) . '/includes/plugin.settings.php'     ); 
-require_once( dirname (__FILE__) . '/includes/plugin.auth.php'         );  
-require_once( dirname (__FILE__) . '/includes/plugin.ui.php'           );  
+/* includes */ 
+
+# Settings
+require_once( dirname (__FILE__) . '/modules/settings/wsl.providers.php' );
+require_once( dirname (__FILE__) . '/modules/settings/wsl.database.php' );
+require_once( dirname (__FILE__) . '/modules/settings/wsl.initialization.php' );
+require_once( dirname (__FILE__) . '/modules/settings/wsl.compatibilities.php' );
+
+# Services
+require_once( dirname (__FILE__) . '/modules/services/wsl.authentication.php' );
+
+# UIs
+require_once( dirname (__FILE__) . '/modules/admin/wsl.ui.php' );
+require_once( dirname (__FILE__) . '/modules/widgets/wsl.auth.widget.php' );
+require_once( dirname (__FILE__) . '/modules/widgets/wsl.complete.registration.php' );
+require_once( dirname (__FILE__) . '/modules/widgets/wsl.bouncer.disclaimer.php' );
+require_once( dirname (__FILE__) . '/modules/widgets/wsl.bouncer.passcode.php' );
+require_once( dirname (__FILE__) . '/modules/widgets/wsl.notices.php' );
+
+# hooks
+register_activation_hook( __FILE__, 'wsl_database_migration_hook' );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

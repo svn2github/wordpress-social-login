@@ -8,7 +8,10 @@
 
 		$_SESSION["HA::STORE"] = ARRAY(); 
 ?>
-<html>
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Redirecting...</title>
 <head> 
 <script>
 function init() {
@@ -40,7 +43,7 @@ html {
     <td align="center" height="40px"><br /><br />Contacting <b><?php echo ucfirst( $provider ) ; ?></b>, please wait...</td> 
   </tr> 
   <tr>
-    <td align="center" height="80px" valign="middle"><img src="assets/img/loading.gif" /></td>
+    <td align="center" height="80px" valign="middle"><img src="../assets/img/loading.gif" /></td>
   </tr> 
 </table> 
 </div> 
@@ -53,12 +56,17 @@ html {
 	// if user select a provider to login with 
 	// and redirect_to_provider eq ture
 	if( isset( $_GET["provider"] ) && isset( $_GET["redirect_to_provider"] )){
-		try{
-			// load hybridauth
-			require_once( dirname(__FILE__) . "/hybridauth/Hybrid/Auth.php" );
-
+		try{ 
 			// load wp-load.php
-			require_once( dirname( dirname( dirname( dirname( __FILE__ )))) . '/wp-load.php' );
+			require_once( dirname( dirname( dirname( dirname( __FILE__ )))) . '/../wp-load.php' );
+
+			# Hybrid_Auth already used?
+			if ( class_exists('Hybrid_Auth', false) ) {
+				wp_die( "Error!! Another plugin seems to be using HybridAuth Library and made WordPress Social Login unusable. We recommand to find this plugin and to kill it with fire!" ); 
+			}
+			
+			// load hybridauth
+			require_once( dirname(__FILE__) . "/../hybridauth/Hybrid/Auth.php" );
 
 			// selected provider name 
 			$provider = @ trim( strip_tags( $_GET["provider"] ) );
@@ -69,7 +77,7 @@ html {
 			}
 
 			$config = array();
-			$config["base_url"]  = plugins_url() . '/' . basename( dirname( __FILE__ ) ) . '/hybridauth/';
+			$config["base_url"]  = plugins_url() . '/wordpress-social-login/hybridauth/';
 			$config["providers"] = array();
 			$config["providers"][$provider] = array();
 			$config["providers"][$provider]["enabled"] = true;
@@ -89,10 +97,24 @@ html {
 				$config["providers"][$provider]["keys"]["secret"] = get_option( 'wsl_settings_' . $provider . '_app_secret' );
 			}
 
-			// if facebook
+			// reset scope for if facebook
 			if( strtolower( $provider ) == "facebook" ){
-				$config["providers"][$provider]["scope"]   = "email, user_about_me, user_birthday, user_hometown, user_website";
+				$config["providers"][$provider]["scope"]   = "email, user_about_me, user_birthday, user_hometown, user_website"; 
 				$config["providers"][$provider]["display"] = "popup";
+			}
+
+			// reset scope for if google
+			if( strtolower( $provider ) == "google" ){
+				$config["providers"][$provider]["scope"]   = "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email";  
+			}
+
+			// Contacts import
+			if( get_option( 'wsl_settings_contacts_import_facebook' ) == 1 && strtolower( $provider ) == "facebook" ){
+				$config["providers"][$provider]["scope"]   = "email, user_about_me, user_birthday, user_hometown, user_website, read_friendlists";
+			}
+
+			if( get_option( 'wsl_settings_contacts_import_google' ) == 1 && strtolower( $provider ) == "google" ){
+				$config["providers"][$provider]["scope"]   = "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.google.com/m8/feeds/";
 			}
 
 			// create an instance for Hybridauth
@@ -105,7 +127,7 @@ html {
 			if( get_option( 'wsl_settings_development_mode_enabled' ) ){
 				$profile = $adapter->getUserProfile( $provider );
 			}
-			
+
 			if( get_option( 'wsl_settings_use_popup' ) == 1 || ! get_option( 'wsl_settings_use_popup' ) ){
 ?>
 <html>
@@ -173,8 +195,14 @@ function init() {
 					     if( is_object( $adapter ) ) $adapter->logout();
 					     break;
 				case 8 : $message = "Provider does not support this feature."; break;
-			}
+			} 
+			
+			@ session_destroy();
 ?>
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>-</title>
 <style> 
 HR {
 	width:100%;
@@ -182,8 +210,6 @@ HR {
 	border-bottom: 1px solid #ccc; 
 	padding: 50px;
 }
-</style>
-<style>
 html {
     background: #f9f9f9;
 }
@@ -200,10 +226,12 @@ html {
 	font-size: 14px;
 }  
 </style>
+<head>  
+<body>
 <div id="wsl">
 <table width="100%" border="0">
   <tr>
-    <td align="center"><br /><img src="assets/img/alert.png" /></td>
+    <td align="center"><br /><img src="../assets/img/alert.png" /></td>
   </tr>
   <tr>
     <td align="center"><br /><h4>Something bad happen!</h4><br /></td> 
@@ -263,6 +291,8 @@ html {
   
 </table> 
 </div> 
+</body>
+</html> 
 <?php 
 			// diplay error and RIP
 			die();

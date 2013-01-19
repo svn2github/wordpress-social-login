@@ -13,7 +13,7 @@ class Hybrid_Providers_Steam extends Hybrid_Provider_Model_OpenID
 		$uid = str_replace( "http://steamcommunity.com/openid/id/", "", $this->user->profile->identifier );
 
 		if( $uid ){
-			$data = file_get_contents( "http://steamcommunity.com/profiles/$uid/?xml=1" ); 
+			$data = @ file_get_contents( "http://steamcommunity.com/profiles/$uid/?xml=1" ); 
 
 			$data = @ new SimpleXMLElement( $data );
 

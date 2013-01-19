@@ -1,3 +1,7 @@
+<?php
+	global $wpdb;
+?>
+
 <script>
 	function toggleproviderkeys(idp){
 		if(typeof jQuery=="undefined"){
@@ -118,7 +122,11 @@
 				</table> 
 				<?php if ( in_array( $provider_id, array( "Twitter", "Identica", "Tumblr", "Goodreads", "500px", "Vkontakte", "Gowalla", "Steam" ) ) ) : ?>
 				<br />
-				&nbsp;&nbsp;&nbsp;<b  style="color:#CB4B16;">Note:</b> The <b><?php echo $provider_name ?></b> API do not return a user's email address. A random email will then be generated instead.<br />
+				<hr />
+				<p style="margin-left:12px;margin-bottom:0px;"> 
+					<b  style="color:#CB4B16;">Note:</b> 
+					<b><?php echo $provider_name ?></b> do not provide their user's email address and by default a random email will then be generated for them instead. To change this behaviour and to force new registered users to provide their emails before they get in, goto <b><a href="options-general.php?page=wordpress-social-login&wslp=bouncer" target="_blank">Bouncer</a></b> and enable <b>Email Validation</b>.
+				</p>
 				<?php endif; ?> 
 				<br />
 				<div class="wsl_div_settings_help_<?php echo $provider_id; ?>" style="display:none;"> 
@@ -129,7 +137,7 @@
 					These credentials may also differ in format, name and content depending on the social network.
 					<br />
 					<br />
-					To enable authentication with this provider and register a new application linking <b><?php echo $provider_name ?> API</b> to your website, follow carefully the steps:<br />
+					To enable authentication with this provider and to register a new <b><?php echo $provider_name ?> API Application</b>, carefully follow the steps:<br />
 					<div class="wsl_div_settings_help_<?php echo $provider_id; ?>" style="margin-left:40px;">
 						<?php if ( $provider_new_app_link  ) : ?> 
 								<p><?php echo "<b>" . ++$setupsteps . "</b>." ?> Go to <a href="<?php echo $provider_new_app_link ?>" target ="_blanck"><?php echo $provider_new_app_link ?></a> and <b>create a new application</b>.</p>
@@ -220,7 +228,7 @@
 									then check it on b) 
 									<a class="button-primary" href="http://www.youtube.com/results?search_query=<?php echo $provider_name ?> API create application " target="_blank">Youtube</a>
 									and if nothing works c) 
-									<a class="button-primary" href="options-general.php?page=wordpress-social-login&wslp=5 ">ask for support</a>.
+									<a class="button-primary" href="options-general.php?page=wordpress-social-login&wslp=help ">ask for support</a>.
 							</p>
 					</div>  
 
@@ -235,6 +243,7 @@
 </div>
 
 </td>
+<td width="10"></td>
 <td width="400">
 
 
@@ -248,11 +257,11 @@
 				<div id="misc-publishing-actions">
 					<div class="misc-pub-section"> 
 						<p style="line-height: 19px;font-size: 13px;" align="justify">
-							If you are still new to things, we recommend that you read the <b><a href="http://hybridauth.sourceforge.net/wsl/index.html#networks" target="_blank">Plugin User Guide</a></b>
-							and to make sure your server settings meet this <b><a href="options-general.php?page=wordpress-social-login&amp;wslp=3">Plugin Requirements</a></b>.
+							If you are still new to things, we recommend that you read the <b><a href="http://hybridauth.sourceforge.net/wsl/index.html" target="_blank">Plugin User Guide</a></b>
+							and to make sure your server settings meet this <b><a href="options-general.php?page=wordpress-social-login&amp;wslp=diagnostics">Plugin Requirements</a></b>.
 						</p>
 						<p style="line-height: 19px;" align="justify">
-							If you run into any issue then refer to <b><a href="options-general.php?page=wordpress-social-login&wslp=2" target="_blank">Help & Support</a></b> to konw how to reach me.
+							If you run into any issue then refer to <b><a href="options-general.php?page=wordpress-social-login&wslp=help" target="_blank">Help & Support</a></b> to konw how to reach me.
 						</p>
 					</div>
 				</div> 
@@ -269,6 +278,141 @@
 </div>
 
 
+
+<div class="postbox " id="linksubmitdiv"> 
+	<div class="inside">
+		<div id="submitlink" class="submitbox"> 
+			<h3 style="cursor: default;">Insights</h3>
+			<div id="minor-publishing">  
+				<div id="misc-publishing-actions"> 
+
+					<div style="padding:20px;padding-top:0px;">
+						<?php 
+							$sql = "SELECT count( * ) as items FROM `{$wpdb->prefix}users`"; 
+							$rs1 = $wpdb->get_results( $sql );  
+
+							$sql = "SELECT count( * ) as items FROM `{$wpdb->prefix}usermeta` where meta_key = 'wsl_user'"; 
+							$rs2 = $wpdb->get_results( $sql );  
+
+							$total_users      = (int) $rs1[0]->items;
+							$total_users_wsl  = (int) $rs2[0]->items;
+							$users_conversion = ( 100 * $total_users_wsl ) / $total_users;
+						?> 
+						<h4 style="border-bottom:1px solid #ccc"> Conversions</h4>
+						<table width="90%"> 
+							<tr>
+								<td width="60%">WP users</td><td><?php echo $total_users; ?></td>
+							<tr>
+							</tr>
+								<td>WSL users</td><td><?php echo $total_users_wsl; ?></td>
+							<tr>
+							</tr>
+								<td>Conversions</td><td style="border-top:1px solid #ccc">+<b><?php echo number_format($users_conversion, 2, '.', ''); ?> %</b></td>
+							</tr>
+						</table>
+						
+						<?php 
+							$sql = "SELECT meta_value, count( * ) as items FROM `{$wpdb->prefix}usermeta` where meta_key = 'wsl_user' group by meta_value order by items desc ";
+
+							$rs1 = $wpdb->get_results( $sql );  
+
+							$assets_base_url = WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL . '/assets/img/16x16/';
+						?> 
+						<h4 style="border-bottom:1px solid #ccc"> By provider</h4>
+						<table width="90%">
+							<?php 
+								foreach( $rs1 as $item ){
+									if( ! $item->meta_value ) $item->meta_value = "Unknown"; 
+								?>
+									<tr>
+										<td width="60%">
+											<img src="<?php echo $assets_base_url . strtolower( $item->meta_value ) . '.png' ?>" style="vertical-align:top;width:16px;height:16px;" /> <?php echo $item->meta_value; ?> 
+										</td>
+										<td>
+											<?php echo $item->items; ?>
+										</td>
+									</tr>
+								<?php
+								}
+							?> 
+							</tr>
+								<td align="right">&nbsp;</td><td style="border-top:1px solid #ccc"><b><?php echo $total_users_wsl; ?></b> WSL users</td>
+							</tr>
+						</table>
+
+						<?php 
+							$sql = "SELECT meta_value, count( * ) as items FROM `{$wpdb->prefix}usermeta` where meta_key = 'wsl_user_gender' group by meta_value order by items desc "; 
+
+							$rs = $wpdb->get_results( $sql ); 
+						?>
+						<h4 style="border-bottom:1px solid #ccc">By gender</h4>
+						<table width="90%">
+							<?php
+								foreach( $rs as $item ){
+									if( ! $item->meta_value ) $item->meta_value = "Unknown";
+								?>
+									<tr>
+										<td width="60%">
+											<?php echo ucfirst( $item->meta_value ); ?>
+										</td>
+										<td>
+											<?php echo $item->items; ?>
+										</td>
+									</tr>
+								<?php
+								}
+							?>
+						</table>
+
+						<?php 
+							$sql = "SELECT meta_value, count( * ) as items FROM `{$wpdb->prefix}usermeta` where meta_key = 'wsl_user_age' group by meta_value order by items desc limit 21"; 
+
+							$rs = $wpdb->get_results( $sql ); 
+						?>
+						<h4 style="border-bottom:1px solid #ccc">By age</h4>
+						<table width="90%">
+							<?php
+								$t_ages = 0;
+								$n_ages = 0;
+								foreach( $rs as $item ){
+									if( ! $item->meta_value ){
+										$item->meta_value = "Unknown";
+									}
+									else{
+										$t_ages += (int) $item->meta_value;
+										$n_ages++;
+									}
+								?>
+									<tr>
+										<td width="60%">
+											<?php echo $item->meta_value; ?>
+										</td>
+										<td>
+											<?php echo $item->items; ?>
+										</td>
+									</tr>
+								<?php
+								}
+								$a_ages = $t_ages/$n_ages;
+							?>
+						</td>
+						</tr>
+						</tr>
+							<td align="right">&nbsp;</td><td style="border-top:1px solid #ccc"><b><?php echo number_format($a_ages, 1, '.', ''); ?></b> yrs in average</td>
+						</tr> 
+						</table>
+					</div>
+				
+				
+				
+				
+				
+				
+				</div> 
+			</div> 
+		</div>
+	</div>
+</div> 
 
 
 
