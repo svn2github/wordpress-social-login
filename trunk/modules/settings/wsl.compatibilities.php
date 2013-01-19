@@ -11,7 +11,7 @@ function wsl_check_compatibilities()
 	}
 
 	if( ! get_option( 'wsl_settings_use_popup' ) ){ 
-		update_option( 'wsl_settings_use_popup', 1 );
+		update_option( 'wsl_settings_use_popup', 2 );
 	}
 
 	if( ! get_option( 'wsl_settings_widget_display' ) ){ 
