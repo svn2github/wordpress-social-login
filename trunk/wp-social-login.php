@@ -76,6 +76,8 @@ require_once( dirname (__FILE__) . '/modules/settings/wsl.compatibilities.php' )
 
 # Services
 require_once( dirname (__FILE__) . '/modules/services/wsl.authentication.php' );
+require_once( dirname (__FILE__) . '/modules/services/wsl.mail.notification.php' );
+require_once( dirname (__FILE__) . '/modules/services/wsl.user.avatar.php' );
 
 # UIs
 require_once( dirname (__FILE__) . '/modules/admin/wsl.ui.php' );

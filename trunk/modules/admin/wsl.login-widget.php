@@ -142,11 +142,11 @@
 <div class="postbox " id="linksubmitdiv"> 
 	<div class="inside">
 		<div id="submitlink" class="submitbox"> 
-			<h3 style="cursor: default;">Help</h3>
+			<h3 style="cursor: default;">What's This?</h3>
 			<div id="minor-publishing">  
 				<div id="misc-publishing-actions"> 
 					<div style="padding:20px;padding-top:0px;">
-						<h4 style="cursor: default;border-bottom:1px solid #ccc;font-size: 13px;">What's this?</h4>
+						<h4 style="cursor: default;border-bottom:1px solid #ccc;font-size: 13px;">Widget Customization</h4>
 
 						<p style="margin:10px;font-size: 13px;" align="justify"> 
 						On this section you can fully customize <b>WordPress Social Login Widget</b> and define the way you want it to look and behave.
@@ -159,7 +159,17 @@
 						<p style="margin:10px;"> 
 						If this widget does not show up on your custom theme or you want to add it somewhere else then refer to the next section.
 						</p>
-<!--
+
+						<h4 style="cursor: default;border-bottom:1px solid #ccc;">Custom integration</h4>
+
+						<p style="margin:10px;"> 
+							If you want to add the social login widget to another location in your theme, you can insert the following code in that location:
+							<pre style="width: 380px;background-color: #eaffdc;border:1px solid #60cf4e; border-radius: 3px;padding: 10px;margin-top:15px;margin-left:10px;"> &lt;?php do_action( 'wordpress_social_login' ); ?&gt; </pre> 
+						</p> 
+						<p style="margin:10px;"> 
+						Also, if you are a developer or designer then you can customize it to your heart's content then refer to <b><a href="options-general.php?page=wordpress-social-login&wslp=help">Help & Support</a></b>.
+						</p>
+
 						<h4 style="cursor: default;border-bottom:1px solid #ccc;">Widget preview</h4>
 						
 						<p style="margin:10px;"> 
@@ -168,19 +178,9 @@
 
 						<div style="width: 380px;background-color: #FFFFE0;border:1px solid #E6DB55; border-radius: 3px;padding: 10px;margin-left:10px;">
 						<?php 
-							// wsl_render_login_form()
+							wsl_render_login_form()
 						?>
 						</div>
--->
-						<h4 style="cursor: default;border-bottom:1px solid #ccc;">Custom integration</h4>
-
-						<p style="margin:10px;"> 
-							If you want to add the social login widget to another location in your theme, you can insert the following code in that location:
-							<pre style="width: 380px;background-color: #eaffdc;border:1px solid #60cf4e; border-radius: 3px;padding: 10px;margin-top:15px;margin-left:10px;"> &lt;?php do_action( 'wordpress_social_login' ); ?&gt; </pre> 
-						</p> 
-						<p style="margin:10px;"> 
-						Also, if you are a developer or designer then you can customize it to your heart's content then refer to <b><a href="options-general.php?page=wordpress-social-login&wslp=help" target="_blank">Help & Support</a></b>.
-						</p>
 					</div> 
 				</div> 
 			</div> 

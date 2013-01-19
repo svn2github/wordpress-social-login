@@ -79,7 +79,7 @@ Using <strong>WordPress Social Login</strong>, your blog's users will be able to
 
 = Where do I find the plugin Documentation & FAQ ? =
 
-The complete user guide and frequently asked questions can be found at http://bit.ly/TYy2CM
+The user guide and frequently asked questions can be found at http://bit.ly/TYy2CM
 
 == Screenshots ==
 
@@ -89,6 +89,14 @@ The complete user guide and frequently asked questions can be found at http://bi
 4. **Customize** - WordPress Social Login customization form
 
 == Changelog ==
+
+= 2.0.0 = 
+* Manage WSL users, more options are to come
+* Import WSL users contact list from Google Gmail, Facebook, Live and LinkedIn
+* An entirely reworked user interface
+* Improving the documentation and guides
+* Introducing a new module, and the long awaited, The bouncer
+* And even more customization options are now available
 
 = 1.2.4 =
 

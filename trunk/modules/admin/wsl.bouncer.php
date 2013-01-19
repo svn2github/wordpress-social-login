@@ -16,7 +16,7 @@
 		</h3>
 		<div class="inside"> 
 			<p>
-				Here you can enable or disable new users registrations on your website through WSL and social networks. <b>Allow authentication</b> is made also available in case you encountering an issue or want to temporary disbale WSL. If <b>Allow authentication</b> is disabled, WordPress Social Login Widget will be removed from comments area, login and register forms.
+				Here you can enable or disable new users registrations on your website through WSL. If <b>Allow authentication</b> is disabled, WordPress Social Login Widget will be removed from comments area, login and register forms.
 			</p> 
 			<table width="100%" border="0" cellpadding="5" cellspacing="2" style="border-top:1px solid #ccc;">  
 			  <tr>
@@ -47,7 +47,7 @@
 		</h3>
 		<div class="inside"> 
 			<p>
-				As you may know, some social networks like Twitter and LinkedIn do not provide their user's email. By enabling <b>Email Validation</b>, users will be invited to provide their email address when authenticating through WSL. When disabled a random email will be then generated for them instead. At your convenience, you can change the texts bellow for translation. Also, You can read our <a>online documenation</a> that highlights how this feature works.
+				Some social networks like Twitter and LinkedIn do not provide their user's email. When <b>Email Validation</b> is enabled, users will be invited to provide their email address. If disabled then a random email will be then generated for them instead.
 			</p> 
 			<table width="100%" border="0" cellpadding="5" cellspacing="2" style="border-top:1px solid #ccc;">  
 			  <tr>
@@ -124,9 +124,8 @@
 		<div class="inside"> 
 			<p>
 				When enabled, new regsitred users will only be able to authenticate and comment but not to access or edit their profile information.
-				Basically they will have "No role for this site". Note: Improving this feature is planned but low priority.
-				<br />
-				<span style="color:#CB4B16;"><b>IMPORTANT</b></span>: If users <b>Moderation</b> is enabled then <b>Membership level</b> will be ignore.
+				Basically they will have "No role for this site". Note: Improving this feature is planned but low priority. 
+				<span style="color:#CB4B16;"><b>Note</b></span>: If <b>Moderation</b> is enabled then <b>Membership level</b> will be ignore.
 			</p> 
 			<table width="100%" border="0" cellpadding="5" cellspacing="2" style="border-top:1px solid #ccc;">  
 			  <tr>
@@ -148,9 +147,8 @@
 		</h3>
 		<div class="inside"> 
 			<p>
-				Here you can define the default role for new users authenticating through WSL. The <code>Administrator</code> and <code>Editor</code> roles are not available for safety reasons. For more information about wordpress users roles and capabilities refer to <a href="http://codex.wordpress.org/Roles_and_Capabilities#Capability_vs._Role_Table" target="_blank">http://codex.wordpress.org/Roles_and_Capabilities#Capability_vs._Role_Table</a>. 
-				<br />
-				<span style="color:#CB4B16;"><b>IMPORTANT</b></span>: To use this feature you need to disable users <b>Moderation</b> first.
+				Here you can define the default role for new users authenticating through WSL. The <code>Administrator</code> and <code>Editor</code> roles are not available for safety reasons. For more information about wordpress users roles and capabilities refer to <a href="http://codex.wordpress.org/Roles_and_Capabilities#Capability_vs._Role_Table" target="_blank">http://codex.wordpress.org/Roles_and_Capabilities#Capability_vs._Role_Table</a>.  
+				<span style="color:#CB4B16;"><b>Note</b></span>: If <b>Moderation</b> is enabled then this option will be ignore.
 			</p> 
 			<table width="100%" border="0" cellpadding="5" cellspacing="2" style="border-top:1px solid #ccc;">  
 			  <tr>
@@ -267,9 +265,8 @@
 		</h3>
 		<div class="inside"> 
 			<p>
-				Restrict registration to a limited number of domains name.
-				<br /><span style="color:#CB4B16;"><b>Note</b></span>: This will only kick in for social networks providing their users emails. <b>Email Validation</b> will not be affected by this.
-				<br />Insert one email address per line and try to keep this list short. On <code>Bounce text</code> insert the text you want to display for rejected users. 
+				Restrict registration to a limited number of domains name. <span style="color:#CB4B16;"><b>Note</b></span>: This filter will only kick in for social networks providing their users emails. <b>Email Validation</b> will not be affected by this.
+				Insert one email address per line and try to keep this list short. On <code>Bounce text</code> insert the text you want to display for rejected users. 
 				ex: <code>gmail.com</code>, without '@'.
 			</p>
 			<table width="100%" border="0" cellpadding="5" cellspacing="2" style="border-top:1px solid #ccc;">  
@@ -305,8 +302,8 @@
 		<div class="inside"> 
 			<p>
 				Restrict registration to a limited number of emails addresses.
-				<br /><span style="color:#CB4B16;"><b>Note</b></span>: This will only kick in for social networks providing their users emails. <b>Email Validation</b> will not be affected by this.
-				<br />Insert one email address per line and try to keep this list short. On <code>Bounce text</code> insert the text you want to display for rejected users.
+				<span style="color:#CB4B16;"><b>Note</b></span>: This filter will only kick in for social networks providing their users emails. <b>Email Validation</b> will not be affected by this.
+				Insert one email address per line and try to keep this list short. On <code>Bounce text</code> insert the text you want to display for rejected users.
 				ex: <code>hybridauth@gmail.com</code>
 			</p>
 			<table width="100%" border="0" cellpadding="5" cellspacing="2" style="border-top:1px solid #ccc;">  
@@ -342,8 +339,8 @@
 		<div class="inside"> 
 			<p>
 				Restrict registration to a limited number of profile urls.
-				<br /><span style="color:#CB4B16;"><b>Note</b></span>: If a social network provide the user email, then use "Filters by e-mails addresses" instead. Providers like Facebook provide multiples profiles URLs per user and WSL won't be able to reconize them.
-				<br />Insert one email address per line and try to keep this list short. On <code>Bounce text</code> insert the text you want to display for rejected users.
+				<span style="color:#CB4B16;"><b>Note</b></span>: If a social network provide the user email, then use "Filters by e-mails addresses" instead. Providers like Facebook provide multiples profiles URLs per user and WSL won't be able to reconize them.
+				Insert one email address per line and try to keep this list short. On <code>Bounce text</code> insert the text you want to display for rejected users.
 				ex: <code>http://twitter.com/HybridAuth</code>, <code>https://plus.google.com/u/0/108839241301472312344</code>
 			</p>
 			<table width="100%" border="0" cellpadding="5" cellspacing="2" style="border-top:1px solid #ccc;">  
@@ -387,14 +384,14 @@
 <div class="postbox " id="linksubmitdiv"> 
 	<div class="inside">
 		<div id="submitlink" class="submitbox"> 
-			<h3 style="cursor: default;">Hey, meet our friend, the Bouncer!</h3>
+			<h3 style="cursor: default;">What's This?</h3>
 			<div id="minor-publishing">  
 				<div id="misc-publishing-actions"> 
 					<div style="padding:20px;padding-top:0px;">
 						<h4 style="cursor: default;border-bottom:1px solid #ccc;font-size: 13px;">Hey, meet our friend, the Bouncer</h4>
 
 						<p style="margin:10px;font-size: 13px;" align="justify"> 
-						Ever been in trouble with one of <a href="http://www.flickr.com/search/?q=bouncer+doorman&z=m" target="_blank">these guys</a>? 
+						Ever been in trouble with one of <a href="http://www.flickr.com/search/?q=bouncer+doorman&z=e" target="_blank">these guys</a>? 
 						Well, this module have more or less the same role, and he will try his best to piss your users off until they meet your requirements.
 						</p>
 

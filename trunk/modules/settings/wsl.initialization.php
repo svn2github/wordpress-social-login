@@ -88,6 +88,8 @@ function wsl_register_setting()
 
 	register_setting( 'wsl-settings-group-development', 'wsl_settings_development_mode_enabled' ); 
 
+	add_option( 'wsl_settings_welcome_panel_enabled' ); 
+
 	// update old/all default wsl-settings
 	wsl_check_compatibilities();
 }

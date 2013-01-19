@@ -261,7 +261,7 @@
 							and to make sure your server settings meet this <b><a href="options-general.php?page=wordpress-social-login&amp;wslp=diagnostics">Plugin Requirements</a></b>.
 						</p>
 						<p style="line-height: 19px;" align="justify">
-							If you run into any issue then refer to <b><a href="options-general.php?page=wordpress-social-login&wslp=help" target="_blank">Help & Support</a></b> to konw how to reach me.
+							If you run into any issue then refer to <b><a href="options-general.php?page=wordpress-social-login&wslp=help">Help & Support</a></b> to konw how to reach me.
 						</p>
 					</div>
 				</div> 
@@ -278,7 +278,19 @@
 </div>
 
 
+<?php 
+	$sql = "SELECT count( * ) as items FROM `{$wpdb->prefix}users`"; 
+	$rs1 = $wpdb->get_results( $sql );  
 
+	$sql = "SELECT count( * ) as items FROM `{$wpdb->prefix}usermeta` where meta_key = 'wsl_user'"; 
+	$rs2 = $wpdb->get_results( $sql );  
+
+	$total_users      = (int) $rs1[0]->items;
+	$total_users_wsl  = (int) $rs2[0]->items;
+	$users_conversion = ( 100 * $total_users_wsl ) / $total_users;
+
+	if( $total_users_wsl ){
+?> 
 <div class="postbox " id="linksubmitdiv"> 
 	<div class="inside">
 		<div id="submitlink" class="submitbox"> 
@@ -286,18 +298,7 @@
 			<div id="minor-publishing">  
 				<div id="misc-publishing-actions"> 
 
-					<div style="padding:20px;padding-top:0px;">
-						<?php 
-							$sql = "SELECT count( * ) as items FROM `{$wpdb->prefix}users`"; 
-							$rs1 = $wpdb->get_results( $sql );  
-
-							$sql = "SELECT count( * ) as items FROM `{$wpdb->prefix}usermeta` where meta_key = 'wsl_user'"; 
-							$rs2 = $wpdb->get_results( $sql );  
-
-							$total_users      = (int) $rs1[0]->items;
-							$total_users_wsl  = (int) $rs2[0]->items;
-							$users_conversion = ( 100 * $total_users_wsl ) / $total_users;
-						?> 
+					<div style="padding:20px;padding-top:0px;"> 
 						<h4 style="border-bottom:1px solid #ccc"> Conversions</h4>
 						<table width="90%"> 
 							<tr>
@@ -393,7 +394,7 @@
 									</tr>
 								<?php
 								}
-								$a_ages = $t_ages/$n_ages;
+								if( $n_ages ) $a_ages = $t_ages/$n_ages;
 							?>
 						</td>
 						</tr>
@@ -401,12 +402,7 @@
 							<td align="right">&nbsp;</td><td style="border-top:1px solid #ccc"><b><?php echo number_format($a_ages, 1, '.', ''); ?></b> yrs in average</td>
 						</tr> 
 						</table>
-					</div>
-				
-				
-				
-				
-				
+					</div> 
 				
 				</div> 
 			</div> 
@@ -414,6 +410,9 @@
 	</div>
 </div> 
 
+<?php
+	} //if( $total_users_wsl ){
+?>
 
 
 </td>
