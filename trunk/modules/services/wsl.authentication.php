@@ -229,6 +229,7 @@ function wsl_process_login()
 		else{
 			// generate a valid user login
 			$user_login = trim( str_replace( ' ', '_', strtolower( $hybridauth_user_profile->displayName ) ) );
+			$user_email = $hybridauth_user_profile->email;
 
 			if( empty( $user_login ) ){
 				$user_login = trim( $hybridauth_user_profile->lastName . " " . $hybridauth_user_profile->firstName );
