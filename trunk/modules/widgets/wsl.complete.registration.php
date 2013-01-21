@@ -53,7 +53,7 @@ function init() {
 	<div id="login">
 		<?php
 			if( ! isset( $_REQUEST["user_email"] ) ){ 
-				?><p class="message"><?php echo get_option( 'wsl_settings_bouncer_email_validation_text_message' ); ?></p><?php
+				?><p class="message"><?php echo get_option( 'wsl_settings_bouncer_email_validation_text_notice' ); ?></p><?php
 			}
 			else{
 				if( $request_user_login_exists ){
