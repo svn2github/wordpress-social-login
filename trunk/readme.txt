@@ -1,6 +1,6 @@
 === WordPress Social Login ===
 Contributors: miled
-Tags:  facebook, google, yahoo, twitter, windows live, myspace, foursquare, linkedin, gowalla, last.fm, instagram, goodreads, tumblr, aol, vkontakte, stackoverflow, github, 500px, skyrock, mixi.jp, steam, login, register, comment, social, social networks, social login
+Tags:  login, register, comment, social, social networks, social login, import contacts, facebook, google, yahoo, twitter, windows live, myspace, foursquare, linkedin, last.fm, instagram, vkontakte, stackoverflow, github, steam
 Requires at least: 3.0
 Tested up to: 3.5
 Stable tag: 1.2.4
@@ -13,53 +13,27 @@ WordPress Social Login allow your visitors to comment and login with social netw
 
 Using <strong>WordPress Social Login</strong>, your blog's users will be able to login and comment using their accounts on Facebook, Google, Yahoo, Twitter and many more.
 
-<strong>WordPress Social Login is:</strong>
-<ul>
- <li>Open Source,</li> 
- <li>Free, Unlimited,</li> 
- <li>White label, Customizable,</li> 
- <li>Social sign on solution,</li> 
- <li>With data kept in house</li> 
-</ul>
+<strong>WordPress Social Login</strong> also allows you to import users contact list from Google Gmail, Facebook, Live and LinkedIn.
 
-<strong>Getting started is as simple as :</strong>
-<ol>
- <li>Install WordPress Social Login plugin,</li> 
- <li>Setup the social networks you want to use,</li>  
- <li>Customize the way you want it to look and behave.</li>  
-</ol> 
+<strong>Free, unlimited and white-label</strong> 
 
-<strong>Supported services :</strong>
-<ol>
- <li>Facebook</li>
- <li>Google</li>
- <li>Yahoo</li>
- <li>Twitter</li>
- <li>Windows Live</li>
- <li>Myspace</li>  
- <li>Foursquare</li>  
- <li>Linkedin</li>  
- <li>Tumblr</li>
- <li>Last.fm</li>
- <li>Instagram</li>
- <li>Goodreads</li>
- <li>AOL</li>
- <li>Vkontakte</li>
- <li>Stackoverflow</li>
- <li>Github</li>
- <li>500px</li>
- <li>Skyrock</li>
- <li>Mixi.jp</li>
- <li>Steam</li>
- <li>Mail.ru</li>
- <li>Yandex</li>
- <li>Odnoklassniki</li>
-</ol> 
-	
-<strong>Credits:</strong>
+Licenced under MIT License, WordPress Social Login available to everyone for completely free, with all features included, at absolutely no cost. You are free to use a WordPress Social Login in commercial websites as long as the copyright header is left intact.
 
-- Social Connect authors : http://wordpress.org/extend/plugins/social-connect/
-- HybridAuth Library: http://hybridauth.sourceforge.net/ 
+<strong>23 support social netwroks</strong> 
+
+Depending on the audience you're targeting, you can choose from a wide variety of providers and services including: Social networks, Microblogging platforms, Professional networks, Media, Photo sharing, Programmers and Gamers networks.
+
+<strong>Easy to customize and integration </strong> 
+
+WordPress Social Login come with a simple but flexible and fully customizable authentication widget. And if you are a developer or designer then you can customize it to your heart's content, changing the css and icons is a matter of seconds.
+
+<strong>Built on top of an Open Source Library</strong> 
+
+HybridAuth Library enable developers to easily build social applications to engage websites vistors and customers on a social level by implementing social signin, social sharing, users profiles, friends list, activities stream, status updates and more.
+
+<strong>Supported Providers</strong> 
+
+Facebook , Google , Yahoo , Twitter , Windows Live , Myspace , Foursquare , Linkedin , Tumblr , Last.fm , Instagram , Goodreads , AOL , Vkontakte , Stackoverflow , Github , 500px , Skyrock , Mixi.jp , Steam , Mail.ru , Yandex and Odnoklassniki. 
 
 <strong>Special thanks to:</strong>
 
@@ -71,9 +45,20 @@ Using <strong>WordPress Social Login</strong>, your blog's users will be able to
 
 == Installation ==
 
-1. Upload `wordpress-social-login` to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Visit the "Settings | WP Social Login" administration page to configure social media providers.
+= How to install the hard way =
+
+1. Download, Unzip and drop the extention on /wp-content/plugins/ directory,
+1. As admistration, activate the plugin through the 'Plugins' menu in WordPress,
+1. Goto the Settings > WP Social Login to get started.
+
+= How to install the easy way =
+
+1. As admistration, goto 'Plugins' then Click on 'Add New',
+2. Search for 'WordPress Social Login' then Click on 'Install Now',
+3. Wait for it to download, Unpack and to install,
+4. Activate the plugin by Clicking on 'Activate Plugin'
+5. Goto the Settings > WP Social Login to get started.
+
 
 == Frequently Asked Questions ==
 
