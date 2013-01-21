@@ -30,7 +30,7 @@ function wsl_render_settings()
 		"networks"     => array( "label" => "Networks"       , "enabled" => true,  "visible" => true   , "default" => true ),
 		"login-widget" => array( "label" => "Widget"         , "enabled" => true,  "visible" => true  ), 
 		"bouncer"      => array( "label" => "Bouncer"        , "enabled" => true,  "visible" => true  ),
-		"share"        => array( "label" => "Sharing"        , "enabled" => true, "visible" => true ),
+		"share"        => array( "label" => "Sharing"        , "enabled" => false, "visible" => false ),
 		"users"        => array( "label" => "Users"          , "enabled" => true,  "visible" => true  ),
 		"contacts"     => array( "label" => "Contacts"       , "enabled" => true,  "visible" => true  ),
 		"diagnostics"  => array( "label" => "Diagnostics"    , "enabled" => true,  "visible" => false  , "pull-right" => true , "welcome-panel" => false ),
