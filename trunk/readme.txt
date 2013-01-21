@@ -11,28 +11,29 @@ WordPress Social Login allow your visitors to comment and login with social netw
 
 == Description ==
 
-Using <strong>WordPress Social Login</strong>, your blog's users will be able to login and comment using their accounts on Facebook, Google, Yahoo, Twitter and many more.
+Using <strong>WordPress Social Login</strong>, your blog's users will be able to login and comment with social networks such as Twitter, Facebook, Google and Yahoo.
 
-<strong>WordPress Social Login</strong> also allows you to import users contact list from Google Gmail, Facebook, Live and LinkedIn.
+<strong>WordPress Social Login</strong> also allows you to import users contact list from Google Gmail, Facebook, Windows Live and LinkedIn.
 
-<strong>Free, unlimited and white-label</strong> 
+<strong>WordPress Social Login</strong> gives you absolute control over users access to your website and comes with a painfully long list of rules and restrictions for you to setup.
 
+<strong>Free, unlimited and white-label</strong> <br>
 Licenced under MIT License, WordPress Social Login available to everyone for completely free, with all features included, at absolutely no cost. You are free to use a WordPress Social Login in commercial websites as long as the copyright header is left intact.
 
-<strong>23 support social netwroks</strong> 
-
-Depending on the audience you're targeting, you can choose from a wide variety of providers and services including: Social networks, Microblogging platforms, Professional networks, Media, Photo sharing, Programmers and Gamers networks.
-
-<strong>Easy to customize and integration </strong> 
-
-WordPress Social Login come with a simple but flexible and fully customizable authentication widget. And if you are a developer or designer then you can customize it to your heart's content, changing the css and icons is a matter of seconds.
-
-<strong>Built on top of an Open Source Library</strong> 
-
+<strong>Built on top of an Open Source Library</strong><br>
 HybridAuth Library enable developers to easily build social applications to engage websites vistors and customers on a social level by implementing social signin, social sharing, users profiles, friends list, activities stream, status updates and more.
 
-<strong>Supported Providers</strong> 
+<strong>23 supported social netwroks</strong> <br>
+Depending on the audience you're targeting, you can choose from a wide variety of providers and services including: Social networks, Microblogging platforms, Professional networks, Media, Photo sharing, Programmers and Gamers networks.
 
+<strong>Easy to customize and integrate </strong> <br>
+WordPress Social Login come with a simple but flexible and fully customizable authentication widget. And if you are a developer or designer then you can customize it to your heart's content, changing the css and icons is a matter of seconds.
+
+<strong>Even more features are planned</strong> <br>
+The coming release « the definitive social toolkit » will brings even more exciting new features and significant updates to WordPress Social Login. From advanced users managment to contacts import and export, social sharing, tweet comments, tweet to download, and more.
+
+
+<strong>Supported Providers</strong> <br>
 Facebook , Google , Yahoo , Twitter , Windows Live , Myspace , Foursquare , Linkedin , Tumblr , Last.fm , Instagram , Goodreads , AOL , Vkontakte , Stackoverflow , Github , 500px , Skyrock , Mixi.jp , Steam , Mail.ru , Yandex and Odnoklassniki. 
 
 <strong>Special thanks to:</strong>
@@ -90,57 +91,3 @@ The user guide and frequently asked questions can be found at http://bit.ly/TYy2
 * add Widget display on advanced settings
 * RIP Gowalla
 * WordPress Social Login is now licenced under The MIT License only (should be GPL compatible) 
-
-= 1.2.3 =
-
-* Update Hybridauth Library to 2.1.1-dev (fix fb login issue and others stuff)
-* remove PHP PECL OAuth extension conflict
-
-= 1.2.2 =
-
-* add Mail.ru, Yandex and Odnoklassniki
-* add more customization options
-* improve user guide
-* a bunch of fixes and small improvements
-
-= 1.1.9 =
-
-* some fixes and small improvements
-
-= 1.1.8 =
-
-* add goodreads
-
-= 1.1.7 =
-
-* Hotfixes some minor issuees
-* add Insights
-
-= 1.1.6 =
-
-* Add gowalla, last.fm and tumblr
-* Add a new icon set
-* Add devlepement mode
-* Update hybridauth to 2.0.10
-
-= 1.1.5 =
-
-* Import users avatars
-* Fix an issue with unique emails.
-* Others small fixes
-
-= 1.1.4 =
-
-* A numbers of bug fixes and improvments
-
-= 1.1.3 =
-
-* Fix a bug with hybridauth settings
-
-= 1.1.1 =
-
-* Fix a bug when displaying not enbaled provider on the login form
-
-= 1.1.0 =
-
-* Initial release.
