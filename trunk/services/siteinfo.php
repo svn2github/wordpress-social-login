@@ -11,7 +11,7 @@
 	}
 
 	// only display for admin
-	if ( ! current_user_can('manage_options') ) {
+	if ( ! is_admin() ) {
 		wsl_render_notices_pages( 'You do not have sufficient permissions to access this page.' );
 	}
 

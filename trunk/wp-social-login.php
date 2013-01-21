@@ -93,33 +93,3 @@ require_once( dirname (__FILE__) . '/modules/widgets/wsl.notices.php' );        
 /* hooks */ 
 
 register_activation_hook( __FILE__, 'wsl_database_migration_hook' );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
