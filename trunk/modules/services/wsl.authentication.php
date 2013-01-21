@@ -1,13 +1,26 @@
 <?php
 function wsl_process_login()
 {
-	// Bouncer :: Allow authentication 
-	if( get_option( 'wsl_settings_bouncer_authentication_enabled' ) == 2 ){
-		wsl_render_notices_pages( "WSL is disabled!" ); 
+	if( ! isset( $_REQUEST[ 'action' ] ) ){
+		return null;
 	}
 
-	if( ! isset( $_REQUEST[ 'action' ] ) || $_REQUEST[ 'action' ] !=  "wordpress_social_login" ){
-		return;
+	if( $_REQUEST[ 'action' ] !=  "wordpress_social_login" && $_REQUEST[ 'action' ] !=  "wordpress_social_link" ){
+		return null;
+	}
+
+	// dont be silly
+	if(  $_REQUEST[ 'action' ] ==  "wordpress_social_link" && ! is_user_logged_in() ){
+		return wsl_render_notices_pages( "Bouncer say don't be silly!" );
+	}
+
+	if(  $_REQUEST[ 'action' ] ==  "wordpress_social_link" && get_option( 'wsl_settings_bouncer_linking_accounts_enabled' ) != 1 ){
+		return wsl_render_notices_pages( "Bouncer say this makes no sense." );
+	}
+
+	// Bouncer :: Allow authentication 
+	if( get_option( 'wsl_settings_bouncer_authentication_enabled' ) == 2 ){
+		return wsl_render_notices_pages( "WSL is disabled!" ); 
 	}
 
 	if ( isset( $_REQUEST[ 'redirect_to' ] ) && $_REQUEST[ 'redirect_to' ] != '' ){
@@ -18,9 +31,17 @@ function wsl_process_login()
 			$redirect_to = preg_replace( '|^http://|', 'https://', $redirect_to );
 		}
 
-		if ( strpos( $redirect_to, 'wp-admin') ){
+		if ( strpos( $redirect_to, 'wp-admin') && ! is_user_logged_in() ){
 			$redirect_to = get_option( 'wsl_settings_redirect_url' ); 
 		}
+
+		if ( strpos( $redirect_to, 'wp-login.php') ){
+			$redirect_to = get_option( 'wsl_settings_redirect_url' ); 
+		}
+	}
+
+	if( get_option( 'wsl_settings_redirect_url' ) != site_url() ){
+		$redirect_to = get_option( 'wsl_settings_redirect_url' );
 	}
 
 	if( empty( $redirect_to ) ){
@@ -30,11 +51,14 @@ function wsl_process_login()
 	if( empty( $redirect_to ) ){
 		$redirect_to = site_url();
 	}
-
+	// print_r( get_option( 'wsl_settings_redirect_url' ) );
+	// print_r( $_REQUEST[ 'redirect_to' ] );
+ 
+// die( " ==> $redirect_to" );
 	try{
 		# Hybrid_Auth already used?
 		if ( class_exists('Hybrid_Auth', false) ) {
-			wsl_render_notices_pages( "Error: Another plugin seems to be using HybridAuth Library and made WordPress Social Login unusable. We recommand to find this plugin and to kill it with fire!" ); 
+			return wsl_render_notices_pages( "Error: Another plugin seems to be using HybridAuth Library and made WordPress Social Login unusable. We recommand to find this plugin and to kill it with fire!" ); 
 		} 
 
 		// load hybridauth
@@ -86,10 +110,61 @@ function wsl_process_login()
 			$request_user_login      = "";
 			$request_user_email      = "";
 
+		# {{{ linking new accounts
+			// Bouncer :: Accounts Linking is enabled
+			if( get_option( 'wsl_settings_bouncer_linking_accounts_enabled' ) == 1 ){ 
+				// if user is linking account
+				// . we DO import contacts
+				// . we DO store the user profile
+				// 
+				// . we DONT create another entry on user table 
+				// . we DONT create nor update his data on usermeata table 
+				if(  $_REQUEST[ 'action' ] ==  "wordpress_social_link" ){
+					global $current_user; 
+
+					get_currentuserinfo(); 
+					$user_id = $current_user->ID;
+
+					// launch contact import if enabled
+					wsl_import_user_contacts( $provider, $adapter, $user_id );
+
+					// store user hybridauth user profile if needed
+					wsl_store_hybridauth_user_data( $user_id, $provider, $hybridauth_user_profile );
+
+					wp_safe_redirect( $redirect_to );
+
+					exit();
+				} 
+
+				// check if connected user is linked account
+				$linked_account = wsl_get_user_linked_account_by_provider_and_identifier( $provider, $hybridauth_user_profile->identifier );
+
+				// if linked account found, we connect the actual user 
+				if( $linked_account ){
+					if( count( $linked_account ) > 1 ){
+						return wsl_render_notices_pages( "This $provider is linked to many accounts!" );
+					}
+
+					$user_id = $linked_account[0]->user_id;
+
+					if( ! $user_id ){
+						return wsl_render_notices_pages( "Something wrong!" );
+					}
+
+					wp_set_auth_cookie( $user_id );
+
+					wp_safe_redirect( $redirect_to );
+
+					exit();
+				}
+			}
+		# }}} linking new accounts
+
+		# {{{ module Bouncer
 			// Bouncer :: Filters by emails domains name
 			if( get_option( 'wsl_settings_bouncer_new_users_restrict_domain_enabled' ) == 1 ){ 
 				if( empty( $hybridauth_user_email ) ){
-					wsl_render_notices_pages( get_option( 'wsl_settings_bouncer_new_users_restrict_domain_text_bounce' ) );
+					return wsl_render_notices_pages( get_option( 'wsl_settings_bouncer_new_users_restrict_domain_text_bounce' ) );
 				}
 
 				$list = get_option( 'wsl_settings_bouncer_new_users_restrict_domain_list' );
@@ -105,14 +180,14 @@ function wsl_process_login()
 				}
 
 				if( ! $shall_pass ){
-					wsl_render_notices_pages( get_option( 'wsl_settings_bouncer_new_users_restrict_domain_text_bounce' ) );
+					return wsl_render_notices_pages( get_option( 'wsl_settings_bouncer_new_users_restrict_domain_text_bounce' ) );
 				}
 			}
 
 			// Bouncer :: Filters by e-mails addresses
 			if( get_option( 'wsl_settings_bouncer_new_users_restrict_email_enabled' ) == 1 ){ 
 				if( empty( $hybridauth_user_email ) ){
-					wsl_render_notices_pages( get_option( 'wsl_settings_bouncer_new_users_restrict_email_text_bounce' ) );
+					return wsl_render_notices_pages( get_option( 'wsl_settings_bouncer_new_users_restrict_email_text_bounce' ) );
 				}
 
 				$list = get_option( 'wsl_settings_bouncer_new_users_restrict_email_list' );
@@ -126,7 +201,7 @@ function wsl_process_login()
 				}
 
 				if( ! $shall_pass ){
-					wsl_render_notices_pages( get_option( 'wsl_settings_bouncer_new_users_restrict_email_text_bounce' ) );
+					return wsl_render_notices_pages( get_option( 'wsl_settings_bouncer_new_users_restrict_email_text_bounce' ) );
 				}
 			}
 
@@ -143,17 +218,15 @@ function wsl_process_login()
 				}
 
 				if( ! $shall_pass ){
-					wsl_render_notices_pages( get_option( 'wsl_settings_bouncer_new_users_restrict_profile_text_bounce' ) );
+					return wsl_render_notices_pages( get_option( 'wsl_settings_bouncer_new_users_restrict_profile_text_bounce' ) );
 				}
 			}
-
-			// die('okl');
 
 			// if user do not exist
 			if( ! $hybridauth_user_id ){
 				// Bouncer :: Accept new registrations
 				if( get_option( 'wsl_settings_bouncer_registration_enabled' ) == 2 ){
-					wsl_render_notices_pages( "registration is now closed!" ); 
+					return wsl_render_notices_pages( "registration is now closed!" ); 
 				}
 
 				// Bouncer :: Email Validation // require emails!
@@ -166,24 +239,8 @@ function wsl_process_login()
 						while( empty( $request_user_email ) );
 					}
 				}
-			}
-			/* incomplete
-			else{ 
-				// Bouncer :: Email Validation // require emails!
-				// fix generated <provider>_user_<username>@example.com as well  
-				if( get_option( 'wsl_settings_bouncer_email_validation_enabled' ) == 1 ){ 
-					$stored_user_email = wsl_get_user_data_by_id( "user_email", $hybridauth_user_id );
-
-					// only for those generated through WSL
-					if( strstr( $stored_user_email, "_user_" ) && strstr( $stored_user_email, "@example.com" ) ){ 
-						do
-						{
-							list( $request_user_login, $request_user_email ) = wsl_process_login_complete_registration( $provider, $redirect_to, $hybridauth_user_email, $hybridauth_user_login );  
-						}
-						while( empty( $request_user_email ) );
-					}
-				}
-			} */
+			}  
+		# }}} module Bouncer
 		}
 		else{
 			throw new Exception( 'User not connected with ' . $provider . '!' );
@@ -211,7 +268,7 @@ function wsl_process_login()
 	// if user found
 	if( $user_id ){
 		$user_data  = get_userdata( $user_id );
-		$user_login = $user_data->user_login;
+		$user_login = $user_data->user_login; 
 	} 
 
 	// Create new user and associate provider identity
@@ -312,12 +369,17 @@ function wsl_process_login()
 			# toDo
 		}
 
-		// Create a new user
-		$user_id = wp_insert_user( $userdata );
+		// HOOKABLE: change the user data
+		if( apply_filters( 'wsl_hook_process_login_userdata', $userdata ) ){
+			$userdata = apply_filters( 'wsl_hook_process_login_userdata', $userdata );
+		}
 
-        // Send notifications 
-		if ( get_option( 'wsl_settings_users_notification' ) == 1 ){
-			wsl_admin_notification( $user_id, $provider );
+		// HOOKABLE: delegate user insert
+		$user_id = apply_filters( 'wsl_hook_process_login_insert_user', $userdata );
+
+		// Create a new user
+		if( ! $user_id || ! is_integer( $user_id ) ){
+			$user_id = wp_insert_user( $userdata );
 		}
 
 		// update user metadata
@@ -329,6 +391,11 @@ function wsl_process_login()
 		}
 		else{
 			die( "An error occurred while creating a new user!" );
+		}
+
+		// Send notifications 
+		if ( get_option( 'wsl_settings_users_notification' ) == 1 ){
+			wsl_admin_notification( $user_id, $provider );
 		}
 	}
 
@@ -344,6 +411,87 @@ function wsl_process_login()
 	update_user_meta ( $user_id, 'wsl_user_age'   , $user_age );
 	update_user_meta ( $user_id, 'wsl_user_image' , $hybridauth_user_profile->photoURL );
 
+	// launch contact import if enabled
+	wsl_import_user_contacts( $provider, $adapter, $user_id );
+
+	// store user hybridauth user profile if needed
+	wsl_store_hybridauth_user_data( $user_id, $provider, $hybridauth_user_profile );
+
+	// HOOKABLE: any last words?
+	apply_filters( 'wsl_hook_process_login_success', $user_id );
+
+	wp_set_auth_cookie( $user_id );
+
+	wp_safe_redirect( $redirect_to );
+
+	exit();
+}
+
+add_action( 'init', 'wsl_process_login' );
+
+function wsl_get_user_by_meta( $provider, $user_uid )
+{
+	global $wpdb;
+
+	$sql = "SELECT user_id FROM `{$wpdb->prefix}usermeta` WHERE meta_key = '%s' AND meta_value = '%s'";
+
+	return $wpdb->get_var( $wpdb->prepare( $sql, $provider, $user_uid ) );
+}
+
+function wsl_get_user_data_by_id( $field, $user_id )
+{
+	global $wpdb;
+
+	$sql = "SELECT %s FROM `{$wpdb->prefix}users` WHERE ID = '%s'";
+
+	return $wpdb->get_var( $wpdb->prepare( $sql, $field, $user_id ) );
+}
+
+function wsl_get_user_linked_account_by_provider_and_identifier( $provider, $identifier )
+{
+	global $wpdb;
+
+	$sql = "SELECT * FROM `{$wpdb->prefix}wslusersprofiles` where provider = '$provider' and identifier = '$identifier'";
+	$rs  = $wpdb->get_results( $sql );
+
+	return $rs;
+}
+
+function wsl_store_hybridauth_user_data( $user_id, $provider, $profile )
+{
+	global $wpdb;
+
+	$sql = "SELECT id, object_sha FROM `{$wpdb->prefix}wslusersprofiles` where user_id = '$user_id' and provider = '$provider'";
+	$rs  = $wpdb->get_results( $sql );
+
+	$profile_sha = sha1( serialize( $profile ) );
+
+	// if $profile didnt change, no need for update
+	if( $rs && $rs[0]->object_sha == $profile_sha ){
+		return;
+	}
+
+	$table_data = array(
+		"user_id"    => $user_id,
+		"provider"   => $provider,
+		"object_sha" => $profile_sha
+	);
+
+	foreach( $profile as $key => $value ) {
+		$table_data[ strtolower($key) ] = (string) $value;
+	}
+
+	// if $profile updated we re/store on database
+	if( $rs && $rs[0]->object_sha != $profile_sha ){
+		$wpdb->update( "{$wpdb->prefix}wslusersprofiles", $table_data, array( "id" => $rs[0]->id ) ); 
+	}
+	else{
+		$wpdb->insert( "{$wpdb->prefix}wslusersprofiles", $table_data ); 
+	}
+}
+
+function wsl_import_user_contacts( $provider, $adapter, $user_id )
+{
 	// Contacts import
 	if(
 		get_option( 'wsl_settings_contacts_import_facebook' ) == 1 && strtolower( $provider ) == "facebook" ||
@@ -379,31 +527,5 @@ function wsl_process_login()
 				}
 			}
 		}
-	}
-
-	wp_set_auth_cookie( $user_id );
-
-	wp_safe_redirect( $redirect_to );
-
-	exit();
-}
-
-add_action( 'init', 'wsl_process_login' );
-
-function wsl_get_user_by_meta( $provider, $user_uid )
-{
-	global $wpdb;
-
-	$sql = "SELECT user_id FROM `{$wpdb->prefix}usermeta` WHERE meta_key = '%s' AND meta_value = '%s'";
-
-	return $wpdb->get_var( $wpdb->prepare( $sql, $provider, $user_uid ) );
-}
-
-function wsl_get_user_data_by_id( $field, $user_id )
-{
-	global $wpdb;
-
-	$sql = "SELECT %s FROM `{$wpdb->prefix}users` WHERE ID = '%s'";
-
-	return $wpdb->get_var( $wpdb->prepare( $sql, $field, $user_id ) );
+	} 
 }

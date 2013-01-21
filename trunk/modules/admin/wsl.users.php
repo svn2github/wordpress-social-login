@@ -1,8 +1,4 @@
-<?php
-	global $wpdb;
-	
-	$assets_base_url = WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL . '/assets/img/16x16/';
-
+<?php 
 	$sql = "SELECT meta_value, user_id FROM `{$wpdb->prefix}usermeta` where meta_key = 'wsl_user'";
 	$rs1 = $wpdb->get_results( $sql );  
 ?> 
@@ -19,7 +15,7 @@
 	<table cellspacing="0" class="wp-list-table widefat fixed users">
 		<thead>
 			<tr> 
-				<th width="100"><span>Provider</span></th>  
+				<th width="100"><span>Providers</span></th>  
 				<th><span>Username</span></th> 
 				<th><span>Full Name</span></th> 
 				<th><span>Email</span></th> 
@@ -29,7 +25,7 @@
 		</thead> 
 		<tfoot>
 			<tr> 
-				<th><span>Provider</span></th>  
+				<th><span>Providers</span></th>  
 				<th><span>Username</span></th> 
 				<th><span>Full Name</span></th> 
 				<th><span>Email</span></th> 
@@ -52,7 +48,22 @@
 						$user_id = $items->user_id; 
 			?>
 					<tr class="<?php if( ++$i % 2 ) echo "alternate" ?> tr-contacts"> 
-						<td><img src="<?php echo $assets_base_url . strtolower( $provider ) . '.png' ?>" style="vertical-align:top;width:16px;height:16px;" /> <?php echo $provider ?></td> 
+						<td>
+							<img src="<?php echo $assets_base_url . strtolower( $provider ) . '.png' ?>" style="vertical-align:top;width:16px;height:16px;" /> <?php echo $provider ?>
+							<?php
+								# linked accounts
+								$linked_accounts = wsl_get_user_linked_account_by_user_id( $user_id );
+								
+								foreach( $linked_accounts AS $link ){
+									if( $link->provider != $provider ){
+										?> 
+											<br />
+											<img src="<?php echo $assets_base_url . strtolower( $link->provider ) . '.png' ?>" style="vertical-align:top;width:16px;height:16px;" /> <?php echo $link->provider ?>
+										<?php
+									}
+								} 
+							?> 
+						</td> 
 						<td>
 							<?php $wsl_user_image = wsl_get_user_by_meta_key_and_user_id( "wsl_user_image", $user_id); if( $wsl_user_image ) { ?>
 								<img width="32" height="32" class="avatar avatar-32 photo" src="<?php echo $wsl_user_image ?>" > 
@@ -100,23 +111,3 @@
 		</tbody>
 	</table> 
 </div>
-
-<?php
-	function wsl_get_user_by_meta_key_and_user_id( $meta_key, $user_id ){
-		global $wpdb;
-
-		$sql = "SELECT meta_value FROM `{$wpdb->prefix}usermeta` where meta_key = '$meta_key' and user_id = '$user_id'";
-		$rs  = $wpdb->get_results( $sql );
-
-		return $rs[0]->meta_value;
-	}
-
-	function wsl_get_user_data_by_user_id( $field, $user_id ){
-		global $wpdb;
-		
-		$sql = "SELECT $field as data_field FROM `{$wpdb->prefix}users` where ID = '$user_id'";
-		$rs  = $wpdb->get_results( $sql );
-
-		return $rs[0]->data_field;
-	}
-?>
