@@ -78,8 +78,16 @@
 			continue;
 		}
 
+		// default endpoint_url
+		$endpoint_url = WORDPRESS_SOCIAL_LOGIN_HYBRIDAUTH_ENDPOINT_URL;
+
+		// overwrite endpoint_url if need'd
+		if( get_option( 'wsl_settings_base_url' ) ){
+			$endpoint_url = strtolower( get_option( 'wsl_settings_base_url' ) . '/hybridauth/' );
+		}
+
 		if( isset( $item["callback"] ) && $item["callback"] ){
-			$provider_callback_url  = '<span style="color:green">' . WORDPRESS_SOCIAL_LOGIN_HYBRIDAUTH_ENDPOINT_URL	 . '?hauth.done=' . $provider_id . '</span>';
+			$provider_callback_url  = '<span style="color:green">' . $endpoint_url . '?hauth.done=' . $provider_id . '</span>';
 		}
 
 		$setupsteps = 0;  

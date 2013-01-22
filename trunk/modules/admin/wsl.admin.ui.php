@@ -35,6 +35,8 @@ function wsl_render_settings()
 		"contacts"     => array( "label" => "Contacts"       , "enabled" => true,  "visible" => true  ),
 		"diagnostics"  => array( "label" => "Diagnostics"    , "enabled" => true,  "visible" => false  , "pull-right" => true , "welcome-panel" => false ),
 		"help"         => array( "label" => "Help & Support" , "enabled" => true,  "visible" => true   , "pull-right" => true , "welcome-panel" => false ),
+
+		"advanced"     => array( "label" => "Advanced"       , "enabled" => true,  "visible" => false  , "pull-right" => true , "welcome-panel" => false ),
 	);
 
 	if( isset( $tabs[$wslp] ) && $tabs[$wslp]["enabled"] ){

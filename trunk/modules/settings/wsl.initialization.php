@@ -87,9 +87,11 @@ function wsl_register_setting()
 	register_setting( 'wsl-settings-group-bouncer'  , 'wsl_settings_bouncer_new_users_restrict_profile_list' );
 	register_setting( 'wsl-settings-group-bouncer'  , 'wsl_settings_bouncer_new_users_restrict_profile_text_bounce' );
 
+	register_setting( 'wsl-settings-group-advanced-settings', 'wsl_settings_base_url' );
+
 	register_setting( 'wsl-settings-group-development', 'wsl_settings_development_mode_enabled' ); 
 
-	add_option( 'wsl_settings_welcome_panel_enabled' ); 
+	add_option( 'wsl_settings_welcome_panel_enabled' );
 
 	// update old/all default wsl-settings
 	wsl_check_compatibilities();

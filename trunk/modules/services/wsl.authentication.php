@@ -51,10 +51,7 @@ function wsl_process_login()
 	if( empty( $redirect_to ) ){
 		$redirect_to = site_url();
 	}
-	// print_r( get_option( 'wsl_settings_redirect_url' ) );
-	// print_r( $_REQUEST[ 'redirect_to' ] );
- 
-// die( " ==> $redirect_to" );
+
 	try{
 		# Hybrid_Auth already used?
 		if ( class_exists('Hybrid_Auth', false) ) {
@@ -72,8 +69,7 @@ function wsl_process_login()
 			throw new Exception( 'Unknown or disabled provider' );
 		}
 
-		$config = array();
-		$config["base_url"]  = plugins_url() . '/' . basename( dirname( __FILE__ ) ) . '/hybridauth/';
+		$config = array(); 
 		$config["providers"] = array();
 		$config["providers"][$provider] = array();
 		$config["providers"][$provider]["enabled"] = true;
