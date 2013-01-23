@@ -99,8 +99,8 @@ html {
 
 			// overwrite endpoint_url if need'd
 			if( get_option( 'wsl_settings_base_url' ) ){
-				$endpoint_url = strtolower( get_option( 'wsl_settings_base_url' ) . '/hybridauth/' );
-				$callback_url = strtolower( get_option( 'wsl_settings_base_url' ) . '/services/authenticate.php?' . $_SERVER['QUERY_STRING'] );
+				$endpoint_url = strtolower( get_option( 'wsl_settings_base_url' ) ) . '/hybridauth/';
+				$callback_url = strtolower( get_option( 'wsl_settings_base_url' ) ) . '/services/authenticate.php?' . $_SERVER['QUERY_STRING'];
 			}
 
 			// check hybridauth_base_url
