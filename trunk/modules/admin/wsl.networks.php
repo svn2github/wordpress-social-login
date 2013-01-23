@@ -92,6 +92,7 @@
 
 		$setupsteps = 0;  
 ?>  
+		<a name="setup<?php echo strtolower( $provider_id ) ?>"></a> 
 		<div class="stuffbox" id="namediv">
 			<h3>
 				<label for="name">
@@ -281,10 +282,14 @@
 				$provider_name              = @ $item["provider_name"];
 				$provider_cat               = @ $item["cat"];
 
+				if( isset( $item["default_network"] ) && $item["default_network"] ){
+					continue;
+				}
+
 				if( ! get_option( 'wsl_settings_' . $provider_id . '_enabled' ) ){
 					// echo "$provider_name;";
 					?>
-						<a href="options-general.php?page=wordpress-social-login&wslp=networks&enable=<?php echo $provider_id ?>#wslsettings"><img src="<?php echo $assets_base_url . strtolower( $provider_id ) . '.png' ?>" alt="<?php echo $provider_name ?>" title="<?php echo $provider_name ?>" /></a>
+						<a href="options-general.php?page=wordpress-social-login&wslp=networks&enable=<?php echo $provider_id ?>#setup<?php echo strtolower( $provider_id ) ?>"><img src="<?php echo $assets_base_url . strtolower( $provider_id ) . '.png' ?>" alt="<?php echo $provider_name ?>" title="<?php echo $provider_name ?>" /></a>
 					<?php
 				}
 			} 
@@ -293,7 +298,7 @@
   </tr> 
 </table>
 
-<a name="wslsettings"></name> 
+<a name="wslsettings"></a> 
 
 </div>
 

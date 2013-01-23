@@ -167,7 +167,7 @@
 							<pre style="width: 380px;background-color: #eaffdc;border:1px solid #60cf4e; border-radius: 3px;padding: 10px;margin-top:15px;margin-left:10px;"> &lt;?php do_action( 'wordpress_social_login' ); ?&gt; </pre> 
 						</p> 
 						<p style="margin:10px;"> 
-						Also, if you are a developer or designer then you can customize it to your heart's content then refer to <b><a href="options-general.php?page=wordpress-social-login&wslp=help">Help & Support</a></b>.
+						Also, if you are a developer or designer then you can customize it to your heart's content then refer to <b><a href="http://hybridauth.sourceforge.net/wsl/customize.html" target="_blank">User Guide</a></b>.
 						</p>
 
 						<h4 style="cursor: default;border-bottom:1px solid #ccc;">Widget preview</h4>

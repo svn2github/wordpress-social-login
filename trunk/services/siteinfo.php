@@ -81,13 +81,18 @@ JSON:                     <?php echo function_exists( 'json_decode' ) ? "Support
 
 ACTIVE PLUGINS:
 
-<?php
-$plugins = get_plugins();
-$active_plugins = get_option( 'active_plugins', array() );
-
-foreach ( $plugins as $plugin_path => $plugin ): 
-echo $plugin['Name']; echo $plugin['Name']; ?>: <?php echo $plugin['Version'] ."\n"; 
-endforeach; ?>
+<?php  
+if( function_exists("get_plugins") ):
+	$plugins = get_plugins();
+	foreach ( $plugins as $plugin_path => $plugin ): 
+		echo $plugin['Name']; echo $plugin['Name']; ?>: <?php echo $plugin['Version'] ."\n"; 
+	endforeach;
+else:
+	$active_plugins = get_option( 'active_plugins', array() );
+	foreach ( $active_plugins as $plugin ): 
+		echo $plugin ."\n"; 
+	endforeach;
+endif; ?>
 
 CURRENT THEME:
 

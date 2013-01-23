@@ -163,4 +163,25 @@ function wsl_check_compatibilities()
 	if( ! get_option( 'wsl_settings_contacts_import_linkedin' ) ){ 
 		update_option( 'wsl_settings_contacts_import_linkedin', 2 );
 	}
+	
+	
+	GLOBAL $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG;
+	$nok = true; 
+	foreach( $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG AS $item ){
+		$provider_id = $item["provider_id"];
+		
+		if( get_option( 'wsl_settings_' . $provider_id . '_enabled' ) ){
+			$nok = false;
+		}
+	}
+
+	if( $nok ){
+		foreach( $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG AS $item ){
+			$provider_id = $item["provider_id"];
+			
+			if( isset( $item["default_network"] ) && $item["default_network"] ){
+				update_option( 'wsl_settings_' . $provider_id . '_enabled', 1 );
+			} 
+		} 
+	} 
 }
