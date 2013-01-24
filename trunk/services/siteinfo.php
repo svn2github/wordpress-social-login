@@ -43,9 +43,15 @@ html {
 <body>
 <div id="wsl">
 <h3>Website Information</h3>
+ 
 <p>
-Please include this information when posting support requests (you know it works:  Ctrl + A, Ctrl + C then Ctrl + V into the email)
+<b>Important</b>: 
 </p>
+<ul style="padding-left:15px;">
+<li>Please include this information when posting support requests. It will help me immensely to better understand any issues.</li>
+<li>These information should be communicated to the plugin developer privately via email : Miled &lt;<a href="mailto:hybridauth@gmail.com">hybridauth@gmail.com</a>&gt;</li>
+</ul>
+
 <textarea readonly="readonly" style="height: 500px;overflow: auto;white-space: pre;width: 790px;">
 SITE_URL:                 <?php echo site_url() . "\n"; ?>
 PLUGIN_URL:               <?php echo plugins_url() . "\n"; ?>
@@ -57,27 +63,27 @@ HTTP_X_FORWARDED_PROTO:   <?php echo isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] )
 MULTI-SITE:               <?php echo is_multisite() ? 'Yes' . "\n" : 'No' . "\n" ?>
 
 WSL VERSION:              <?php echo $WORDPRESS_SOCIAL_LOGIN_VERSION . "\n"; ?>
-WORDPRESS VERSION:        <?php echo get_bloginfo( 'version' ) . "\n"; ?> 
+WORDPRESS VERSION:        <?php echo get_bloginfo( 'version' ) . "\n"; ?>
 
 PHP VERSION:              <?php echo PHP_VERSION . "\n"; ?>
 MYSQL VERSION:            <?php echo mysql_get_server_info() . "\n"; ?>
 WEB SERVER INFO:          <?php echo $_SERVER['SERVER_SOFTWARE'] . "\n"; ?>
 
-PHP MEMORY LIMIT:         <?php echo ini_get( 'memory_limit' ) . "\n"; ?>
-PHP POST MAX SIZE:        <?php echo ini_get( 'post_max_size' ) . "\n"; ?>
-
 SESSION:                  <?php echo isset( $_SESSION ) ? 'Enabled' : 'Disabled'; echo "\n"; ?>
 SESSION:WSL               <?php echo $_SESSION["wsl::plugin"]; echo "\n"; ?>
-SESSION NAME:             <?php echo esc_html( ini_get( 'session.name' ) ); echo "\n"; ?>
+SESSION:NAME:             <?php echo esc_html( ini_get( 'session.name' ) ); echo "\n"; ?>
+
 COOKIE PATH:              <?php echo esc_html( ini_get( 'session.cookie_path' ) ); echo "\n"; ?>
 SAVE PATH:                <?php echo esc_html( ini_get( 'session.save_path' ) ); echo "\n"; ?>
 USE COOKIES:              <?php echo ini_get( 'session.use_cookies' ) ? 'On' : 'Off'; echo "\n"; ?>
 USE ONLY COOKIES:         <?php echo ini_get( 'session.use_only_cookies' ) ? 'On' : 'Off'; echo "\n"; ?>
 
-DISPLAY ERRORS:           <?php echo ini_get( 'display_errors' ) ? 'On (' . ini_get( 'display_errors' ) . ')' : 'N/A'; echo "\n"; ?> 
-CURL:                     <?php echo function_exists( 'curl_init'   ) ? "Supported" : "Not supported"; echo "\n"; ?>
-FSOCKOPEN:                <?php echo function_exists( 'fsockopen'   ) ? "Supported" : "Not supported"; echo "\n"; ?>
-JSON:                     <?php echo function_exists( 'json_decode' ) ? "Supported" : "Not supported"; echo "\n"; ?>
+PHP/CURL:                 <?php echo function_exists( 'curl_init'   ) ? "Supported" : "Not supported"; echo "\n"; ?>
+<?php if( function_exists( 'curl_init' ) ): ?>
+PHP/CURL/VER:             <?php $v = curl_version(); echo $v['version']; echo "\n"; ?>
+PHP/CURL/SSL:             <?php $v = curl_version(); echo $v['ssl_version']; echo "\n"; ?><?php endif; ?>
+PHP/FSOCKOPEN:            <?php echo function_exists( 'fsockopen'   ) ? "Supported" : "Not supported"; echo "\n"; ?>
+PHP/JSON:                 <?php echo function_exists( 'json_decode' ) ? "Supported" : "Not supported"; echo "\n"; ?>
 
 ACTIVE PLUGINS:
 
