@@ -11,7 +11,7 @@ License: GPL2
 
 @ session_start(); 
 
-$WORDPRESS_SOCIAL_LOGIN_VERSION = "2.0.2"; // i know
+$WORDPRESS_SOCIAL_LOGIN_VERSION = "2.0.3"; // i know
 
 $_SESSION["wsl::plugin"] = "WordPress Social Login " . $WORDPRESS_SOCIAL_LOGIN_VERSION; 
 

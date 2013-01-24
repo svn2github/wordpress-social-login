@@ -178,6 +178,15 @@ $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG = ARRAY(
 		"cat"               => "gamers",
 	),
 	ARRAY( 
+		"provider_id"       => "TwitchTV",
+		"provider_name"     => "Twitch.tv", 
+		"require_client_id" => true,
+		"callback"          => true,
+		"new_app_link"      => "http://www.twitch.tv/settings?section=applications", 
+
+		"cat"               => "gamers",
+	),
+	ARRAY( 
 		"provider_id"       => "Mailru",
 		"provider_name"     => "Mailru", 
 		"require_client_id" => true,

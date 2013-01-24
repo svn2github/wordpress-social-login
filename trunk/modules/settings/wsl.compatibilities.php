@@ -163,8 +163,8 @@ function wsl_check_compatibilities()
 	if( ! get_option( 'wsl_settings_contacts_import_linkedin' ) ){ 
 		update_option( 'wsl_settings_contacts_import_linkedin', 2 );
 	}
-	
-	
+
+	// enable default providers
 	GLOBAL $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG;
 	$nok = true; 
 	foreach( $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG AS $item ){
