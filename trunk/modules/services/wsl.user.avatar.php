@@ -5,7 +5,7 @@
  *
  * thanks a million mate
  */
-function wsl_user_custom_avatar($avatar, $id_or_email, $size, $default, $alt)
+function wsl_user_custom_avatar($avatar, $mixed, $size, $default, $alt = '')
 {
 	//Check if we are in a comment
 	if( get_option ( 'wsl_settings_users_avatars' ) )
