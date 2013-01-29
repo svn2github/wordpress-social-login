@@ -1,11 +1,25 @@
 <?php
-/**
- * Display custom avatars
- * borrowed from http://wordpress.org/extend/plugins/oa-social-login/
- *
+/*!
+* WordPress Social Login
+*
+* http://hybridauth.sourceforge.net/wsl/index.html | http://github.com/hybridauth/WordPress-Social-Login
+*   (c) 2013 Mohamed Mrassi and other contributors | http://wordpress.org/extend/plugins/wordpress-social-login/
+*/
+
+/** 
+* Displaying the user avatar when available on the comment section
+*/
+
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+// --------------------------------------------------------------------
+
+/** 
+ * wsl_user_custom_avatar is borrowed from http://wordpress.org/extend/plugins/oa-social-login/ 
  * thanks a million mate
  */
-function wsl_user_custom_avatar($avatar, $mixed, $size, $default, $alt = '')
+function wsl_user_custom_avatar($avatar, $mixed, $size, $default, $alt)
 {
 	//Check if we are in a comment
 	if( get_option ( 'wsl_settings_users_avatars' ) )
@@ -16,18 +30,18 @@ function wsl_user_custom_avatar($avatar, $mixed, $size, $default, $alt = '')
 		//Chosen user
 		$user_id = null;
 
-		//Check if we are in a comment
-		if (is_object ($comment) AND property_exists ($comment, 'user_id') AND !empty ($comment->user_id))
-		{
-			$user_id = $comment->user_id;
-		}
 		//Check if we have an user identifier
-		elseif (is_numeric ($mixed))
+		if (is_numeric ($mixed))
 		{
 			if ($mixed > 0)
 			{
 				$user_id = $mixed;
 			}
+		}
+		//Check if we are in a comment
+		elseif (is_object ($comment) AND property_exists ($comment, 'user_id') AND !empty ($comment->user_id))
+		{
+			$user_id = $comment->user_id;
 		}
 		//Check if we have an email
 		elseif (is_string ($mixed) && ($user = get_user_by ('email', $mixed)))
@@ -50,7 +64,7 @@ function wsl_user_custom_avatar($avatar, $mixed, $size, $default, $alt = '')
 
 			if ( $user_thumbnail ) 
 			{
-				return '<img alt="" src="' . $user_thumbnail . '" class="avatar avatar-wordpress-social-login avatar-' . $size . ' photo" height="' . $size . '" width="' . $size . '" />'; 
+				return '<img alt="-" src="' . $user_thumbnail . '" class="avatar avatar-wordpress-social-login avatar-' . $size . ' photo" height="' . $size . '" width="' . $size . '" />'; 
 			}
 		}
 	}
@@ -59,3 +73,5 @@ function wsl_user_custom_avatar($avatar, $mixed, $size, $default, $alt = '')
 }
 
 add_filter( 'get_avatar', 'wsl_user_custom_avatar', 10, 5 );
+
+// --------------------------------------------------------------------
