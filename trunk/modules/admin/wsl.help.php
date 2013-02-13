@@ -16,28 +16,9 @@
 	
 	<h3>Support</h3>
 	<p>
-		To get help and support, here is where you can reach me:
-	</p>
-	
-	<ul style="margin-left:40px;">
-		<li><b>Wordpress support forum</b>: <a href="http://wordpress.org/support/plugin/wordpress-social-login" target="_blank">http://wordpress.org/support/plugin/wordpress-social-login</a></li> 
-		<li><b>Email</b>: <a href="mailto:hybridauth@gmail.com">hybridauth@gmail.com</a></li> 
-	</ul>
+		To get help and support refer to <a href="http://hybridauth.sourceforge.net/wsl/support.html" target="_blank">http://hybridauth.sourceforge.net/wsl/support.html</a>.
+	</p> 
 
-<pre class="wslpre" style="margin-left:20px;">
-Please note: 
-
-Include your <a class="button-primary" href='<?php echo WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL ?>/services/siteinfo.php' target='_blank'>website information</a> when posting support requests.
-
-If I did not answer your question or I took too long to, then its either :
-   * I'm too busy or hibernating irl,
-   * It has been asked before on the wordpress support forum, 
-   * I didn't understand it, 
-   * also, be friendly, questions and requests containing hi, hello and thanks can make
-     a diffrence :P 
-</pre>   
-	
-	<br />
 	<hr />
 	
 	<h3>Credits</h3>

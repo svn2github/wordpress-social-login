@@ -1,6 +1,10 @@
 <?php
 function wsl_render_login_form()
 {
+	if ( is_user_logged_in() && ! is_admin() ){
+		return;
+	}
+
 	// Bouncer :: Allow authentication 
 	if( get_option( 'wsl_settings_bouncer_authentication_enabled' ) == 2 ){
 		return;
