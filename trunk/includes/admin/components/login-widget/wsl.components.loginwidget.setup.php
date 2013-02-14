@@ -116,18 +116,21 @@ function wsl_component_loginwidget_setup()
 				<textarea style="width:100%;height:120px;margin-top:6px;" name="wsl_settings_authentication_widget_css"><?php echo get_option( 'wsl_settings_authentication_widget_css' );  ?></textarea>
 				<br />
 				<p><?php _wsl_e("The basic widget markup is the following", 'wordpress-social-login') ?>:</p>
-	<pre style="background-color: #eaffdc;border:1px solid #60cf4e; border-radius: 3px;padding: 10px;margin-top:5px;margin-bottom:0px;">
-	&lt;span id=&quot;<code>wp-social-login-connect-with</code>&quot;&gt;{connect_with_caption}&lt;/span&gt;
-	&lt;div id=&quot;<code>wp-social-login-connect-options</code>&quot;&gt;
-	&lt;a class=&quot;<code>wsl_connect_with_provider</code>&quot;&gt;
-		&lt;img src=&quot;{provider_icon_facebook}&quot; /&gt;
-	&lt;/a&gt;
-	&lt;a class=&quot;<code>wsl_connect_with_provider</code>&quot;&gt;
-		&lt;img src=&quot;{provider_icon_google}&quot; /&gt;
-	&lt;/a&gt; 
-	etc.
-	&lt;/div&gt;
-	</pre>
+<pre style="background-color: #eaffdc;border:1px solid #60cf4e; border-radius: 3px;padding: 10px;margin-top:5px;margin-bottom:0px;">
+&lt;span id=&quot;<code>wp-social-login-connect-with</code>&quot;&gt;{connect_with_caption}&lt;/span&gt;
+
+&lt;div id=&quot;<code>wp-social-login-connect-options</code>&quot;&gt;
+    &lt;a class=&quot;<code>wsl_connect_with_provider</code>&quot;&gt;
+        &lt;img src=&quot;{provider_icon_facebook}&quot; /&gt;
+    &lt;/a&gt;
+
+    &lt;a class=&quot;<code>wsl_connect_with_provider</code>&quot;&gt;
+        &lt;img src=&quot;{provider_icon_google}&quot; /&gt;
+    &lt;/a&gt;
+
+    etc.
+&lt;/div&gt;
+</pre>
 				</td>
 			  </tr> 
 			</table>
