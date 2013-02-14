@@ -68,8 +68,7 @@ function wsl_admin_welcome_panel()
 				<ul style="margin-left:25px;">
 					<li><?php _e('In a similar way to WordPress plugins, WSL uses <a href="options-general.php?page=wordpress-social-login&wslp=components">Components</a>', 'wordpress-social-login') ?>,</li>  
 					<li><?php _e('<b>Email Validation</b> is replaced with <b>Profile Completion</b>', 'wordpress-social-login') ?>,</li>
-					<li><?php _e('<b>User Moderation</b> made compatible with <a href="http://wordpress.org/extend/plugins/theme-my-login/" target="_blank">Theme My Login</a> plugin', 'wordpress-social-login') ?>,</li> 
-					<li><?php _e('WSL is now made extensible, so make sure to check out the <a href="http://hybridauth.sourceforge.net/wsl/developer.html" target="_blank">Developer API</a>', 'wordpress-social-login') ?>,</li>
+					<li><?php _e('<b>User Moderation</b> made compatible with <a href="http://wordpress.org/extend/plugins/theme-my-login/" target="_blank">Theme My Login</a> plugin', 'wordpress-social-login') ?>,</li>
 					<li><?php _e('A number of enhancements and new options now available', 'wordpress-social-login') ?>.</li>
 				</ul>
 			</td>
