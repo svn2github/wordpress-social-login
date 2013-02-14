@@ -168,9 +168,7 @@ require_once( dirname (__FILE__) . '/includes/widgets/wsl.notices.php'          
 
 # WSL Admin UIs
 if( is_admin() ){
-	require_once( dirname (__FILE__) . '/includes/admin/wsl.admin.ui.php'            ); // The 10 LOC in charge of displaying WSL Admin GUInterfaces
-	require_once( dirname (__FILE__) . '/includes/widgets/wsl.admin.localize.php'    ); // Users invitational to help us localize WordPress Social Login
-	require_once( dirname (__FILE__) . '/includes/widgets/wsl.admin.welcome.php'     ); // WSL welcome panel
+	require_once( dirname (__FILE__) . '/includes/admin/wsl.admin.ui.php'            ); // The LOC in charge of displaying WSL Admin GUInterfaces 
 }
 
 // --------------------------------------------------------------------
