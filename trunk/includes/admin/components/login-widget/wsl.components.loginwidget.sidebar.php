@@ -51,6 +51,10 @@ function wsl_component_loginwidget_sidebar()
 						</p>
 
 						<p style="margin:10px;"> 
+							<?php _wsl_e('<b>[wordpress_social_login]</b> shortcode can be used in combination with <a href="http://wordpress.org/extend/plugins/html-javascript-adder/" target="_blank">HTML Javascript Adder</a> plugin to be add WSL Widget to your website sidebar', 'wordpress-social-login') ?>.
+						</p>
+
+						<p style="margin:10px;"> 
 							<?php _wsl_e('Also, if you are a developer or designer then you can customize it to your heart\'s content. For more inofmation refer to <b><a href="http://hybridauth.sourceforge.net/wsl/customize.html" target="_blank">User Guide</a></b>', 'wordpress-social-login') ?>.
 						</p>
 
