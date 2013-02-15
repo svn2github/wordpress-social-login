@@ -41,11 +41,11 @@ function wsl_component_networks_basicinsights()
 						<table width="90%"> 
 							<tr>
 								<td width="60%"><?php _wsl_e("WP users", 'wordpress-social-login') ?></td><td><?php echo $total_users; ?></td>
-							<tr>
 							</tr>
+							<tr>
 								<td><?php _wsl_e("WSL users", 'wordpress-social-login') ?></td><td><?php echo $total_users_wsl; ?></td>
-							<tr>
 							</tr>
+							<tr>
 								<td><?php _wsl_e("Conversions", 'wordpress-social-login') ?></td><td style="border-top:1px solid #ccc">+<b><?php echo number_format($users_conversion, 2, '.', ''); ?></b> %</td>
 							</tr>
 						</table>
@@ -73,7 +73,7 @@ function wsl_component_networks_basicinsights()
 								<?php
 								}
 							?> 
-							</tr>
+							<tr>
 								<td align="right">&nbsp;</td><td style="border-top:1px solid #ccc"><b><?php echo $total_users_wsl; ?></b> <?php _wsl_e("WSL users", 'wordpress-social-login') ?></td>
 							</tr>
 						</table> 
@@ -110,6 +110,7 @@ function wsl_component_networks_basicinsights()
 							<?php
 								$t_ages = 0;
 								$n_ages = 0;
+
 								foreach( $rs as $item ){
 									if( ! $item->meta_value ){
 										$item->meta_value = "Unknown";
@@ -129,11 +130,12 @@ function wsl_component_networks_basicinsights()
 									</tr>
 								<?php
 								}
+
 								if( $n_ages ) $a_ages = $t_ages/$n_ages;
 							?>
 						</td>
 						</tr>
-						</tr>
+						<tr>
 							<td align="right">&nbsp;</td><td style="border-top:1px solid #ccc"><b><?php echo number_format($a_ages, 1, '.', ''); ?></b> <?php _wsl_e("yrs in average", 'wordpress-social-login') ?></td>
 						</tr>
 						</table>

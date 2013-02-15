@@ -7,6 +7,15 @@
 */
 
 /**
+* Check and upgrade compatibilities from old WSL versions
+*/
+
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+// --------------------------------------------------------------------
+
+/**
 * Check and upgrade compatibilities from old WSL versions 
 *
 * Here we attempt to:
@@ -16,12 +25,6 @@
 * Side note: the things here are not optimal and the list is kind of long. If you have any 
 * better idea on how to tackle this issue, please don't hesitate to share it!
 */
-
-// Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
-
-// --------------------------------------------------------------------
-
 function wsl_check_compatibilities()
 {
 	# widget settings / customize
@@ -123,11 +126,11 @@ function wsl_check_compatibilities()
 
 	if( ! get_option( 'wsl_settings_bouncer_new_users_moderation_level' ) ){ 
 		update_option( 'wsl_settings_bouncer_new_users_moderation_level', 1 );
-	} 
+	}
 
 	if( ! get_option( 'wsl_settings_bouncer_new_users_membership_default_role' ) ){ 
 		update_option( 'wsl_settings_bouncer_new_users_membership_default_role', "default" );
-	} 
+	}
 
 	if( ! get_option( 'wsl_settings_bouncer_new_users_restrict_domain_enabled' ) ){ 
 		update_option( 'wsl_settings_bouncer_new_users_restrict_domain_enabled', 2 );

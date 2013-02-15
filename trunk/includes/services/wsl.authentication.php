@@ -464,7 +464,7 @@ function wsl_process_login_reauth()
 		$user_login = $user_data->user_login; 
 		$user_email = $hybridauth_user_profile->email; 
 	}
-	
+
 	// otherwise, create new user and associate provider identity
 	else{ 
 		list(

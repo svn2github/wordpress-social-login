@@ -82,61 +82,7 @@ function wsl_component_bouncer_setup()
 						<option <?php if( get_option( 'wsl_settings_bouncer_profile_completion_change_username' ) == 2 ) echo "selected"; ?> value="2"><?php _wsl_e("No", 'wordpress-social-login') ?></option> 
 					</select>
 				</td>
-			  </tr> 
-			  <tr>
-				<td width="200" align="right"><strong><?php _wsl_e("Notice text", 'wordpress-social-login') ?> :</strong></td>
-				<td> 
-					<input type="text" class="inputgnrc"  style="width:100%;" value="<?php echo get_option( 'wsl_settings_bouncer_profile_completion_text_notice' ); ?>" name="wsl_settings_bouncer_profile_completion_text_notice" >  
-				</td>
-			  </tr>  
-			  <tr>
-				<td width="200" align="right"><strong><?php _wsl_e("Submit button text", 'wordpress-social-login') ?> :</strong></td>
-				<td> 
-					<input type="text" class="inputgnrc"  style="width:100%;" value="<?php echo get_option( 'wsl_settings_bouncer_profile_completion_text_submit_button' ); ?>" name="wsl_settings_bouncer_profile_completion_text_submit_button" >  
-				</td>
-			  </tr>  
-			  <tr>
-				<td width="200" align="right"><strong><?php _wsl_e("Connected with text", 'wordpress-social-login') ?> :</strong></td>
-				<td> 
-					<input type="text" class="inputgnrc"  style="width:100%;" value="<?php echo get_option( 'wsl_settings_bouncer_profile_completion_text_connected_with' ); ?>" name="wsl_settings_bouncer_profile_completion_text_connected_with" >  
-				</td>
-			  </tr>   
-			  <tr>
-				<td width="200" align="right"><strong><?php _wsl_e("E-mail text", 'wordpress-social-login') ?> :</strong></td>
-				<td> 
-					<input type="text" class="inputgnrc"  style="width:100%;" value="<?php echo get_option( 'wsl_settings_bouncer_profile_completion_text_email' ); ?>" name="wsl_settings_bouncer_profile_completion_text_email" >  
-				</td>
-			  </tr>  
-			  <tr>
-				<td width="200" align="right"><strong><?php _wsl_e("Username text", 'wordpress-social-login') ?> :</strong></td>
-				<td> 
-					<input type="text" class="inputgnrc"  style="width:100%;" value="<?php echo get_option( 'wsl_settings_bouncer_profile_completion_text_username' ); ?>" name="wsl_settings_bouncer_profile_completion_text_username" >  
-				</td>
-			  </tr>  
-			  <tr>
-				<td width="200" align="right"><strong><?php _wsl_e("Invalid E-mail error text", 'wordpress-social-login') ?> :</strong></td>
-				<td> 
-					<input type="text" class="inputgnrc"  style="width:100%;" value="<?php echo get_option( 'wsl_settings_bouncer_profile_completion_text_email_invalid' ); ?>" name="wsl_settings_bouncer_profile_completion_text_email_invalid" >  
-				</td>
-			  </tr>  
-			  <tr>
-				<td width="200" align="right"><strong><?php _wsl_e("Invalid Username error text", 'wordpress-social-login') ?> :</strong></td>
-				<td> 
-					<input type="text" class="inputgnrc"  style="width:100%;" value="<?php echo get_option( 'wsl_settings_bouncer_profile_completion_text_username_invalid' ); ?>" name="wsl_settings_bouncer_profile_completion_text_username_invalid" >  
-				</td>
-			  </tr>  
-			  <tr>
-				<td width="200" align="right"><strong><?php _wsl_e("Registered E-mail error text", 'wordpress-social-login') ?> :</strong></td>
-				<td> 
-					<input type="text" class="inputgnrc"  style="width:100%;" value="<?php echo get_option( 'wsl_settings_bouncer_profile_completion_text_email_exists' ); ?>" name="wsl_settings_bouncer_profile_completion_text_email_exists" >  
-				</td>
-			  </tr>  
-			  <tr>
-				<td width="200" align="right"><strong><?php _wsl_e("Registered Username error text", 'wordpress-social-login') ?> :</strong></td>
-				<td> 
-					<input type="text" class="inputgnrc"  style="width:100%;" value="<?php echo get_option( 'wsl_settings_bouncer_profile_completion_text_username_exists' ); ?>" name="wsl_settings_bouncer_profile_completion_text_username_exists" >  
-				</td>
-			  </tr>  
+			  </tr>
 			</table>  
 		</div>
 	</div>
@@ -170,8 +116,8 @@ function wsl_component_bouncer_setup()
 						<option <?php if( get_option( 'wsl_settings_bouncer_new_users_moderation_level' ) == 102 ) echo "selected"; ?> value="102"><?php _wsl_e("Admin Approval &mdash; Yield to Theme My Login plugin", 'wordpress-social-login') ?></option> 
 					</select>
 				</td>
-			  </tr>  
-			</table>  
+			  </tr>
+			</table>
 		</div>
 	</div>
 
@@ -215,7 +161,7 @@ function wsl_component_bouncer_setup()
 		<h3>
 			<label for="name"><?php _wsl_e("Filters by emails domains name", 'wordpress-social-login') ?></label>
 		</h3>
-		<div class="inside hideinside"> 
+		<div class="inside hideinside">
 			<p>
 				<?php _wsl_e("Restrict registration to a limited number of domains name.", 'wordpress-social-login') ?>
 				<?php _wsl_e("Insert one email address per line and try to keep this list short. On <code>Bounce text</code> insert the text you want to display for rejected users. ex: <code>gmail.com</code>, without '@'.", 'wordpress-social-login') ?>
@@ -231,19 +177,19 @@ function wsl_component_bouncer_setup()
 				</td>
 			  </tr>   
 			  <tr>
-				<td width="200" align="right" valign="top"><strong><?php _wsl_e("Emails list", 'wordpress-social-login') ?> :</strong></td>
+				<td width="200" align="right" valign="top"><p><strong><?php _wsl_e("Domains list", 'wordpress-social-login') ?> :</strong></p></td>
 				<td>
 					<textarea style="width:100%;height:60px;margin-top:6px;" name="wsl_settings_bouncer_new_users_restrict_domain_list"><?php echo get_option( 'wsl_settings_bouncer_new_users_restrict_domain_list' ); ?></textarea> 
 				</td>
 			  </tr>  
 			  <tr>
-				<td width="200" align="right" valign="top"><strong><?php _wsl_e("Bounce text", 'wordpress-social-login') ?> :</strong></td>
+				<td width="200" align="right" valign="top"><p><strong><?php _wsl_e("Bounce text", 'wordpress-social-login') ?> :</strong></p></td>
 				<td> 
 					<?php 
 						wsl_render_wp_editor( "wsl_settings_bouncer_new_users_restrict_domain_text_bounce", get_option( 'wsl_settings_bouncer_new_users_restrict_domain_text_bounce' ) ); 
 					?>
 				</td>
-			  </tr>  
+			  </tr>
 			</table>  
 		</div>
 	</div>
@@ -268,13 +214,13 @@ function wsl_component_bouncer_setup()
 				</td>
 			  </tr>   
 			  <tr>
-				<td width="200" align="right" valign="top"><strong><?php _wsl_e("E-mails list", 'wordpress-social-login') ?> :</strong></td>
+				<td width="200" align="right" valign="top"><p><strong><?php _wsl_e("E-mails list", 'wordpress-social-login') ?> :</strong></p></td>
 				<td> 
 					<textarea style="width:100%;height:60px;margin-top:6px;" name="wsl_settings_bouncer_new_users_restrict_email_list"><?php echo get_option( 'wsl_settings_bouncer_new_users_restrict_email_list' ); ?></textarea>  
 				</td>
 			  </tr>  
 			  <tr>
-				<td width="200" align="right" valign="top"><strong><?php _wsl_e("Bounce text", 'wordpress-social-login') ?> :</strong></td>
+				<td width="200" align="right" valign="top"><p><strong><?php _wsl_e("Bounce text", 'wordpress-social-login') ?> :</strong></p></td>
 				<td> 
 					<?php 
 						wsl_render_wp_editor( "wsl_settings_bouncer_new_users_restrict_email_text_bounce", get_option( 'wsl_settings_bouncer_new_users_restrict_email_text_bounce' ) ); 
@@ -306,13 +252,13 @@ function wsl_component_bouncer_setup()
 				</td>
 			  </tr>   
 			  <tr>
-				<td width="200" align="right" valign="top"><strong><?php _wsl_e("Profile urls", 'wordpress-social-login') ?> :</strong></td>
+				<td width="200" align="right" valign="top"><p><strong><?php _wsl_e("Profile urls", 'wordpress-social-login') ?> :</strong></p></td>
 				<td>
 					<textarea style="width:100%;height:60px;margin-top:6px;" name="wsl_settings_bouncer_new_users_restrict_profile_list"><?php echo get_option( 'wsl_settings_bouncer_new_users_restrict_profile_list' ); ?></textarea>  
 				</td>
 			  </tr>  
 			  <tr>
-				<td width="200" align="right" valign="top"><strong><?php _wsl_e("Bounce text", 'wordpress-social-login') ?> :</strong></td>
+				<td width="200" align="right" valign="top"><p><strong><?php _wsl_e("Bounce text", 'wordpress-social-login') ?> :</strong></p></td>
 				<td> 
 					<?php 
 						wsl_render_wp_editor( "wsl_settings_bouncer_new_users_restrict_profile_text_bounce", get_option( 'wsl_settings_bouncer_new_users_restrict_profile_text_bounce' ) ); 

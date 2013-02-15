@@ -49,10 +49,10 @@ $_SESSION["wsl::plugin"] = "WordPress Social Login " . $WORDPRESS_SOCIAL_LOGIN_V
 
 /* Constants */ 
 
-define( 'WORDPRESS_SOCIAL_LOGIN_ABS_PATH'				, WP_PLUGIN_DIR . '/wordpress-social-login'             );
-define( 'WORDPRESS_SOCIAL_LOGIN_REL_PATH'				, dirname( plugin_basename( __FILE__ ) ) 				);
-define( 'WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL'				, WP_PLUGIN_URL . '/wordpress-social-login'             );
-define( 'WORDPRESS_SOCIAL_LOGIN_HYBRIDAUTH_ENDPOINT_URL', WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL . '/hybridauth/' 	);
+define( 'WORDPRESS_SOCIAL_LOGIN_ABS_PATH'				, WP_PLUGIN_DIR . '/wordpress-social-login'          );
+define( 'WORDPRESS_SOCIAL_LOGIN_REL_PATH'				, dirname( plugin_basename( __FILE__ ) )             );
+define( 'WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL'				, WP_PLUGIN_URL . '/wordpress-social-login'          );
+define( 'WORDPRESS_SOCIAL_LOGIN_HYBRIDAUTH_ENDPOINT_URL', WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL . '/hybridauth/' );
 
 // --------------------------------------------------------------------
 
@@ -62,10 +62,9 @@ define( 'WORDPRESS_SOCIAL_LOGIN_HYBRIDAUTH_ENDPOINT_URL', WORDPRESS_SOCIAL_LOGIN
 */
 function wsl_activate()
 {
-	if ( ! function_exists ('register_post_status') )
-	{
+	if ( ! function_exists ('register_post_status') ){
 		deactivate_plugins (basename (dirname (__FILE__)) . '/' . basename (__FILE__));
-		wp_die( __( "This plugin requires WordPress 3.0 or newer. Please update your WordPress installation to activate this plugin.", 'wordpress-social-login') );
+		wp_die( __( "This plugin requires WordPress 3.0 or newer. Please update your WordPress installation to activate this plugin.", 'wordpress-social-login' ) );
 	}
 
 	do_action( 'wsl_activate' );
@@ -87,7 +86,7 @@ function wsl_add_settings_link( $links, $file )
 	if ( ! $this_plugin ) $this_plugin = plugin_basename(__FILE__);
 
 	if ( $file == $this_plugin ){
-		$settings_link = '<a href="options-general.php?page=wordpress-social-login">' . __("Settings") . '</a>';
+		$settings_link = '<a href="options-general.php?page=wordpress-social-login">' . __( "Settings" ) . '</a>';
 
 		array_unshift( $links, $settings_link );
 	}

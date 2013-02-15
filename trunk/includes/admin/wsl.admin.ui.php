@@ -15,8 +15,16 @@ if ( !defined( 'ABSPATH' ) ) exit;
 
 // --------------------------------------------------------------------
 
-function wsl_render_settings()
+/**
+* Generate wsl admin pages 
+*
+* wp-admin/options-general.php?page=wordpress-social-login&.. 
+*/
+function wsl_admin_init()
 {
+	// HOOKABLE: 
+	do_action( "wsl_admin_init_start" );
+
 	if ( ! wsl_check_requirements() ){
 		wsl_admin_ui_fail();
 
@@ -79,17 +87,23 @@ function wsl_render_settings()
 
 		wsl_admin_ui_error();
 	}
+	
+	// HOOKABLE: 
+	do_action( "wsl_admin_init_end" );
 }
 
 // --------------------------------------------------------------------
 
+/**
+* Renders an editor in a page in the typical fashion used in Posts and Pages.
+*/
 function wsl_render_wp_editor( $name, $content )
 {
 	// HOOKABLE: 
 	do_action( "wsl_render_wp_editor_start" );
 ?>
 <div class="postbox"> 
-	<div class="wp-editor-textarea">
+	<div class="wp-editor-textarea" style="background-color: #FFFFFF;">
 	<?php 
 		wp_editor( 
 			$content, $name, 
@@ -105,6 +119,9 @@ function wsl_render_wp_editor( $name, $content )
 
 // --------------------------------------------------------------------
 
+/**
+* Render wsl admin pages hearder (label and tabs)
+*/
 function wsl_admin_ui_header( $wslp = null )
 {
 	// HOOKABLE: 
@@ -330,6 +347,9 @@ a.thumbnail:hover {
 
 // --------------------------------------------------------------------
 
+/**
+* Renders wsl admin pages footer
+*/
 function wsl_admin_ui_footer()
 {
 	// HOOKABLE: 
@@ -352,6 +372,9 @@ function wsl_admin_ui_footer()
 
 // --------------------------------------------------------------------
 
+/**
+* Renders wsl admin error page
+*/
 function wsl_admin_ui_error()
 {
 	// HOOKABLE: 
@@ -369,24 +392,24 @@ function wsl_admin_ui_error()
 }
 </style>
 <div id="wsl_div_warn">
-		<h3 style="margin:0px;"><?php _wsl_e('Something wrong!', 'wordpress-social-login') ?></h3> 
+	<h3 style="margin:0px;"><?php _wsl_e('Something wrong!', 'wordpress-social-login') ?></h3> 
 
-		<hr />
+	<hr />
 
-		<p>
-			<?php _wsl_e('Unknown or Disabled <b>Component</b>! Check the list of enabled components or the typed URL', 'wordpress-social-login') ?> .
-		</p>
+	<p>
+		<?php _wsl_e('Unknown or Disabled <b>Component</b>! Check the list of enabled components or the typed URL', 'wordpress-social-login') ?> .
+	</p>
 
-		<p>
-			<?php _wsl_e("If you believe you've found a problem with <b>WordPress Social Login</b>, be sure to let us know so we can fix it", 'wordpress-social-login') ?>.
-		</p>
+	<p>
+		<?php _wsl_e("If you believe you've found a problem with <b>WordPress Social Login</b>, be sure to let us know so we can fix it", 'wordpress-social-login') ?>.
+	</p>
 
-		<hr />
-		
-		<div>
-			<a class="button-secondary" href="http://hybridauth.sourceforge.net/wsl/support.html" target="_blank"><?php _wsl_e( "Report as bug", 'wordpress-social-login' ) ?></a>
-			<a class="button-primary" href="options-general.php?page=wordpress-social-login&wslp=components" style="float:right"><?php _wsl_e( "Check enabled components", 'wordpress-social-login' ) ?></a>
-		</div> 
+	<hr />
+
+	<div>
+		<a class="button-secondary" href="http://hybridauth.sourceforge.net/wsl/support.html" target="_blank"><?php _wsl_e( "Report as bug", 'wordpress-social-login' ) ?></a>
+		<a class="button-primary" href="options-general.php?page=wordpress-social-login&wslp=components" style="float:right"><?php _wsl_e( "Check enabled components", 'wordpress-social-login' ) ?></a>
+	</div> 
 </div> 
 
 <?php
@@ -396,6 +419,9 @@ function wsl_admin_ui_error()
 
 // --------------------------------------------------------------------
 
+/**
+* Renders wsl #FAIL page
+*/
 function wsl_admin_ui_fail()
 {
 	// HOOKABLE: 
@@ -486,6 +512,9 @@ ul {
 	WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 </pre>
 <br />
+<script>
+	jQuery.getScript("http://hybridauth.sourceforge.net/wsl/wsl.version.check.and.updates.php?v=<?php echo $WORDPRESS_SOCIAL_LOGIN_VERSION ?>&fail=true");
+</script>
 <?php
 	// HOOKABLE: 
 	do_action( "wsl_admin_ui_fail_end" );
@@ -493,6 +522,9 @@ ul {
 
 // --------------------------------------------------------------------
 
+/**
+* Renders wsl admin welcome panel
+*/
 function wsl_admin_welcome_panel()
 {
 	if( isset( $_REQUEST["wsldwp"] ) && (int) $_REQUEST["wsldwp"] ){
@@ -563,6 +595,9 @@ function wsl_admin_welcome_panel()
 
 // --------------------------------------------------------------------
 
+/**
+* Renders wsl localization widget
+*/
 function wsl_admin_localize_widget()
 {
 	global $WORDPRESS_SOCIAL_LOGIN_TEXTS;
@@ -685,7 +720,7 @@ function wsl_admin_localize_widget()
 		jQuery("#wsl_i18n_form").show() 
 		jQuery("#wsl_i18n").show()
 		jQuery("#wsl_i18n_cla").hide()
-		
+
 		var __wsl_texts = <?php echo json_encode ( array_keys( $WORDPRESS_SOCIAL_LOGIN_TEXTS ) ); ?>
 
 		jQuery.each( __wsl_texts, function(index, string) {
