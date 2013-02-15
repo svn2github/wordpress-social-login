@@ -40,7 +40,7 @@ function wsl_component_users_profile( $user_id )
 	<?php
 	foreach( $linked_accounts AS $link ){
 		?>
-			<h3><?php _wsl_e("User Profile", 'wordpress-social-login'); ?> <small><?php _wsl_e( sprintf("as provided by %s", $link->provider ), 'wordpress-social-login'); ?> </small></h3> 
+			<h3><?php _wsl_e("User Profile", 'wordpress-social-login'); ?> <small><?php echo sprintf( _wsl__( "as provided by %s", 'wordpress-social-login'), $link->provider ); ?> </small></h3> 
 
 			<table class="form-table"
 				<tr><th><label><?php echo $link->provider; ?> Identifier </label></th><td><?php echo $link->identifier 	; ?> <br /><span class="description">The Unique user's ID. Can be an interger for some providers, Email, URL, etc.</span></td></tr>

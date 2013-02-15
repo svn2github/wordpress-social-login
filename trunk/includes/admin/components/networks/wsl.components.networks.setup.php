@@ -148,7 +148,7 @@ function wsl_component_networks_setup()
 				<p style="margin-left:12px;margin-bottom:0px;"> 
 					<b  style="color:#CB4B16;"><?php _wsl_e("Note", 'wordpress-social-login') ?>:</b> 
 					
-					<?php _wsl_e(sprintf( "<b>%s</b> do not provide their user's email address and by default a random email will then be generated for them instead", $provider_name ), 'wordpress-social-login') ?>. 
+					<?php echo sprintf( _wsl__("<b>%s</b> do not provide their user's email address and by default a random email will then be generated for them instead", 'wordpress-social-login'), $provider_name ) ?>. 
 					
 					<?php _wsl_e('To change this behaviour and to force new registered users to provide their emails before they get in, goto <b><a href="options-general.php?page=wordpress-social-login&wslp=bouncer">Bouncer</a></b> and enable <b>Profile Completion</b>', 'wordpress-social-login') ?>.
 				</p>
@@ -162,17 +162,17 @@ function wsl_component_networks_setup()
 					<?php if ( $provider_new_app_link  ) : ?> 
 						<?php _wsl_e('<span style="color:#CB4B16;">Application</span> id and secret (also sometimes referred as <span style="color:#CB4B16;">Customer</span> key and secret or <span style="color:#CB4B16;">Client</span> id and secret) are what we call an application credentials', 'wordpress-social-login') ?>. 
 						
-						<?php _wsl_e( sprintf( 'This application will link your website <code>%s</code> to <code>%s API</code> and these credentials are needed in order for <b>%s</b> users to access your website', $_SERVER["SERVER_NAME"], $provider_name, $provider_name ), 'wordpress-social-login') ?>. 
+						<?php echo sprintf( _wsl__( 'This application will link your website <code>%s</code> to <code>%s API</code> and these credentials are needed in order for <b>%s</b> users to access your website', 'wordpress-social-login'), $_SERVER["SERVER_NAME"], $provider_name, $provider_name ) ?>. 
 						<br />
 						
 						<?php _wsl_e("These credentials may also differ in format, name and content depending on the social network.", 'wordpress-social-login') ?> 
 						<br />
 						<br />
 						
-						<?php _wsl_e(sprintf( 'To enable authentication with this provider and to register a new <b>%s API Application</b>, carefully follow the steps', $provider_name ), 'wordpress-social-login') ?>
+						<?php echo sprintf( _wsl__('To enable authentication with this provider and to register a new <b>%s API Application</b>, carefully follow the steps', 'wordpress-social-login'), $provider_name ) ?>
 						:<br />
 					<?php else: ?>  
-							<p><?php _wsl_e(sprintf('<b>Done.</b> Nothing more required for <b>%s</b>', $provider_name), 'wordpress-social-login') ?>.</p> 
+							<p><?php echo sprintf( _wsl__('<b>Done.</b> Nothing more required for <b>%s</b>', 'wordpress-social-login'), $provider_name) ?>.</p> 
 					<?php endif; ?>  
 					<div class="wsl_div_settings_help_<?php echo $provider_id; ?>" style="margin-left:40px;">
 						<?php if ( $provider_new_app_link  ) : ?> 
@@ -258,7 +258,7 @@ function wsl_component_networks_setup()
 							<p>
 								<b><?php _wsl_e("And that's it!", 'wordpress-social-login') ?></b> 
 								<br />
-								<?php _wsl_e( sprintf( 'If for some reason you still can\'t figure it out, first try to a) <a class="button-primary" href="https://www.google.com/search?q=%s API create application" target="_blank">Google it</a>, then check it on b) <a class="button-primary" href="http://www.youtube.com/results?search_query=%s API create application " target="_blank">Youtube</a> and if nothing works c) <a class="button-primary" href="options-general.php?page=wordpress-social-login&wslp=help">ask for support</a>', $provider_name, $provider_name ), 'wordpress-social-login') ?>.
+								<?php echo sprintf( _wsl__( 'If for some reason you still can\'t figure it out, first try to a) <a class="button-primary" href="https://www.google.com/search?q=%s API create application" target="_blank">Google it</a>, then check it on b) <a class="button-primary" href="http://www.youtube.com/results?search_query=%s API create application " target="_blank">Youtube</a> and if nothing works c) <a class="button-primary" href="options-general.php?page=wordpress-social-login&wslp=help">ask for support</a>', 'wordpress-social-login'), $provider_name, $provider_name ) ?>.
 							</p> 
 						<?php endif; ?> 
 					</div>

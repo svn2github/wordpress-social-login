@@ -37,7 +37,7 @@ function wsl_component_networks_whyhello()
 
 			<div id="major-publishing-actions"> 
 				<div id="publishing-action">
-					<input type="submit" value="Save Settings" accesskey="p" id="publish" class="button-large button-primary" name="save">
+					<input type="submit" value="<?php _wsl_e('Save Settings', 'wordpress-social-login') ?>" class="button-large button-primary" name="save" >
 				</div>
 				<div class="clear"></div>
 			</div> 

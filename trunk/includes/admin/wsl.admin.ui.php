@@ -300,7 +300,7 @@ a.thumbnail:hover {
 	<?php
 		if( get_option( 'wsl_settings_development_mode_enabled' ) ){
 			?>
-				<span style="color:red;-font-size: 14px;">(<?php _e("Development mode is enabled!", 'wordpress-social-login') ?>)</span>
+				<span style="color:red;-font-size: 14px;">(<?php _wsl_e("Development mode is enabled!", 'wordpress-social-login') ?>)</span>
 			<?php
 		}
 	?>
@@ -369,16 +369,16 @@ function wsl_admin_ui_error()
 }
 </style>
 <div id="wsl_div_warn">
-		<h3 style="margin:0px;"><?php _e('Something wrong!', 'wordpress-social-login') ?></h3> 
+		<h3 style="margin:0px;"><?php _wsl_e('Something wrong!', 'wordpress-social-login') ?></h3> 
 
 		<hr />
 
 		<p>
-			<?php _e('Unknown or Disabled <b>Component</b>! Check the list of enabled components or the typed URL', 'wordpress-social-login') ?> .
+			<?php _wsl_e('Unknown or Disabled <b>Component</b>! Check the list of enabled components or the typed URL', 'wordpress-social-login') ?> .
 		</p>
 
 		<p>
-			<?php _e("If you believe you've found a problem with <b>WordPress Social Login</b>, be sure to let us know so we can fix it", 'wordpress-social-login') ?>.
+			<?php _wsl_e("If you believe you've found a problem with <b>WordPress Social Login</b>, be sure to let us know so we can fix it", 'wordpress-social-login') ?>.
 		</p>
 
 		<hr />
@@ -439,7 +439,7 @@ ul {
 	<h1><?php _e("WordPress Social Login - FAIL!", 'wordpress-social-login') ?></h1>
 
 	<hr />
-	
+
 	<p> 
 		<?php _e('Despite the efforts, the plugin <a href="http://profiles.wordpress.org/miled/" target="_blank">author</a> and other <a href="https://github.com/hybridauth/WordPress-Social-Login/graphs/contributors" target="_blank">contributors</a>, put into <b>WordPress Social Login</b> in terms of reliability, portability, <br />and maintenance', 'wordpress-social-login') ?>.
 		<b style="color:red;"><?php _e('Your server failed the requirements check for this plugin!', 'wordpress-social-login') ?></b>
@@ -449,12 +449,12 @@ ul {
 	</p> 
 	<p> 
 		<?php _e("To determine what may cause this failure, run the <b>WordPress Social Login Requirements Test</b> by clicking the button bellow", 'wordpress-social-login') ?>:
-		
+
 		<br />
 		<br />
 		<a class="button-primary" href='<?php echo WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL ?>/services/diagnostics.php' target='_blank'><?php _e("Run the plugin requirements test", 'wordpress-social-login') ?></a> 
 		<a class="button-primary" href='<?php echo WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL ?>/services/siteinfo.php' target='_blank'><?php _e("System Information", 'wordpress-social-login') ?></a> 
-	</p> 
+	</p>
  
 	<br /> 
 	<hr />
@@ -520,34 +520,34 @@ function wsl_admin_welcome_panel()
 		<tr>
 			<td width="10" valign="top"></td>
 			<td width="300" valign="top">
-				<b style="font-size: 16px;"><?php _e("Welcome!", 'wordpress-social-login') ?></b>
+				<b style="font-size: 16px;"><?php _wsl_e("Welcome!", 'wordpress-social-login') ?></b>
 				<p>
-					<?php _e("If you are still new to WordPress Social Login, we have provided a few walkthroughs to get you started", 'wordpress-social-login') ?>.
+					<?php _wsl_e("If you are still new to WordPress Social Login, we have provided a few walkthroughs to get you started", 'wordpress-social-login') ?>.
 				</p>
 			</td>
 			<td width="40" valign="top"></td>
 			<td width="260" valign="top">
 				<br />
 				<p>
-					<b><?php _e("Get Started", 'wordpress-social-login') ?></b>
+					<b><?php _wsl_e("Get Started", 'wordpress-social-login') ?></b>
 				</p>
 				<ul style="margin-left:25px;">
-					<li><?php _e('<a href="http://hybridauth.sourceforge.net/wsl/configure.html" target="_blank">Setup and Configuration</a>', 'wordpress-social-login') ?></li>
-					<li><?php _e('<a href="http://hybridauth.sourceforge.net/wsl/customize.html" target="_blank">Customize WSL Widgets</a>', 'wordpress-social-login') ?></li>
-					<li><?php _e('<a href="http://hybridauth.sourceforge.net/wsl/userdata.html" target="_blank">Manage users and contacts</a>', 'wordpress-social-login') ?></li> 
-					<li><?php _e('<a href="http://hybridauth.sourceforge.net/wsl/index.html" target="_blank">WSL User Guide</a> and <a href="http://hybridauth.sourceforge.net/wsl/faq.html" target="_blank">FAQ</a>', 'wordpress-social-login') ?></li>  
+					<li><?php _wsl_e('<a href="http://hybridauth.sourceforge.net/wsl/configure.html" target="_blank">Setup and Configuration</a>', 'wordpress-social-login') ?></li>
+					<li><?php _wsl_e('<a href="http://hybridauth.sourceforge.net/wsl/customize.html" target="_blank">Customize WSL Widgets</a>', 'wordpress-social-login') ?></li>
+					<li><?php _wsl_e('<a href="http://hybridauth.sourceforge.net/wsl/userdata.html" target="_blank">Manage users and contacts</a>', 'wordpress-social-login') ?></li> 
+					<li><?php _wsl_e('<a href="http://hybridauth.sourceforge.net/wsl/index.html" target="_blank">WSL User Guide</a> and <a href="http://hybridauth.sourceforge.net/wsl/faq.html" target="_blank">FAQ</a>', 'wordpress-social-login') ?></li>  
 				</ul>
 			</td>
 			<td width="" valign="top">
 				<br />
 				<p>
-					<b><?php _e( sprintf( "What's New  WSL %s", wsl_version() ), 'wordpress-social-login') ?></b>
+					<b><?php echo sprintf( _wsl__( "What's new on WSL %s", 'wordpress-social-login'), wsl_version() ) ?></b>
 				</p>
 				<ul style="margin-left:25px;">
-					<li><?php _e('In a similar way to WordPress plugins, WSL uses <a href="options-general.php?page=wordpress-social-login&wslp=components">Components</a>', 'wordpress-social-login') ?>,</li>  
-					<li><?php _e('<b>Email Validation</b> is replaced with <b>Profile Completion</b>', 'wordpress-social-login') ?>,</li>
-					<li><?php _e('<b>User Moderation</b> made compatible with <a href="http://wordpress.org/extend/plugins/theme-my-login/" target="_blank">Theme My Login</a> plugin', 'wordpress-social-login') ?>,</li>  
-					<li><?php _e('A number of enhancements and new options now available', 'wordpress-social-login') ?>.</li>
+					<li><?php _wsl_e('In a similar way to WordPress plugins, WSL uses <a href="options-general.php?page=wordpress-social-login&wslp=components">Components</a>', 'wordpress-social-login') ?>,</li>  
+					<li><?php _wsl_e('<b>Email Validation</b> is replaced with <b>Profile Completion</b>', 'wordpress-social-login') ?>,</li>
+					<li><?php _wsl_e('<b>User Moderation</b> made compatible with <a href="http://wordpress.org/extend/plugins/theme-my-login/" target="_blank">Theme My Login</a> plugin', 'wordpress-social-login') ?>,</li>  
+					<li><?php _wsl_e('A number of enhancements and new options now available', 'wordpress-social-login') ?>.</li>
 				</ul>
 			</td>
 		</tr>
@@ -590,7 +590,9 @@ function wsl_admin_localize_widget()
 <input type="hidden" name="wsl_i18n_site_charset" value="<?php bloginfo('charset'); ?>" />
 <input type="hidden" name="wsl_i18n_site_language" value="<?php bloginfo('language'); ?>" />
 <input type="hidden" name="wsl_i18n_current_page" value="<?php echo $wslp ?>" />
+
 <input type="hidden" name="wsl_version" value="<?php echo wsl_version() ?>" />
+
 <div id="wsl_i18n_cla">
 		<h3 style="margin:0px;"><?php _wsl_e( "Contributor License Agreement", 'wordpress-social-login' ) ?></h3> 
 
@@ -654,7 +656,7 @@ function wsl_admin_localize_widget()
 		<a class="button-primary" href="javascript:void(0);" onClick="wsl_i18n_cla()"><?php _wsl_e( "Submit changes", 'wordpress-social-login' ) ?></a>
 	</div>
 </div>
-</form> 
+</form>
 <script>
 	function wsl_i18n_cla(){
 		jQuery("#wsl_i18n_form").hide()
@@ -685,16 +687,30 @@ function wsl_admin_localize_widget()
 		jQuery("#wsl_i18n_cla").hide()
 		
 		var __wsl_texts = <?php echo json_encode ( array_keys( $WORDPRESS_SOCIAL_LOGIN_TEXTS ) ); ?>
-		
-		console.log( __wsl_texts );
-		
+
 		jQuery.each( __wsl_texts, function(index, string) {
 			if( string.length >= 2 ){ 
-				if( string.length >= 100 ) jQuery("#wsl_i18n_pre").append( index + ".\n" + '<textarea style="width:98%;height:60px;" name="wsl_i18n_target_'+ index +'">' + string + '</textarea>' + "\n" )
-				if( string.length <  100 ) jQuery("#wsl_i18n_pre").append( index + ".\n" + '<input class="inputgnrc" type="text" style="width:98%;" name="wsl_i18n_target_'+ index +'" value="' + string + '" >' + "\n" )
+				if( string.length >= 100 ) jQuery("#wsl_i18n_pre").append( index + ".\n" + '<textarea id="wsl_i18n_target_'+ index +'" class="wsl_i18n_input" style="width:98%;height:60px;" name="wsl_i18n_target_'+ index +'">' + string + '</textarea>' + "\n" )
+				if( string.length <  100 ) jQuery("#wsl_i18n_pre").append( index + ".\n" + '<input    id="wsl_i18n_target_'+ index +'" class="wsl_i18n_input inputgnrc" type="text" style="width:98%;" name="wsl_i18n_target_'+ index +'" value="' + string + '" >' + "\n" )
 
-				jQuery("#wsl_i18n_pre").append( '<textarea style="display:none;" name="wsl_i18n_default_'+ index +'">' + string + '</textarea>' + "\n" )
-			} 
+				jQuery("#wsl_i18n_pre").append( '<textarea id="wsl_i18n_default_'+ index +'" style="display:none;" name="wsl_i18n_default_'+ index +'">' + string + '</textarea>' + "\n" ) 
+			}
+
+			jQuery("#wsl_i18n_target_" + index).change(function() {
+				jQuery(this).css( "border-color", "#C09853" )
+
+				if( jQuery(this).val() ){
+					jQuery(this).css( "border-color", "#468847" )
+				}
+
+				if( jQuery(this).val() == jQuery("#wsl_i18n_default_" + index).val() ){
+					jQuery(this).css( "border-color", "#DFDFDF" )
+				}
+
+				if( jQuery(this).val() && jQuery(this).val().length <  2 ){
+					jQuery(this).css( "border-color", "#B94A48" )
+				}
+			})
 		})
 	}
 </script>
@@ -703,7 +719,7 @@ function wsl_admin_localize_widget()
 	<hr />
 	<img src="<?php echo $assets_url ?>flags.png">
 	<a href="#wsltop" onclick="return wsl_i18n();">
-		<?php _wsl_e( "Help us localize this page", 'wordpress-social-login' ) ?>
+		<?php _wsl_e( "Help us translate this page into your language", 'wordpress-social-login' ) ?>
     </a>
 </div>
 	<?php

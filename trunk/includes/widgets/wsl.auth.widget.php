@@ -121,7 +121,7 @@ function wsl_render_login_form()
 	if( $nok ){
 		?>
 		<p style="background-color: #FFFFE0;border:1px solid #E6DB55;padding:5px;">
-			<?php _e( '<strong style="color:red;">WordPress Social Login is not configured yet!</strong><br />Please visit the <strong>Settings\ WP Social Login</strong> administration page to configure this plugin.<br />For more information please refer to the plugin <a href="http://hybridauth.sourceforge.net/userguide/Plugin_WordPress_Social_Login.html">online user guide</a> or contact us at <a href="http://hybridauth.sourceforge.net/">hybridauth.sourceforge.net</a>' , 'wordpress-social-login') ?> 
+			<?php _wsl_e( '<strong style="color:red;">WordPress Social Login is not configured yet!</strong><br />Please visit the <strong>Settings\ WP Social Login</strong> administration page to configure this plugin.<br />For more information please refer to the plugin <a href="http://hybridauth.sourceforge.net/userguide/Plugin_WordPress_Social_Login.html">online user guide</a> or contact us at <a href="http://hybridauth.sourceforge.net/">hybridauth.sourceforge.net</a>' , 'wordpress-social-login') ?> 
 		</p>
 		<style>
 			#wp-social-login-connect-with{display:none;}
@@ -290,14 +290,14 @@ function wsl_render_login_form()
 
 		$assets_base_url  = WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL . '/assets/img/32x32/' . $social_icon_set; 
 	?> 
-	<h3><?php _e("Social networks", 'wordpress-social-login') ?></h3> 
+	<h3><?php _wsl_e("Social networks", 'wordpress-social-login') ?></h3> 
 	<table class="form-table">  
 		<tr>  
 			<td valign="top">
 				<table id="wsl-user-profile-injected-table-b">
 					<tr>
-						<th width="80"><?php _e("Provider", 'wordpress-social-login') ?></th>
-						<th><?php _e("Identity", 'wordpress-social-login') ?></th> 
+						<th width="80"><?php _wsl_e("Provider", 'wordpress-social-login') ?></th>
+						<th><?php _wsl_e("Identity", 'wordpress-social-login') ?></th> 
 					</tr>
 					<?php
 						foreach( $linked_accounts AS $item ){  
@@ -333,7 +333,7 @@ function wsl_render_login_form()
 	?>	
 		<tr>    
 			<td valign="top">
-				<b><?php _e("Add more identities", 'wordpress-social-login') ?></b>
+				<b><?php _wsl_e("Add more identities", 'wordpress-social-login') ?></b>
 				<br />
 				<?php
 					foreach( $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG AS $item ){
@@ -372,7 +372,7 @@ function wsl_render_login_form()
 	?>
 		<tr> 
 			<td>
-				<b><?php _e("Currently connected to:", 'wordpress-social-login') ?></b> 
+				<b><?php _wsl_e("Currently connected to:", 'wordpress-social-login') ?></b> 
 				<?php echo implode( ', ', $list_connected_providers ); ?>
 			</td> 
 		</tr> 
