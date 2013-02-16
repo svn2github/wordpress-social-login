@@ -665,15 +665,11 @@ function wsl_admin_localize_widget()
 
 	<hr />
 
-	<p><?php _wsl_e( "You can <b>translate as much you pleases</b> as much <b>as you want</b>. You don't have to translate everything in this page, but every word counts. Ignore any string you want or aleardy translated. You could also use this tool to fix any typo you may find or to improve the current language expressions", 'wordpress-social-login' ) ?>.</p>
-
-	<p><?php _wsl_e( "Your name allows us to recognize your contributions and bypass manual review, especially when you've been contributing in the past. So do supply some unique string, even if it's not your real name", 'wordpress-social-login' ) ?>.</p>
+	<p><?php _wsl_e( "You can <b>translate as much you please as much as you want</b>. You don't have to translate everything in this page. Ignore any string you want or aleardy translated. You could also use this tool to fix any typo you may find or to improve the current language expressions", 'wordpress-social-login' ) ?>.</p>
 
 	<p><?php _wsl_e( "All the texts on this page are automatically extracted and generated on the form beside. If the translation tool has scapped something you may consider as irrelevant, please leave that particular field empty", 'wordpress-social-login' ) ?>.</p>
 
-	<p><?php _wsl_e( "Your contributions will be sent to the WordPress Social Login website for inclusion in future versions", 'wordpress-social-login' ) ?>.</p>
-
-	<p><?php _wsl_e( "Thanks!", 'wordpress-social-login' ) ?></p>
+	<p><?php _wsl_e( "Your contributions will be sent to the WordPress Social Login website for inclusion in future versions", 'wordpress-social-login' ) ?>.</p> 
 </div>
 <div id="wsl_i18n">  
 	<pre id="wsl_i18n_pre"></pre> 
@@ -687,15 +683,15 @@ function wsl_admin_localize_widget()
 			</td>
 		  </tr> 
 		  <tr>
-			<td align="right"><strong><?php _wsl_e( "Your Name", 'wordpress-social-login' ) ?></strong> (<?php _wsl_e( "optional", 'wordpress-social-login' ) ?>)</td>
+			<td align="right"><strong><?php _wsl_e( "Your Name", 'wordpress-social-login' ) ?></strong><br />(<?php _wsl_e( "optional", 'wordpress-social-login' ) ?>)</td>
 			<td> 
 			<input name="wsl_i18n_name" type="text" value="<?php echo htmlspecialchars( $current_user->display_name . " <" . get_bloginfo('admin_email') . ">" ); ?>" class="inputgnrc" style="width:400px;"> 
 			</td>
 		  </tr>
 			<tr>
-			<td align="right"><strong><?php _wsl_e( "Thanks!", 'wordpress-social-login' ) ?></strong></td>
+			<td align="right"><strong><?php _wsl_e( "Thanks!", 'wordpress-social-login' ) ?></strong><br />(<?php _wsl_e( "optional", 'wordpress-social-login' ) ?>)</td>
 			<td> 
-			<textarea name="wsl_i18n_comment" style="width:400px;height:60px;">Include here your address information and I will send you a postcard to anywhere in the world!</textarea>
+			<textarea name="wsl_i18n_comment" style="width:400px;height:60px;"><?php _wsl_e( "Include here your address information and I will send you a Postcard to anywhere in the world!", 'wordpress-social-login' ) ?></textarea>
 			</td>
 		  </tr> 
 		</tbody>
