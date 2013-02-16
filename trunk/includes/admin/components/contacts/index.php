@@ -18,6 +18,8 @@ function wsl_component_contacts()
 	do_action( "wsl_component_contacts_start" );
 
 	GLOBAL $wpdb;
+
+	$assets_base_url = WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL . '/assets/img/16x16/';
 ?>
 <div> 
 <?php

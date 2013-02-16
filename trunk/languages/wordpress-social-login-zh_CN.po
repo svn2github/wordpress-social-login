@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Social Login\n"
-"POT-Creation-Date: 2013-02-15 03:28+0100\n"
-"PO-Revision-Date: 2013-02-15 03:31+0100\n"
+"POT-Creation-Date: 2013-02-16 06:40+0100\n"
+"PO-Revision-Date: 2013-02-16 06:42+0100\n"
 "Last-Translator: Miled <hybridauth@gmail.com>\n"
 "Language-Team: WordPress Social Login <hybridauth@gmail.com>\n"
 "Language: Chinese - 中文 (zh_CN)\n"
@@ -11,129 +11,129 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.5\n"
 
-#: includes/admin/wsl.admin.ui.php:303
+#: includes/admin/wsl.admin.ui.php:332
 msgid "Development mode is enabled!"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:372
-#: includes/services/wsl.authentication.php:613
+#: includes/admin/wsl.admin.ui.php:407
+#: includes/services/wsl.authentication.php:637
 msgid "Something wrong!"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:377
+#: includes/admin/wsl.admin.ui.php:412
 msgid ""
 "Unknown or Disabled <b>Component</b>! Check the list of enabled components "
 "or the typed URL"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:381
+#: includes/admin/wsl.admin.ui.php:416
 msgid ""
 "If you believe you've found a problem with <b>WordPress Social Login</b>, be "
 "sure to let us know so we can fix it"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:387
+#: includes/admin/wsl.admin.ui.php:422
 msgid "Report as bug"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:388
+#: includes/admin/wsl.admin.ui.php:423
 msgid "Check enabled components"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:523
+#: includes/admin/wsl.admin.ui.php:567
 msgid "Welcome!"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:525
+#: includes/admin/wsl.admin.ui.php:569
 msgid ""
 "If you are still new to WordPress Social Login, we have provided a few "
 "walkthroughs to get you started"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:532
+#: includes/admin/wsl.admin.ui.php:576
 msgid "Get Started"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:535
+#: includes/admin/wsl.admin.ui.php:579
 msgid ""
 "<a href=\"http://hybridauth.sourceforge.net/wsl/configure.html\" target="
 "\"_blank\">Setup and Configuration</a>"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:536
+#: includes/admin/wsl.admin.ui.php:580
 msgid ""
 "<a href=\"http://hybridauth.sourceforge.net/wsl/customize.html\" target="
 "\"_blank\">Customize WSL Widgets</a>"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:537
+#: includes/admin/wsl.admin.ui.php:581
 msgid ""
 "<a href=\"http://hybridauth.sourceforge.net/wsl/userdata.html\" target="
 "\"_blank\">Manage users and contacts</a>"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:538
+#: includes/admin/wsl.admin.ui.php:582
 msgid ""
 "<a href=\"http://hybridauth.sourceforge.net/wsl/index.html\" target=\"_blank"
 "\">WSL User Guide</a> and <a href=\"http://hybridauth.sourceforge.net/wsl/"
 "faq.html\" target=\"_blank\">FAQ</a>"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:544
+#: includes/admin/wsl.admin.ui.php:588
 #, php-format
 msgid "What's new on WSL %s"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:547
+#: includes/admin/wsl.admin.ui.php:591
 msgid ""
 "In a similar way to WordPress plugins, WSL uses <a href=\"options-general."
 "php?page=wordpress-social-login&wslp=components\">Components</a>"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:548
+#: includes/admin/wsl.admin.ui.php:592
 msgid "<b>Email Validation</b> is replaced with <b>Profile Completion</b>"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:549
+#: includes/admin/wsl.admin.ui.php:593
 msgid ""
 "<b>User Moderation</b> made compatible with <a href=\"http://wordpress.org/"
 "extend/plugins/theme-my-login/\" target=\"_blank\">Theme My Login</a> plugin"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:550
+#: includes/admin/wsl.admin.ui.php:594
 msgid "A number of enhancements and new options now available"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:597
+#: includes/admin/wsl.admin.ui.php:644
 msgid "Contributor License Agreement"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:602
+#: includes/admin/wsl.admin.ui.php:649
 msgid ""
 "You are about to submit your contributions to the WordPress Social Login "
 "Website to be reviewed for inclusion in future versions"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:604
+#: includes/admin/wsl.admin.ui.php:651
 msgid ""
 "You hereby grant the permission to publish your contribution, in whole or in "
 "part, and to made it available  under the <b>MIT License</b>, for the "
 "<b>Wordpress community</b> to, freely use or misuse"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:610
+#: includes/admin/wsl.admin.ui.php:657
 msgid "Hell No"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:611
+#: includes/admin/wsl.admin.ui.php:658
 msgid "Yes, I agree to contribute my translation"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:615
+#: includes/admin/wsl.admin.ui.php:662
 msgid "Help us localize WordPress Social Login"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:619
+#: includes/admin/wsl.admin.ui.php:666
 msgid ""
 "You can <b>translate as much you pleases</b> as much <b>as you want</b>. You "
 "don't have to translate everything in this page, but every word counts. "
@@ -142,51 +142,51 @@ msgid ""
 "expressions"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:621
+#: includes/admin/wsl.admin.ui.php:668
 msgid ""
 "Your name allows us to recognize your contributions and bypass manual "
 "review, especially when you've been contributing in the past. So do supply "
 "some unique string, even if it's not your real name"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:623
+#: includes/admin/wsl.admin.ui.php:670
 msgid ""
 "All the texts on this page are automatically extracted and generated on the "
 "form beside. If the translation tool has scapped something you may consider "
 "as irrelevant, please leave that particular field empty"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:625
+#: includes/admin/wsl.admin.ui.php:672
 msgid ""
 "Your contributions will be sent to the WordPress Social Login website for "
 "inclusion in future versions"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:627
+#: includes/admin/wsl.admin.ui.php:674
 msgid "Thanks!"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:635
+#: includes/admin/wsl.admin.ui.php:682
 msgid "Your Name"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:635 includes/admin/wsl.admin.ui.php:641
+#: includes/admin/wsl.admin.ui.php:682 includes/admin/wsl.admin.ui.php:688
 msgid "optional"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:641
+#: includes/admin/wsl.admin.ui.php:688
 msgid "Comment"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:647
+#: includes/admin/wsl.admin.ui.php:694
 msgid "Target Language"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:656
+#: includes/admin/wsl.admin.ui.php:703
 msgid "Submit changes"
 msgstr ""
 
-#: includes/admin/wsl.admin.ui.php:724
+#: includes/admin/wsl.admin.ui.php:769
 msgid "Help us translate this page into your language"
 msgstr "帮助我们本地化当前页"
 
@@ -222,9 +222,9 @@ msgstr ""
 #: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:47
 #: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:72
 #: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:81
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:228
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:265
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:303
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:174
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:211
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:249
 msgid "Yes"
 msgstr ""
 
@@ -233,15 +233,15 @@ msgstr ""
 #: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:48
 #: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:73
 #: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:82
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:229
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:266
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:304
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:175
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:212
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:250
 msgid "No"
 msgstr ""
 
 #: includes/admin/components/advanced/index.php:98
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:329
-#: includes/admin/components/contacts/index.php:96
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:275
+#: includes/admin/components/contacts/index.php:98
 #: includes/admin/components/diagnostics/index.php:64
 #: includes/admin/components/login-widget/wsl.components.loginwidget.setup.php:144
 #: includes/admin/components/networks/wsl.components.networks.setup.php:271
@@ -298,70 +298,34 @@ msgstr ""
 msgid "Allow Username change"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:87
-msgid "Notice text"
-msgstr ""
-
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:93
-msgid "Submit button text"
-msgstr ""
-
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:99
-msgid "Connected with text"
-msgstr ""
-
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:105
-msgid "E-mail text"
-msgstr ""
-
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:92
 #: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:111
-msgid "Username text"
-msgstr ""
-
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:117
-msgid "Invalid E-mail error text"
-msgstr ""
-
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:123
-msgid "Invalid Username error text"
-msgstr ""
-
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:129
-msgid "Registered E-mail error text"
-msgstr ""
-
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:135
-msgid "Registered Username error text"
-msgstr ""
-
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:146
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:165
 msgid "User Moderation"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:150
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:96
 msgid ""
 "<b>User Moderation</b> will define how <b>Bouncer</b> should behave with new "
 "regsitred users:"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:153
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:99
 msgid "<b>None</b>: No moderation required."
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:154
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:100
 msgid ""
 "<b>E-mail Confirmation</b>: New users will need to be confirm their e-mail "
 "address before they may log in"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:155
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:101
 msgid ""
 "<b>Admin Approval</b>: New users will need to be approved by an "
 "administrator before they may log in"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:158
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:104
 msgid ""
 "Both <b>Admin Approval</b> and <b>E-mail Confirmation</b> requires <a href="
 "\"http://wordpress.org/extend/plugins/theme-my-login/\" target=\"_blank"
@@ -369,7 +333,7 @@ msgid ""
 "<b>WordPress Social Login</b> to reinvent the wheel"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:161
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:107
 msgid ""
 "<b>User Moderation</b> was purposely made compatible with the <a href="
 "\"http://wordpress.org/extend/plugins/theme-my-login/\" target=\"_blank"
@@ -377,30 +341,30 @@ msgid ""
 "does, a hell of a lot of people are using it and many have asked for it"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:168
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:114
 msgid "None"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:169
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:115
 msgid "E-mail Confirmation &mdash; Yield to Theme My Login plugin"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:170
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:116
 msgid "Admin Approval &mdash; Yield to Theme My Login plugin"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:180
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:126
 msgid "Membership level"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:184
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:130
 msgid ""
 "Here you can define the default role for new users authenticating through "
 "WSL. The <code>Administrator</code> and <code>Editor</code> roles are not "
 "available for safety reasons"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:187
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:133
 msgid ""
 "For more information about wordpress users roles and capabilities refer to "
 "<a href=\"http://codex.wordpress.org/Roles_and_Capabilities#Capability_vs."
@@ -408,117 +372,117 @@ msgid ""
 "Roles_and_Capabilities</a>"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:190
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:136
 msgid ""
 "If <b>User Moderation</b> is set to <code>Admin Approval</code> then "
 "<b>Membership level</b> will be ignored"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:194
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:140
 msgid "New User Default Role"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:197
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:143
 msgid "Safe"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:198
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:144
 msgid "&mdash; Wordpress User Default Role &mdash;"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:199
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:145
 msgid "&mdash; No role for this site  &mdash;"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:200
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:146
 msgid "Subscriber"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:203
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:149
 msgid "Be careful with these"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:204
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:150
 msgid "Author"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:205
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:151
 msgid "Contributor"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:216
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:162
 msgid "Filters by emails domains name"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:220
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:166
 msgid "Restrict registration to a limited number of domains name."
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:221
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:167
 msgid ""
 "Insert one email address per line and try to keep this list short. On "
 "<code>Bounce text</code> insert the text you want to display for rejected "
 "users. ex: <code>gmail.com</code>, without '@'."
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:225
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:262
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:300
-#: includes/admin/components/contacts/index.php:49
-#: includes/admin/components/contacts/index.php:56
-#: includes/admin/components/contacts/index.php:63
-#: includes/admin/components/contacts/index.php:70
-#: includes/admin/components/contacts/index.php:77
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:171
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:208
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:246
+#: includes/admin/components/contacts/index.php:51
+#: includes/admin/components/contacts/index.php:58
+#: includes/admin/components/contacts/index.php:65
+#: includes/admin/components/contacts/index.php:72
+#: includes/admin/components/contacts/index.php:79
 #: includes/admin/components/diagnostics/index.php:61
 #: includes/admin/components/networks/wsl.components.networks.setup.php:109
 msgid "Enabled"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:234
-msgid "Emails list"
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:180
+msgid "Domains list"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:240
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:277
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:315
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:186
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:223
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:261
 msgid "Bounce text"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:253
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:199
 msgid "Filters by e-mails addresses"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:257
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:203
 msgid "Restrict registration to a limited number of emails addresses."
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:258
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:204
 msgid ""
 "Insert one email address per line and try to keep this list short. On "
 "<code>Bounce text</code> insert the text you want to display for rejected "
 "users. ex: <code>hybridauth@gmail.com</code>"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:271
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:217
 msgid "E-mails list"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:290
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:236
 msgid "Filters by profile urls"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:294
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:240
 msgid "Restrict registration to a limited number of profile urls."
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:295
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:241
 msgid ""
 "<b>Note</b>: If a social network provide the user email, then use 'Filters "
 "by e-mails addresses' instead. Providers like Facebook provide multiples "
 "profiles URLs per user and WSL won't be able to reconize them."
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:296
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:242
 msgid ""
 "Insert one email address per line and try to keep this list short. On "
 "<code>Bounce text</code> insert the text you want to display for rejected "
@@ -526,7 +490,7 @@ msgid ""
 "google.com/u/0/108839241301472312344</code>"
 msgstr ""
 
-#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:309
+#: includes/admin/components/bouncer/wsl.components.bouncer.setup.php:255
 msgid "Profile urls"
 msgstr ""
 
@@ -657,11 +621,11 @@ msgstr ""
 msgid "Enable"
 msgstr ""
 
-#: includes/admin/components/contacts/index.php:37
+#: includes/admin/components/contacts/index.php:39
 msgid "Settings"
 msgstr ""
 
-#: includes/admin/components/contacts/index.php:41
+#: includes/admin/components/contacts/index.php:43
 msgid ""
 "<b>WordPress Social Login</b> is now introducing <b>Contacts Import</b> as a "
 "new feature. When enabled, users authenticating through WordPress Social "
@@ -670,24 +634,24 @@ msgid ""
 "like contacts emails, photos and or profile urls"
 msgstr ""
 
-#: includes/admin/components/contacts/index.php:43
+#: includes/admin/components/contacts/index.php:45
 msgid "Enable contacts import for"
 msgstr ""
 
-#: includes/admin/components/contacts/index.php:50
-#: includes/admin/components/contacts/index.php:57
-#: includes/admin/components/contacts/index.php:64
-#: includes/admin/components/contacts/index.php:71
-#: includes/admin/components/contacts/index.php:78
+#: includes/admin/components/contacts/index.php:52
+#: includes/admin/components/contacts/index.php:59
+#: includes/admin/components/contacts/index.php:66
+#: includes/admin/components/contacts/index.php:73
+#: includes/admin/components/contacts/index.php:80
 #: includes/admin/components/diagnostics/index.php:62
 msgid "Disabled"
 msgstr ""
 
-#: includes/admin/components/contacts/index.php:84
+#: includes/admin/components/contacts/index.php:86
 msgid "Notes"
 msgstr ""
 
-#: includes/admin/components/contacts/index.php:86
+#: includes/admin/components/contacts/index.php:88
 msgid ""
 "To enable contacts import from these social network, you need first to "
 "enabled them on the <a href=\"options-general.php?page=wordpress-social-"
@@ -695,54 +659,54 @@ msgid ""
 "application"
 msgstr ""
 
-#: includes/admin/components/contacts/index.php:87
+#: includes/admin/components/contacts/index.php:89
 msgid ""
 "<b>WSL</b> will try to import as much information about a user contacts as "
 "he was able to pull from the social networks APIs."
 msgstr ""
 
-#: includes/admin/components/contacts/index.php:88
+#: includes/admin/components/contacts/index.php:90
 msgid ""
 "All contacts data are sotred into your database on the table: "
 "<code>`wsluserscontacts`</code>"
 msgstr ""
 
-#: includes/admin/components/contacts/index.php:105
+#: includes/admin/components/contacts/index.php:107
 msgid "Users contacts list preview"
 msgstr ""
 
-#: includes/admin/components/contacts/index.php:112
+#: includes/admin/components/contacts/index.php:114
 #, php-format
 msgid "%s contact's list"
 msgstr ""
 
-#: includes/admin/components/contacts/index.php:119
-#: includes/admin/components/contacts/index.php:128
+#: includes/admin/components/contacts/index.php:121
+#: includes/admin/components/contacts/index.php:130
 #: includes/widgets/wsl.auth.widget.php:299
 msgid "Provider"
 msgstr ""
 
-#: includes/admin/components/contacts/index.php:120
-#: includes/admin/components/contacts/index.php:129
-msgid "User"
-msgstr ""
-
-#: includes/admin/components/contacts/index.php:121
-#: includes/admin/components/contacts/index.php:130
-msgid "Contact Name"
-msgstr ""
-
 #: includes/admin/components/contacts/index.php:122
 #: includes/admin/components/contacts/index.php:131
-msgid "Contact Email"
+msgid "User"
 msgstr ""
 
 #: includes/admin/components/contacts/index.php:123
 #: includes/admin/components/contacts/index.php:132
+msgid "Contact Name"
+msgstr ""
+
+#: includes/admin/components/contacts/index.php:124
+#: includes/admin/components/contacts/index.php:133
+msgid "Contact Email"
+msgstr ""
+
+#: includes/admin/components/contacts/index.php:125
+#: includes/admin/components/contacts/index.php:134
 msgid "Contact Profile Url"
 msgstr ""
 
-#: includes/admin/components/contacts/index.php:148
+#: includes/admin/components/contacts/index.php:150
 msgid "No contacts found"
 msgstr ""
 
@@ -1102,7 +1066,7 @@ msgstr ""
 msgid "By age"
 msgstr ""
 
-#: includes/admin/components/networks/wsl.components.networks.basicinsights.php:137
+#: includes/admin/components/networks/wsl.components.networks.basicinsights.php:139
 msgid "yrs in average"
 msgstr ""
 
@@ -1220,7 +1184,7 @@ msgstr ""
 
 #: includes/admin/components/users/wsl.components.users.list.php:31
 #: includes/admin/components/users/wsl.components.users.list.php:42
-#: includes/settings/wsl.compatibilities.php:101
+#: includes/settings/wsl.compatibilities.php:104
 msgid "Username"
 msgstr ""
 
@@ -1231,7 +1195,7 @@ msgstr ""
 
 #: includes/admin/components/users/wsl.components.users.list.php:33
 #: includes/admin/components/users/wsl.components.users.list.php:44
-#: includes/settings/wsl.compatibilities.php:97
+#: includes/settings/wsl.compatibilities.php:100
 msgid "E-mail"
 msgstr ""
 
@@ -1242,7 +1206,7 @@ msgstr ""
 
 #: includes/admin/components/users/wsl.components.users.list.php:35
 #: includes/admin/components/users/wsl.components.users.list.php:46
-#: includes/settings/wsl.initialization.php:354
+#: includes/settings/wsl.initialization.php:400
 msgid "Contacts"
 msgstr ""
 
@@ -1253,10 +1217,6 @@ msgstr ""
 
 #: includes/admin/components/users/wsl.components.users.list.php:55
 msgid "No users found"
-msgstr ""
-
-#: includes/admin/components/users/wsl.components.users.list.php:113
-msgid "Show List"
 msgstr ""
 
 #: includes/admin/components/users/wsl.components.users.profile.php:22
@@ -1284,48 +1244,55 @@ msgstr ""
 msgid "WSL is disabled!"
 msgstr ""
 
+#: includes/services/wsl.authentication.php:99
+msgid "Bouncer says this makes no sense."
+msgstr ""
+
 #: includes/services/wsl.authentication.php:107
-msgid "Redirecting..."
+msgid "Bouncer say you are doin it wrong."
 msgstr ""
 
-#: includes/services/wsl.authentication.php:136
-#, php-format
-msgid "Contacting <b>%s</b> , please wait..."
+#: includes/services/wsl.authentication.php:114
+msgid "You are already logged in as <b>%</b>."
 msgstr ""
 
-#: includes/services/wsl.authentication.php:167
-#: includes/services/wsl.authentication.php:535
+#: includes/services/wsl.authentication.php:119
+#: includes/services/wsl.authentication.php:559
 msgid ""
 "Error: Another plugin seems to be using HybridAuth Library and made "
 "WordPress Social Login unusable. We recommand to find this plugin and to "
 "kill it with fire!"
 msgstr ""
 
-#: includes/services/wsl.authentication.php:298
+#: includes/services/wsl.authentication.php:130
+msgid "Unknown or disabled provider"
+msgstr ""
+
+#: includes/services/wsl.authentication.php:262
 msgid "Unspecified error!"
 msgstr ""
 
-#: includes/services/wsl.authentication.php:302
+#: includes/services/wsl.authentication.php:266
 msgid "Unspecified error."
 msgstr ""
 
-#: includes/services/wsl.authentication.php:303
+#: includes/services/wsl.authentication.php:267
 msgid "Hybriauth configuration error."
 msgstr ""
 
-#: includes/services/wsl.authentication.php:304
+#: includes/services/wsl.authentication.php:268
 msgid "Provider not properly configured."
 msgstr ""
 
-#: includes/services/wsl.authentication.php:305
+#: includes/services/wsl.authentication.php:269
 msgid "Unknown or disabled provider."
 msgstr ""
 
-#: includes/services/wsl.authentication.php:306
+#: includes/services/wsl.authentication.php:270
 msgid "Missing provider application credentials."
 msgstr ""
 
-#: includes/services/wsl.authentication.php:307
+#: includes/services/wsl.authentication.php:271
 #, php-format
 msgid ""
 "<b>What does this error mean ?</b><br />Most likely, you didn't setup the "
@@ -1334,103 +1301,120 @@ msgid ""
 "WordPress Social Login to work."
 msgstr ""
 
-#: includes/services/wsl.authentication.php:307
+#: includes/services/wsl.authentication.php:271
 msgid ""
 "<br />Instructions for use can be found in the <a href=\"http://hybridauth."
 "sourceforge.net/wsl/configure.html\" target=\"_blank\">User Manual</a>."
 msgstr ""
 
-#: includes/services/wsl.authentication.php:309
+#: includes/services/wsl.authentication.php:273
 msgid ""
 "Authentification failed. The user has canceled the authentication or the "
 "provider refused the connection."
 msgstr ""
 
-#: includes/services/wsl.authentication.php:310
+#: includes/services/wsl.authentication.php:274
 msgid ""
 "User profile request failed. Most likely the user is not connected to the "
 "provider and he should to authenticate again."
 msgstr ""
 
-#: includes/services/wsl.authentication.php:313
+#: includes/services/wsl.authentication.php:277
 msgid "User not connected to the provider."
 msgstr ""
 
-#: includes/services/wsl.authentication.php:316
+#: includes/services/wsl.authentication.php:280
 msgid "Provider does not support this feature."
 msgstr ""
 
-#: includes/services/wsl.authentication.php:359
+#: includes/services/wsl.authentication.php:323
 msgid "Something bad happen!"
 msgstr ""
 
-#: includes/services/wsl.authentication.php:413
+#: includes/services/wsl.authentication.php:389
 msgid ""
 "Note: This message can be disabled from the plugin settings by setting "
 "<b>Development mode</b> to <b>Disabled</b>"
 msgstr ""
 
-#: includes/services/wsl.authentication.php:687
+#: includes/services/wsl.authentication.php:418
+msgid "Redirecting..."
+msgstr ""
+
+#: includes/services/wsl.authentication.php:447
+#, php-format
+msgid "Contacting <b>%s</b>, please wait..."
+msgstr ""
+
+#: includes/services/wsl.authentication.php:711
 msgid "registration is now closed!"
 msgstr ""
 
-#: includes/services/wsl.authentication.php:715
+#: includes/services/wsl.authentication.php:733
 #, php-format
 msgid "Unspecified error. #%d"
 msgstr ""
 
-#: includes/services/wsl.authentication.php:864
+#: includes/services/wsl.authentication.php:882
 msgid "An error occurred while creating a new user!"
 msgstr ""
 
-#: includes/settings/wsl.compatibilities.php:89
+#: includes/settings/wsl.compatibilities.php:92
 msgid "Almost there, we just need to check a couple of things"
 msgstr ""
 
-#: includes/settings/wsl.compatibilities.php:93
+#: includes/settings/wsl.compatibilities.php:96
 msgid "Continue"
 msgstr ""
 
-#: includes/settings/wsl.compatibilities.php:105
+#: includes/settings/wsl.compatibilities.php:108
 msgid "E-mail is not valid!"
 msgstr ""
 
-#: includes/settings/wsl.compatibilities.php:109
+#: includes/settings/wsl.compatibilities.php:112
 msgid "Username is not valid!"
 msgstr ""
 
-#: includes/settings/wsl.compatibilities.php:113
+#: includes/settings/wsl.compatibilities.php:116
 msgid "That E-mail is already registered!"
 msgstr ""
 
-#: includes/settings/wsl.compatibilities.php:117
+#: includes/settings/wsl.compatibilities.php:120
 msgid "That Username is already registered!"
 msgstr ""
 
-#: includes/settings/wsl.compatibilities.php:121
+#: includes/settings/wsl.compatibilities.php:124
 msgid "You are now connected via"
 msgstr ""
 
-#: includes/settings/wsl.compatibilities.php:137
+#: includes/settings/wsl.compatibilities.php:140
 msgid "Bouncer says no."
 msgstr ""
 
-#: includes/settings/wsl.compatibilities.php:145
+#: includes/settings/wsl.compatibilities.php:148
 msgid "Bouncer say he refuses."
 msgstr ""
 
-#: includes/settings/wsl.compatibilities.php:153
+#: includes/settings/wsl.compatibilities.php:156
 msgid "Bouncer say only Mundo can go where he pleases!"
 msgstr ""
 
-#: includes/settings/wsl.initialization.php:53
-#: includes/settings/wsl.initialization.php:78
+#: includes/settings/wsl.initialization.php:59
+#: includes/settings/wsl.initialization.php:87
 msgid ""
 "An installed plugin is trying to o-ver-write WordPress Social Login config "
 "in a bad way."
 msgstr ""
 
-#: includes/settings/wsl.initialization.php:354
+#: includes/settings/wsl.initialization.php:373
+msgid "WSL user profile"
+msgstr ""
+
+#: includes/settings/wsl.initialization.php:374
+msgid "WSL user contacts"
+msgstr ""
+
+#: includes/settings/wsl.initialization.php:400
 msgid "Profile"
 msgstr ""
 

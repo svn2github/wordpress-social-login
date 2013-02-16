@@ -171,7 +171,7 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model
 			$uc->identifier  = (array_key_exists("id",$item))?$item["id"]:"";
 			$uc->displayName = (array_key_exists("name",$item))?$item["name"]:"";
 			$uc->profileURL  = "https://www.facebook.com/profile.php?id=" . $uc->identifier;
-			$uc->photoURL    = "https://graph.facebook.com/" . $uc->identifier . "/picture?type=square"; 
+			$uc->photoURL    = "https://graph.facebook.com/" . $uc->identifier . "/picture?width=100&height=100";
 
 			$contacts[] = $uc;
 		}

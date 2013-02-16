@@ -134,18 +134,15 @@ function wsl_import_user_contacts( $provider, $adapter, $user_id )
 
 	// grab the user's friends list
 	$user_contacts = $adapter->getUserContacts();
-
+// print_r( $user_contacts ); die();
 	// update contact only one time per provider, this behaviour may change depend on the feedback reviced
 	if( ! $user_contacts ){
 		return;
 	}
 
-	$sq = "SELECT id FROM `{$wpdb->prefix}wsluserscontacts` where user_id = '$user_id' and provider = '$provider' limit 1";
-	$rs = $wpdb->get_results( $sq );
-
-	if( ! $rs ){
-		return;
-	}
+	$wpdb->query( 
+		$wpdb->prepare( "DELETE FROM `{$wpdb->prefix}wsluserscontacts` WHERE user_id = '%d' AND provider = '%s'", $user_id, $provider ) 
+	);
 
 	foreach( $user_contacts as $contact ){
 		$wpdb->insert(

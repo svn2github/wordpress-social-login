@@ -110,7 +110,7 @@ function wsl_component_users_list()
 								$rs  = $wpdb->get_results( $sql );
 
 								if( $rs && $rs[0]->counts ){
-									echo '<b style="color:#CB4B16;">' . $rs[0]->counts . '</b><br /><a href="options-general.php?page=wordpress-social-login&wslp=contacts&uid=' . $user_id . '">' . _wsl__("Show List", 'wordpress-social-login') .'</a>';
+									echo '<b style="color:#CB4B16;">' . $rs[0]->counts . '</b>';
 								}
 								else{
 									echo "0";
