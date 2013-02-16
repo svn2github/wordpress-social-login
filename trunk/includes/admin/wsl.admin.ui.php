@@ -126,7 +126,7 @@ function wsl_admin_ui_header( $wslp = null )
 {
 	// HOOKABLE: 
 	do_action( "wsl_admin_ui_header_start" );
-	
+
 	GLOBAL $WORDPRESS_SOCIAL_LOGIN_VERSION;
 	GLOBAL $WORDPRESS_SOCIAL_LOGIN_ADMIN_TABS;
 ?>
@@ -244,6 +244,18 @@ a.thumbnail:hover {
 	padding: 5px;
 	position: relative;
 }
+#wsl-w-panel-dismiss:before {
+    background: url("images/xit.gif") no-repeat scroll 0 17% transparent;
+    content: " ";
+    height: 100%;
+    left: -12px;
+    position: absolute;
+    width: 10px;
+	margin: -2px 0;
+}
+#wsl-w-panel-dismiss:hover:before {
+    background-position: 100% 17%;
+}
 #wsl-w-panel-dismiss {
 	font-size: 13px;
 	line-height: 1;
@@ -322,7 +334,7 @@ a.thumbnail:hover {
 		}
 	?>
 </h1>
- 
+
 <h2 class="nav-tab-wrapper">
 	&nbsp;
 	<?php
@@ -335,7 +347,7 @@ a.thumbnail:hover {
 					?><a class="nav-tab <?php if( $wslp == $name ) echo "nav-tab-active"; ?>" <?php if( isset( $settings["pull-right"] ) && $settings["pull-right"] ) echo 'style="float:right"'; ?> href="options-general.php?page=wordpress-social-login&wslp=<?php echo $name ?>"><?php echo $settings["label"] ?></a><?php
 				}
 			}
-		} 
+		}
 	?>
 </h2>
 
@@ -546,7 +558,7 @@ function wsl_admin_welcome_panel()
 	//> wsl-w-panel is shamelessly borrowered and modified from wordpress welcome-panel
 -->
 <div id="wsl-w-panel">
-	<a href="options-general.php?page=wordpress-social-login&wslp=<?php echo $wslp ?>&wsldwp=1" id="wsl-w-panel-dismiss"><?php _e("Dismiss this notice", 'wordpress-social-login') ?></a>
+	<a href="options-general.php?page=wordpress-social-login&wslp=<?php echo $wslp ?>&wsldwp=1" id="wsl-w-panel-dismiss"><?php _e("Dismiss", 'wordpress-social-login') ?></a>
 	
 	<table width="100%" border="0" style="margin:0;padding:0;">
 		<tr>

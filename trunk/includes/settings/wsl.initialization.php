@@ -23,12 +23,12 @@ $WORDPRESS_SOCIAL_LOGIN_TEXTS = array();
 /** list of wsl components */
 $WORDPRESS_SOCIAL_LOGIN_COMPONENTS = ARRAY(
 	"core"           => array( "type" => "core"  , "label" => __("WSL Core"       , 'wordpress-social-login'), "description" => __("WordPress Social Login core.", 'wordpress-social-login') ),
-	"networks"       => array( "type" => "core"  , "label" => __("Networks"       , 'wordpress-social-login'), "description" => __("Social networks setup and configuration.", 'wordpress-social-login') ),
-	"login-widget"   => array( "type" => "core"  , "label" => __("Widget"         , 'wordpress-social-login'), "description" => __("Authentication widget basic customization.", 'wordpress-social-login') ),
-	"bouncer"        => array( "type" => "core"  , "label" => __("Bouncer"        , 'wordpress-social-login'), "description" => __("The Bouncer. WordPress Social Login advanced configuration", 'wordpress-social-login') ),
-	"diagnostics"    => array( "type" => "core"  , "label" => __("Diagnostics"    , 'wordpress-social-login'), "description" => __("WordPress Social Login diagnostics", 'wordpress-social-login') ), 
-	"basicinsights"  => array( "type" => "plugin", "label" => __("Basic Insights" , 'wordpress-social-login'), "description" => __("WordPress Social Login basic insights", 'wordpress-social-login') ), 
-	"users"          => array( "type" => "plugin", "label" => __("Users"          , 'wordpress-social-login'), "description" => __("WordPress Social Login users manger.", 'wordpress-social-login') ),
+	"networks"       => array( "type" => "core"  , "label" => __("Networks"       , 'wordpress-social-login'), "description" => __("Social networks setup.", 'wordpress-social-login') ),
+	"login-widget"   => array( "type" => "core"  , "label" => __("Widget"         , 'wordpress-social-login'), "description" => __("Authentication widget customization.", 'wordpress-social-login') ),
+	"bouncer"        => array( "type" => "core"  , "label" => __("Bouncer"        , 'wordpress-social-login'), "description" => __("WordPress Social Login advanced configuration.", 'wordpress-social-login') ),
+	"diagnostics"    => array( "type" => "core"  , "label" => __("Diagnostics"    , 'wordpress-social-login'), "description" => __("WordPress Social Login diagnostics.", 'wordpress-social-login') ), 
+	"basicinsights"  => array( "type" => "plugin", "label" => __("Basic Insights" , 'wordpress-social-login'), "description" => __("WordPress Social Login basic insights. When enabled <b>Basic Insights</b> will on <b>Networks</b> tab.", 'wordpress-social-login') ), 
+	"users"          => array( "type" => "plugin", "label" => __("Users"          , 'wordpress-social-login'), "description" => __("WordPress Social Login users manager.", 'wordpress-social-login') ),
 	"contacts"       => array( "type" => "plugin", "label" => __("Contacts"       , 'wordpress-social-login'), "description" => __("WordPress Social Login users contacts manager", 'wordpress-social-login') ),
 );
 
@@ -289,27 +289,27 @@ function wsl_admin_menu_top_bar()
 
 	$wp_admin_bar->add_menu(array(
 		'id' 	=> 'wp-admin-wordpress-social-login',
-		'title' => __('WordPress Social Login'),
+		'title' => __('WordPress Social Login', 'wordpress-social-login'),
 		'href' 	=> 'options-general.php?page=wordpress-social-login'
 	));
 
 	$wp_admin_bar->add_menu(array(
 		"id" 	 => "wp-admin-wordpress-social-login-item-1",
-		"title"  => __('Social networks setup'),
+		"title"  => __('Social networks setup', 'wordpress-social-login'),
 		'href' 	 => 'options-general.php?page=wordpress-social-login',
 		"parent" => "wp-admin-wordpress-social-login"
 	));
 
 	$wp_admin_bar->add_menu(array(
 		"id" 	 => "wp-admin-wordpress-social-login-item-2",
-		"title"  => __('Widget customization'),
+		"title"  => __('Widget customization', 'wordpress-social-login'),
 		'href' 	 => 'options-general.php?page=wordpress-social-login&wslp=login-widget',
 		"parent" => "wp-admin-wordpress-social-login"
 	));
 
 	$wp_admin_bar->add_menu(array(
 		"id" 	 => "wp-admin-wordpress-social-login-item-3",
-		"title"  => __('User Guide and FAQ'),
+		"title"  => __('User Guide and FAQ', 'wordpress-social-login'),
 		'href' 	 => 'http://hybridauth.sourceforge.net/wsl/index.html',
 		"parent" => "wp-admin-wordpress-social-login",
 		'meta'  => array( 'target' => '_blank' )  
@@ -357,6 +357,27 @@ function wsl_manage_users_columns( $columns )
 }
 
 add_filter('manage_users_columns', 'wsl_manage_users_columns');
+
+
+// --------------------------------------------------------------------
+
+/**
+* Alter wp-admin/edit-comments.php
+*/
+function wsl_comment_row_actions( $a ) {
+	global $comment;
+
+	$tmp = wsl_get_user_by_meta_key_and_user_id( "wsl_user_image", $comment->user_id);
+
+    if ( $tmp ) { 
+		$a[ 'wsl_profile' ] = '<a href="options-general.php?page=wordpress-social-login&wslp=users&uid=' . $comment->user_id . '">' . _wsl__("WSL user profile", 'wordpress-social-login') . '</a>';
+		$a[ 'wsl_contacts' ] = '<a href="options-general.php?page=wordpress-social-login&wslp=contacts&uid=' . $comment->user_id . '">' . _wsl__("WSL user contacts", 'wordpress-social-login') . '</a>';
+	}
+
+	return $a;
+}
+
+add_filter( 'comment_row_actions', 'wsl_comment_row_actions', 11, 1 );
 
 // --------------------------------------------------------------------
 

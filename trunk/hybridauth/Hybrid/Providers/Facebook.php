@@ -127,7 +127,7 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model
 		$this->user->profile->displayName   = (array_key_exists('name',$data))?$data['name']:"";
 		$this->user->profile->firstName     = (array_key_exists('first_name',$data))?$data['first_name']:"";
 		$this->user->profile->lastName      = (array_key_exists('last_name',$data))?$data['last_name']:"";
-		$this->user->profile->photoURL      = "https://graph.facebook.com/" . $this->user->profile->identifier . "/picture?type=square";
+		$this->user->profile->photoURL      = "https://graph.facebook.com/" . $this->user->profile->identifier . "/picture?width=100&height=100";
 		$this->user->profile->profileURL    = (array_key_exists('link',$data))?$data['link']:""; 
 		$this->user->profile->webSiteURL    = (array_key_exists('website',$data))?$data['website']:""; 
 		$this->user->profile->gender        = (array_key_exists('gender',$data))?$data['gender']:"";
