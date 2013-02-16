@@ -661,7 +661,7 @@ function wsl_admin_localize_widget()
 		</div> 
 </div> 
 <div id="wsl_i18n_form"> 
-	<h3 style="margin:0px;"><?php _wsl_e( "Help us localize WordPress Social Login", 'wordpress-social-login' ) ?></h3> 
+	<h3 style="margin:0px;"><?php _wsl_e( "Help us translate this page into your language", 'wordpress-social-login' ) ?></h3> 
 
 	<hr />
 
