@@ -19,7 +19,7 @@ if ( isset( $_REQUEST['xhrurl'] ) ) {
 		echo "<b style='color:green;'>OK!</b><br />The rewrite rules on your server appear to be setup correctly for this plugin to work.";
 	}
 	else{ 
-		echo sprintf( '<b style="color:red;">FAIL!</b><br />Expected "http://www.example.com", received "%s".', $testing );
+		echo '<b style="color:red;">FAIL!</b>';
 	} 
 	
 	die();
@@ -72,7 +72,7 @@ session_start();
 			echo "<b style='color:green;'>OK!</b><br />The rewrite rules on your server appear to be setup correctly for this plugin to work.";
 		}
 		else{ 
-			echo sprintf( '<b style="color:red;">FAIL!</b><br />Expected "http://www.example.com", received "%s".', $testing );
+			echo '<b style="color:red;">FAIL!</b>';
 		} 
 	} 
 	else{

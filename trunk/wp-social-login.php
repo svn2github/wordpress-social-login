@@ -3,7 +3,7 @@
 Plugin Name: WordPress Social Login
 Plugin URI: http://wordpress.org/extend/plugins/wordpress-social-login/
 Description: Allow your visitors to comment and login with social networks such as Twitter, Facebook, Google, Yahoo and more.
-Version: 2.1.5
+Version: 2.1.6
 Author: Miled
 Author URI: http://hybridauth.sourceforge.net
 License: MIT License
