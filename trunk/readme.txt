@@ -3,7 +3,7 @@ Contributors: miled
 Tags: login, comment, social networks, social login, facebook, google, twitter, reddit, linkedin, instagram, vkontakte, github, steam, twitch.tv
 Requires at least: 3.0
 Tested up to: 4.0
-Stable tag: 2.1.6
+Stable tag: 2.2.1
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 Donate link: https://www.redcross.org/quickdonate/index.jsp
