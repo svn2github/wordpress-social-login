@@ -3,11 +3,13 @@
 * WordPress Social Login
 *
 * http://hybridauth.sourceforge.net/wsl/index.html | http://github.com/hybridauth/WordPress-Social-Login
-*    (c) 2011-2013 Mohamed Mrassi and contributors | http://wordpress.org/extend/plugins/wordpress-social-login/
+*    (c) 2011-2014 Mohamed Mrassi and contributors | http://wordpress.org/extend/plugins/wordpress-social-login/
 */
 
 /** 
 * User data functions (database related)
+*
+* This code is loosely commented: functions names should be self-explanatory.
 */
 
 // Exit if accessed directly
@@ -15,111 +17,202 @@ if ( !defined( 'ABSPATH' ) ) exit;
 
 // --------------------------------------------------------------------
 
-/**
-* Return all user prodile stored on wslusersprofiles
-*/
-function wsl_get_user_linked_account_by_user_id( $user_id )
+function wsl_get_wordpess_users_count()
 {
 	global $wpdb;
 
-	$sql = "SELECT * FROM `{$wpdb->prefix}wslusersprofiles` where user_id = '$user_id'";
-	$rs  = $wpdb->get_results( $sql );
+	$sql = "SELECT COUNT( * ) AS items FROM `{$wpdb->prefix}users`"; 
 
-	return $rs;
+	return $wpdb->get_var( $sql );
 }
 
 // --------------------------------------------------------------------
 
-/**
-* Return a contact data
-*/
-function wsl_get_contact_data_by_user_id( $field, $contact_id ){
+function wsl_get_wsl_users_count()
+{
 	global $wpdb;
 
-	$sql = "SELECT $field as data_field FROM `{$wpdb->prefix}wsluserscontacts` where ID = '$contact_id'";
-	$rs  = $wpdb->get_results( $sql );
+	$sql = "SELECT COUNT( distinct user_id ) AS items FROM `{$wpdb->prefix}wslusersprofiles`"; 
 
-	return $rs[0]->data_field;
+	return $wpdb->get_var( $sql );
 }
 
 // --------------------------------------------------------------------
 
-function wsl_get_user_by_meta( $provider, $user_uid )
+function wsl_get_stored_hybridauth_user_profiles_count()
 {
 	global $wpdb;
 
-	$sql = "SELECT user_id FROM `{$wpdb->prefix}usermeta` WHERE meta_key = '%s' AND meta_value = '%s'";
+	$sql = "SELECT COUNT(`id`) FROM `{$wpdb->prefix}wslusersprofiles`"; 
 
-	return $wpdb->get_var( $wpdb->prepare( $sql, $provider, $user_uid ) );
+	return $wpdb->get_var( $sql );
 }
 
 // --------------------------------------------------------------------
 
-function wsl_get_user_data_by_id( $field, $user_id )
+function wsl_get_stored_hybridauth_user_profiles_count_by_field( $field )
 {
 	global $wpdb;
 
-	$sql = "SELECT %s FROM `{$wpdb->prefix}users` WHERE ID = '%s'";
+	$sql = "SELECT $field, COUNT( * ) AS items FROM `{$wpdb->prefix}wslusersprofiles` GROUP BY $field ORDER BY items DESC";
 
-	return $wpdb->get_var( $wpdb->prepare( $sql, $field, $user_id ) );
+	return $wpdb->get_results( $sql );
 }
 
 // --------------------------------------------------------------------
 
-function wsl_get_user_linked_account_by_provider_and_identifier( $provider, $identifier )
+function wsl_get_stored_hybridauth_user_profiles_grouped_by_user_id( $offset, $limit )
 {
 	global $wpdb;
 
-	$sql = "SELECT * FROM `{$wpdb->prefix}wslusersprofiles` where provider = '$provider' and identifier = '$identifier'";
-	$rs  = $wpdb->get_results( $sql );
+	$sql = "SELECT * FROM `{$wpdb->prefix}wslusersprofiles` GROUP BY user_id LIMIT %d, %d";
 
-	return $rs;
+	return $wpdb->get_results( $wpdb->prepare( $sql, $offset, $limit ) );
 }
 
 // --------------------------------------------------------------------
 
-function wsl_store_hybridauth_user_data( $user_id, $provider, $profile )
+function wsl_get_stored_hybridauth_user_contacts_count_by_user_id( $user_id )
 {
 	global $wpdb;
 
-	$sql = "SELECT id, object_sha FROM `{$wpdb->prefix}wslusersprofiles` where user_id = '$user_id' and provider = '$provider'";
-	$rs  = $wpdb->get_results( $sql );
+	$sql = "SELECT COUNT( * ) FROM `{$wpdb->prefix}wsluserscontacts` where user_id = %d";
 
-	$profile_sha = sha1( serialize( $profile ) );
+	return $wpdb->get_var( $wpdb->prepare( $sql, $user_id ) );
+}
 
-	// if $profile didnt change, no need for update
-	if( $rs && $rs[0]->object_sha == $profile_sha ){
+// --------------------------------------------------------------------
+
+function wsl_get_stored_hybridauth_user_contacts_by_user_id( $user_id, $offset, $limit )
+{
+	global $wpdb;
+
+	$sql = "SELECT * FROM `{$wpdb->prefix}wsluserscontacts` where user_id = %d LIMIT %d, %d";
+
+	return $wpdb->get_results( $wpdb->prepare( $sql, $user_id, $offset, $limit ) );
+}
+
+// --------------------------------------------------------------------
+
+function wsl_get_stored_hybridauth_user_id_by_provider_and_provider_uid( $provider, $provider_uid )
+{
+	global $wpdb;
+
+	$sql = "SELECT user_id FROM `{$wpdb->prefix}wslusersprofiles` WHERE provider = %s AND identifier = %s";
+
+	return $wpdb->get_var( $wpdb->prepare( $sql, $provider, $provider_uid ) );
+}
+
+// --------------------------------------------------------------------
+
+function wsl_get_stored_hybridauth_user_profile_by_provider_and_provider_uid( $provider, $provider_uid )
+{
+	global $wpdb;
+
+	$sql = "SELECT * FROM `{$wpdb->prefix}wslusersprofiles` WHERE provider = %s AND identifier = %s";
+
+	return $wpdb->get_results( $wpdb->prepare( $sql, $provider, $provider_uid ) );
+}
+
+// --------------------------------------------------------------------
+
+function wsl_get_stored_hybridauth_user_profile_id_by_provider_and_provider_uid( $provider, $provider_uid )
+{
+	global $wpdb;
+
+	$sql = "SELECT id FROM `{$wpdb->prefix}wslusersprofiles` WHERE provider = '%s' AND identifier = '%s'";
+
+	return $wpdb->get_results( $wpdb->prepare( $sql, $provider, $provider_uid ) );
+}
+
+// --------------------------------------------------------------------
+
+function wsl_get_stored_hybridauth_user_profiles_by_user_id( $user_id )
+{
+	global $wpdb;
+
+	$sql = "SELECT * FROM `{$wpdb->prefix}wslusersprofiles` where user_id = %d";
+
+	return $wpdb->get_results( $wpdb->prepare( $sql, $user_id ) );
+}
+
+// --------------------------------------------------------------------
+
+function wsl_store_hybridauth_user_profile( $user_id, $provider, $profile )
+{
+	global $wpdb;
+	
+	$wpdb->show_errors(); 
+
+	$sql = "SELECT id, object_sha FROM `{$wpdb->prefix}wslusersprofiles` where user_id = %d and provider = %s";
+	
+	$rs  = $wpdb->get_results( $wpdb->prepare( $sql, $user_id, $provider ) );
+
+	// we only sotre the user profile if it has change since last login.
+	$object_sha = sha1( serialize( $profile ) );
+
+	// checksum
+	if( ! empty( $rs ) && $rs[0]->object_sha == $object_sha ){
 		return;
 	}
 
 	$table_data = array(
+		"id"         => 'null',
 		"user_id"    => $user_id,
 		"provider"   => $provider,
-		"object_sha" => $profile_sha
+		"object_sha" => $object_sha
+	);
+
+	if(  ! empty( $rs ) ){
+		$table_data['id'] = $rs[0]->id;
+	}
+
+	$fields = array( 
+		'identifier', 
+		'profileurl', 
+		'websiteurl', 
+		'photourl', 
+		'displayname', 
+		'description', 
+		'firstname', 
+		'lastname', 
+		'gender', 
+		'language', 
+		'age', 
+		'birthday', 
+		'birthmonth', 
+		'birthyear', 
+		'email', 
+		'emailverified', 
+		'phone', 
+		'address', 
+		'country', 
+		'region', 
+		'city', 
+		'zip'
 	);
 
 	foreach( $profile as $key => $value ) {
-		$table_data[ strtolower($key) ] = (string) $value;
+		$key = strtolower($key);
+
+		if( in_array( $key, $fields ) ){
+			$table_data[ $key ] = (string) $value;
+		}
 	}
 
-	// if $profile updated we re/store on database
-	if( $rs && $rs[0]->object_sha != $profile_sha ){
-		$wpdb->update( "{$wpdb->prefix}wslusersprofiles", $table_data, array( "id" => $rs[0]->id ) ); 
-	}
-	else{
-		$wpdb->insert( "{$wpdb->prefix}wslusersprofiles", $table_data ); 
-	}
+	$rs = $wpdb->replace( "{$wpdb->prefix}wslusersprofiles", $table_data ); 
 }
 
 // --------------------------------------------------------------------
 
-/**
-* Contacts import
-* 
-* We import a user contact per provider only once.
-*/
-function wsl_import_user_contacts( $provider, $adapter, $user_id )
+function wsl_store_hybridauth_user_contacts( $user_id, $provider, $adapter )
 {
+	// component contact should be enabled
+	if( ! wsl_is_component_enabled( 'contacts' ) ){
+		return;
+	}
+
+	// check if import is enabled for the given provider
 	if( ! (
 		get_option( 'wsl_settings_contacts_import_facebook' ) == 1 && strtolower( $provider ) == "facebook" ||
 		get_option( 'wsl_settings_contacts_import_google' )   == 1 && strtolower( $provider ) == "google"   ||
@@ -130,19 +223,30 @@ function wsl_import_user_contacts( $provider, $adapter, $user_id )
 		return;
 	}
 
-	global $wpdb;
+	global $wpdb; 
 
-	// grab the user's friends list
-	$user_contacts = $adapter->getUserContacts();
-// print_r( $user_contacts ); die();
-	// update contact only one time per provider, this behaviour may change depend on the feedback reviced
-	if( ! $user_contacts ){
+	$user_contacts = null;
+
+	// we only import contacts once
+	$sql = "SELECT COUNT(`id`) FROM {$wpdb->prefix}wsluserscontacts WHERE user_id = %d AND provider = %s ";
+
+	$nb_contacts = $wpdb->get_var( $wpdb->prepare( $sql, $user_id, $provider ) );
+
+	if( $nb_contacts ){
 		return;
 	}
 
-	$wpdb->query( 
-		$wpdb->prepare( "DELETE FROM `{$wpdb->prefix}wsluserscontacts` WHERE user_id = '%d' AND provider = '%s'", $user_id, $provider ) 
-	);
+	// grab the user's friends list
+	try{
+		$user_contacts = $adapter->getUserContacts();
+	}
+	catch( Exception $e ){ 
+		// well.. we can't do much.
+	}
+
+	if( ! $user_contacts ){
+		return;
+	}
 
 	foreach( $user_contacts as $contact ){
 		$wpdb->insert(
@@ -162,96 +266,102 @@ function wsl_import_user_contacts( $provider, $adapter, $user_id )
 
 // --------------------------------------------------------------------
 
-function wsl_get_list_connected_providers()
+function wsl_buddypress_xprofile_mapping( $user_id, $provider, $hybridauth_user_profile )
 {
-	// load hybridauth
-	require_once WORDPRESS_SOCIAL_LOGIN_ABS_PATH . "/hybridauth/Hybrid/Auth.php";
-
-	GLOBAL $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG;
-
-	$config = array();
+	// component Buddypress should be enabled
+	if( ! wsl_is_component_enabled( 'buddypress' ) ){
+		return;
+	}
 	
-	foreach( $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG AS $item ){
-		$provider_id = @ $item["provider_id"];
-
-		$config["providers"][$provider_id]["enabled"] = true;
+	// make sure buddypress is loaded. 
+	// > is this a legit way to check?
+	if( ! function_exists( 'xprofile_set_field_data' ) ){
+		return;
 	}
 
-	$hybridauth = new Hybrid_Auth( $config );  
-
-	return Hybrid_Auth::getConnectedProviders(); 
-}
-
-// --------------------------------------------------------------------
-
-function wsl_get_user_linked_accounts_by_user_id( $user_id )
-{
-	global $wpdb;
-
-	$sql = "SELECT * FROM `{$wpdb->prefix}wslusersprofiles` where user_id = '$user_id'";
-	$rs  = $wpdb->get_results( $sql );
-
-	return $rs;
-}
-
-// --------------------------------------------------------------------
-
-function wsl_get_user_linked_accounts_field_by_id( $id, $field )
-{
-	global $wpdb;
-
-	$sql = "SELECT $field as data_field FROM `{$wpdb->prefix}wslusersprofiles` where id = '$id'";
-	$rs  = $wpdb->get_results( $sql );
-
-	return $rs[0]->data_field;
-}
-
-// --------------------------------------------------------------------
-
-function wsl_get_user_by_meta_key_and_user_id( $meta_key, $user_id )
-{
-	global $wpdb;
-
-	$sql = "SELECT meta_value FROM `{$wpdb->prefix}usermeta` where meta_key = '$meta_key' and user_id = '$user_id'";
-	$rs  = $wpdb->get_results( $sql );
-
-	return $rs[0]->meta_value;
-}
-
-// --------------------------------------------------------------------
-
-function wsl_get_user_data_by_user_id( $field, $user_id )
-{
-	global $wpdb;
+	// check if profiles mapping is enabled
+	$wsl_settings_buddypress_enable_mapping = get_option( 'wsl_settings_buddypress_enable_mapping' );
 	
-	$sql = "SELECT $field as data_field FROM `{$wpdb->prefix}users` where ID = '$user_id'";
-	$rs  = $wpdb->get_results( $sql );
+	if( $wsl_settings_buddypress_enable_mapping != 1 ){
+		return;
+	}
 
-	return $rs[0]->data_field;
+	// get current mapping
+	$wsl_settings_buddypress_xprofile_map = get_option( 'wsl_settings_buddypress_xprofile_map' );
+
+	$hybridauth_fields = array(  
+		'identifier'   ,
+		'profileURL'   ,
+		'webSiteURL'   ,
+		'photoURL'     ,
+		'displayName'  ,
+		'description'  ,
+		'firstName'    ,
+		'lastName'     ,
+		'gender'       ,
+		'language'     ,
+		'age'          ,
+		'birthDay'     ,
+		'birthMonth'   ,
+		'birthYear'    ,
+		'email'        , 
+		'phone'        ,
+		'address'      ,
+		'country'      ,
+		'region'       ,
+		'city'         ,
+		'zip'          ,
+	);
+	
+	$hybridauth_user_profile = (array) $hybridauth_user_profile;
+
+	// all check: start mapping process
+	if( $wsl_settings_buddypress_xprofile_map ){
+		foreach( $wsl_settings_buddypress_xprofile_map as $buddypress_field_id => $field_name ){
+			// if data can be found in hybridauth profile
+			if( in_array( $field_name, $hybridauth_fields ) ){
+				$value = $hybridauth_user_profile[ $field_name ];
+
+				xprofile_set_field_data( $buddypress_field_id, $user_id, $value );
+			}
+
+			// if eq provider
+			if( $field_name == 'provider' ){
+				xprofile_set_field_data( $buddypress_field_id, $user_id, $provider );
+			}
+
+			// if eq birthDate
+			if( $field_name == 'birthDate' ){
+				$value = 
+					str_pad( (int) $hybridauth_user_profile[ 'birthYear'  ], 4, '0', STR_PAD_LEFT )
+					. '-' . 
+					str_pad( (int) $hybridauth_user_profile[ 'birthMonth' ], 2, '0', STR_PAD_LEFT )
+					. '-' . 
+					str_pad( (int) $hybridauth_user_profile[ 'birthDay'   ], 2, '0', STR_PAD_LEFT )
+					. ' 00:00:00';
+
+				xprofile_set_field_data( $buddypress_field_id, $user_id, $value );
+			}
+		}
+	}
 }
 
 // --------------------------------------------------------------------
 
-function wsl_delete_userprofiles( $user_id )
+function wsl_delete_stored_hybridauth_user_data( $user_id )
 {
     global $wpdb;
 
-    $sql = "DELETE FROM `{$wpdb->prefix}wslusersprofiles` where user_id = '$user_id'";
-    $wpdb->query( $sql );
+    $sql = "DELETE FROM `{$wpdb->prefix}wslusersprofiles` where user_id = %d";
+    $wpdb->query( $wpdb->prepare( $sql, $user_id ) );
+
+    $sql = "DELETE FROM `{$wpdb->prefix}wsluserscontacts` where user_id = %d";
+    $wpdb->query( $wpdb->prepare( $sql, $user_id ) );
+
+	delete_user_meta( $user_id, 'wsl_current_provider'   );
+	delete_user_meta( $user_id, 'wsl_current_user_image' );
 }
 
-add_action( 'delete_user', 'wsl_delete_userprofiles' );
-
-// --------------------------------------------------------------------
-
-function wsl_delete_usercontacts( $user_id )
-{
-    global $wpdb;
-
-    $sql = "DELETE FROM `{$wpdb->prefix}wsluserscontacts` where user_id = '$user_id'";
-    $wpdb->query( $sql );
-}
-
-add_action( 'delete_user', 'wsl_delete_usercontacts' );
+add_action( 'delete_user', 'wsl_delete_stored_hybridauth_user_data' );
 
 // --------------------------------------------------------------------
