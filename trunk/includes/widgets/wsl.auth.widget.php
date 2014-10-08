@@ -275,15 +275,15 @@ add_action( 'after_signup_form', 'wsl_render_wsl_widget_in_wp_register_form' );
 */
 function wsl_add_stylesheets()
 {
-	if( ! wp_style_is( 'wsl_css', 'registered' ) ) {
+	if( ! wp_style_is( 'wsl_css', 'registered' ) )
+	{
 		wp_register_style( "wsl_css", WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL . "/assets/css/style.css" ); 
 	}
 
 	wp_enqueue_style( "wsl_css" ); 
 }
 
-add_action( 'login_head', 'wsl_add_stylesheets' );
-add_action( 'wp_head'   , 'wsl_add_stylesheets' );
+add_action( 'wp_enqueue_scripts', 'wsl_add_stylesheets' ); 
 
 // --------------------------------------------------------------------
 

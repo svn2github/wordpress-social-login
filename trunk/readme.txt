@@ -72,6 +72,13 @@ The user guide and frequently asked questions can be found at http://hybridauth.
 
 == Changelog ==
 
+= 2.2.2 = 
+
+* Fix an issue where wsl did not display the right user avatar.
+* Fix an issue where providers icons wasn't showing in sites using https.
+* Fix an issue with basic insights, where users counts by age wasn't showing.
+* Add WordPress to list of supported provider.
+
 = 2.2.1 = 
 
 * WSL can be fully integrated with your BuddyPress installation: display of users avatars and xprofiles mapping.

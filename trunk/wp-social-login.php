@@ -3,7 +3,7 @@
 Plugin Name: WordPress Social Login
 Plugin URI: http://hybridauth.sourceforge.net/wsl/index.html
 Description: Allow your visitors to comment and login with social networks such as Twitter, Facebook, Google, Yahoo and more.
-Version: 2.2.1
+Version: 2.2.2
 Author: Miled
 Author URI: http://hybridauth.sourceforge.net/wsl/index.html
 License: MIT License
@@ -54,7 +54,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 
 @ session_start(); // shhhtt keept it a secret
 
-$WORDPRESS_SOCIAL_LOGIN_VERSION = "2.2.1";
+$WORDPRESS_SOCIAL_LOGIN_VERSION = "2.2.2";
 
 $_SESSION["wsl::plugin"] = "WordPress Social Login " . $WORDPRESS_SOCIAL_LOGIN_VERSION;
 
@@ -75,13 +75,13 @@ if( file_exists( WP_PLUGIN_DIR . '/wp-social-login-custom.php' ) ){
 // --------------------------------------------------------------------
 
 /**
-* Define WSL constants, if not defined in 'wordpress-social-login-custom.php'
+* Define WSL constants, if not already defined
 */
 defined( 'WORDPRESS_SOCIAL_LOGIN_ABS_PATH' ) 
 	|| define( 'WORDPRESS_SOCIAL_LOGIN_ABS_PATH', WP_PLUGIN_DIR . '/wordpress-social-login' );
 
 defined( 'WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL' ) 
-	|| define( 'WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL', WP_PLUGIN_URL . '/wordpress-social-login' );
+	|| define( 'WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL', plugins_url() . '/wordpress-social-login' );
 
 defined( 'WORDPRESS_SOCIAL_LOGIN_HYBRIDAUTH_ENDPOINT_URL' ) 
 	|| define( 'WORDPRESS_SOCIAL_LOGIN_HYBRIDAUTH_ENDPOINT_URL', WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL . '/hybridauth/' );
@@ -136,7 +136,7 @@ add_filter( 'plugin_action_links', 'wsl_add_settings_link', 10, 2 );
 /**
 * Loads the plugin's translated strings.
 *
-* Note: In case you want to use another domain, you may define this function in 'wordpress-social-login-custom.php'
+* Note: In case you want to use another domain, you may redefine this function
 *
 * http://codex.wordpress.org/Function_Reference/load_plugin_textdomain
 */

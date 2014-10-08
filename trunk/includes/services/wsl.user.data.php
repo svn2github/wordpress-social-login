@@ -39,6 +39,20 @@ function wsl_get_wsl_users_count()
 
 // --------------------------------------------------------------------
 
+function wsl_get_user_custom_avatar( $user_id )
+{
+	$user_avatar = get_user_meta( $user_id, 'wsl_current_user_image', true );
+
+	if( ! $user_avatar )
+	{
+		$user_avatar = get_user_meta( $user_id, 'wsl_user_image', true );
+	}
+
+	return $user_avatar;
+}
+
+// --------------------------------------------------------------------
+
 function wsl_get_stored_hybridauth_user_profiles_count()
 {
 	global $wpdb;

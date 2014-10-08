@@ -286,6 +286,14 @@ function wsl_component_networks_setup()
 								<td><a class="span4 thumbnail" href="http://hybridauth.sf.net/userguide/img/setup/twitter/3.png" target="_blank"><img src="http://hybridauth.sf.net/userguide/img/setup/twitter/3.png"></a></td>
 							</table> 
 						<?php endif; ?> 
+
+						<?php if ( $provider_id == "WordPress" ) : ?>
+							<table style="text-align: center;margin-bottom:12px;">
+								<td><a class="span4 thumbnail" href="http://hybridauth.sf.net/userguide/img/setup/wordpress/1.png" target="_blank"><img src="http://hybridauth.sf.net/userguide/img/setup/wordpress/1.png"></a></td>
+								<td><a class="span4 thumbnail" href="http://hybridauth.sf.net/userguide/img/setup/wordpress/2.png" target="_blank"><img src="http://hybridauth.sf.net/userguide/img/setup/wordpress/2.png"></a></td>
+								<td><a class="span4 thumbnail" href="http://hybridauth.sf.net/userguide/img/setup/wordpress/3.png" target="_blank"><img src="http://hybridauth.sf.net/userguide/img/setup/wordpress/3.png"></a></td>
+							</table> 
+						<?php endif; ?> 
 					</div>
 
 					<?php if ( $provider_new_app_link  ) : ?> 
