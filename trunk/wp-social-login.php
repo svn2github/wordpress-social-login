@@ -3,7 +3,7 @@
 Plugin Name: WordPress Social Login
 Plugin URI: http://hybridauth.sourceforge.net/wsl/index.html
 Description: Allow your visitors to comment and login with social networks such as Twitter, Facebook, Google, Yahoo and more.
-Version: 2.2.3
+Version: 2.2.3-dev
 Author: Miled
 Author URI: http://hybridauth.sourceforge.net/wsl/index.html
 License: MIT License
@@ -53,7 +53,7 @@ if( !defined( 'ABSPATH' ) ) exit;
 
 @ session_start(); // shhhtt keept it a secret
 
-$WORDPRESS_SOCIAL_LOGIN_VERSION = "2.2.3";
+$WORDPRESS_SOCIAL_LOGIN_VERSION = "2.2.3-dev";
 
 $_SESSION["wsl::plugin"] = "WordPress Social Login " . $WORDPRESS_SOCIAL_LOGIN_VERSION;
 
