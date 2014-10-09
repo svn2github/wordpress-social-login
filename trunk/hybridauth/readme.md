@@ -9,11 +9,25 @@ http://hybridauth.sourceforge.net
 
 ### Changes made
 
+hybridauth/Hybrid/thirdparty/OAuth/OAuth1Client.php 
+	L-236 API errors responses
+
+hybridauth/Hybrid/thirdparty/OAuth/OAuth2Client.php 
+	L-240 API errors responses
+
+hybridauth/Hybrid/thirdparty/LinkedIn/LinkedIn.php 
+	L-712 API errors responses
+
 hybridauth/Hybrid/thirdparty/Facebook/base_facebook.php
 	L-145 add CURLOPT_SSL_VERIFYPEER => false
+	L-1378 API errors responses
+
+hybridauth/Hybrid/Providers/Facebook.php
+	L-18 Default score
 
 hybridauth/Hybrid/Providers/Google.php
-	L-114 Reassign emailVerified
+	L-19  Default score
+	L-114 Reassign emailVerified 
 
 hybridauth/Hybrid/Providers/Yahoo.php
 	Overwritten with the openID adapter
