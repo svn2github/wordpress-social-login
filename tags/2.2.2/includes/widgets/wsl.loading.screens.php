@@ -186,7 +186,7 @@ if( ! function_exists( 'wsl_render_return_from_provider_loading_screen' ) )
 		</table>
 
 		<form name="loginform" method="post" action="<?php echo $authenticated_url; ?>">
-			<input type="hidden" id="redirect_to" name="redirect_to" value="<?php echo $redirect_to; ?>"> 
+			<input type="hidden" id="redirect_to" name="redirect_to" value="<?php echo esc_url( $redirect_to ); ?>"> 
 			<input type="hidden" id="provider" name="provider" value="<?php echo $provider ?>"> 
 			<input type="hidden" id="action" name="action" value="wordpress_social_authenticated">
 		</form>

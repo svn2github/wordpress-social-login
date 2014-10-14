@@ -245,7 +245,7 @@ function wsl_process_login_begin()
 	// get Widget::Authentication display
 	$wsl_settings_use_popup = get_option( 'wsl_settings_use_popup' );
 
-	$redirect_to = isset( $_REQUEST[ 'redirect_to' ] ) ? urldecode( $_REQUEST[ 'redirect_to' ] ) : site_url();
+	$redirect_to = isset( $_REQUEST[ 'redirect_to' ] ) ? $_REQUEST[ 'redirect_to' ] : site_url();
 
 	// build the authenticateD, which will make wsl_process_login() fire the next step wsl_process_login_end()
 	$authenticated_url = site_url( 'wp-login.php', 'login_post' ) . ( strpos( site_url( 'wp-login.php', 'login_post' ), '?' ) ? '&' : '?' ) . "action=wordpress_social_authenticated&provider=" . $provider;
