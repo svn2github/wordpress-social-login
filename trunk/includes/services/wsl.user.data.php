@@ -2,8 +2,8 @@
 /*!
 * WordPress Social Login
 *
-* http://hybridauth.sourceforge.net/wsl/index.html | http://github.com/hybridauth/WordPress-Social-Login
-*    (c) 2011-2014 Mohamed Mrassi and contributors | http://wordpress.org/extend/plugins/wordpress-social-login/
+* http://miled.github.io/wordpress-social-login/ | https://github.com/miled/wordpress-social-login
+*  (c) 2011-2014 Mohamed Mrassi and contributors | http://wordpress.org/plugins/wordpress-social-login/
 */
 
 /** 
@@ -14,6 +14,28 @@
 
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
+
+// --------------------------------------------------------------------
+
+/**
+* Checks whether the given email exists in WordPress users tables.
+*
+* This function is not loaded by default in wp 3.0
+*
+* https://core.trac.wordpress.org/browser/tags/4.0/src/wp-includes/user.php#L1565
+*/
+function wsl_wp_email_exists( $email )
+{
+	if( function_exists('email_exists') )
+	{
+		return email_exists( $email );
+	}
+
+	if( $user = get_user_by( 'email', $email ) )
+	{
+		return $user->ID;
+	}
+}
 
 // --------------------------------------------------------------------
 
@@ -120,6 +142,17 @@ function wsl_get_stored_hybridauth_user_id_by_provider_and_provider_uid( $provid
 
 // --------------------------------------------------------------------
 
+function wsl_get_stored_hybridauth_user_id_by_email_verified( $email_verified )
+{
+	global $wpdb;
+
+	$sql = "SELECT user_id FROM `{$wpdb->prefix}wslusersprofiles` WHERE emailverified = %s";
+
+	return $wpdb->get_var( $wpdb->prepare( $sql, $email_verified ) );
+}
+
+// --------------------------------------------------------------------
+
 function wsl_get_stored_hybridauth_user_profile_by_provider_and_provider_uid( $provider, $provider_uid )
 {
 	global $wpdb;
@@ -163,7 +196,7 @@ function wsl_store_hybridauth_user_profile( $user_id, $provider, $profile )
 	
 	$rs  = $wpdb->get_results( $wpdb->prepare( $sql, $user_id, $provider ) );
 
-	// we only sotre the user profile if it has change since last login.
+	// we only sotre the user profile if it has changed since last login.
 	$object_sha = sha1( serialize( $profile ) );
 
 	// checksum
@@ -235,11 +268,12 @@ function wsl_store_hybridauth_user_contacts( $user_id, $provider, $adapter )
 	// check if import is enabled for the given provider
 	if(
 		! (
-			get_option( 'wsl_settings_contacts_import_facebook' ) == 1 && strtolower( $provider ) == "facebook" ||
-			get_option( 'wsl_settings_contacts_import_google' )   == 1 && strtolower( $provider ) == "google"   ||
-			get_option( 'wsl_settings_contacts_import_twitter' )  == 1 && strtolower( $provider ) == "twitter"  ||
-			get_option( 'wsl_settings_contacts_import_live' )     == 1 && strtolower( $provider ) == "live"     ||
-			get_option( 'wsl_settings_contacts_import_linkedin' ) == 1 && strtolower( $provider ) == "linkedin" 
+			get_option( 'wsl_settings_contacts_import_facebook' )  == 1 && strtolower( $provider ) == "facebook"   ||
+			get_option( 'wsl_settings_contacts_import_google' )    == 1 && strtolower( $provider ) == "google"     ||
+			get_option( 'wsl_settings_contacts_import_twitter' )   == 1 && strtolower( $provider ) == "twitter"    ||
+			get_option( 'wsl_settings_contacts_import_linkedin' )  == 1 && strtolower( $provider ) == "linkedin"   || 
+			get_option( 'wsl_settings_contacts_import_live' )      == 1 && strtolower( $provider ) == "live"       ||
+			get_option( 'wsl_settings_contacts_import_vkontakte' ) == 1 && strtolower( $provider ) == "vkontakte"
 		)
 	)
 	{
@@ -260,7 +294,7 @@ function wsl_store_hybridauth_user_contacts( $user_id, $provider, $adapter )
 		return;
 	}
 
-	// grab the user's friends list
+	// attempt to grab the user's friends list via social network api
 	try
 	{
 		$user_contacts = $adapter->getUserContacts();
@@ -301,7 +335,9 @@ function wsl_buddypress_xprofile_mapping( $user_id, $provider, $hybridauth_user_
 	{
 		return;
 	}
-	
+
+	do_action('bp_setup_globals');
+
 	// make sure buddypress is loaded. 
 	// > is this a legit way to check?
 	if( ! function_exists( 'xprofile_set_field_data' ) )
@@ -386,13 +422,13 @@ function wsl_buddypress_xprofile_mapping( $user_id, $provider, $hybridauth_user_
 
 function wsl_delete_stored_hybridauth_user_data( $user_id )
 {
-    global $wpdb;
+	global $wpdb;
 
-    $sql = "DELETE FROM `{$wpdb->prefix}wslusersprofiles` where user_id = %d";
-    $wpdb->query( $wpdb->prepare( $sql, $user_id ) );
+	$sql = "DELETE FROM `{$wpdb->prefix}wslusersprofiles` where user_id = %d";
+	$wpdb->query( $wpdb->prepare( $sql, $user_id ) );
 
-    $sql = "DELETE FROM `{$wpdb->prefix}wsluserscontacts` where user_id = %d";
-    $wpdb->query( $wpdb->prepare( $sql, $user_id ) );
+	$sql = "DELETE FROM `{$wpdb->prefix}wsluserscontacts` where user_id = %d";
+	$wpdb->query( $wpdb->prepare( $sql, $user_id ) );
 
 	delete_user_meta( $user_id, 'wsl_current_provider'   );
 	delete_user_meta( $user_id, 'wsl_current_user_image' );

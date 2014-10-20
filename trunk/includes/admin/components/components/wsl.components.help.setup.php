@@ -2,8 +2,8 @@
 /*!
 * WordPress Social Login
 *
-* http://hybridauth.sourceforge.net/wsl/index.html | http://github.com/hybridauth/WordPress-Social-Login
-*    (c) 2011-2014 Mohamed Mrassi and contributors | http://wordpress.org/extend/plugins/wordpress-social-login/
+* http://miled.github.io/wordpress-social-login/ | https://github.com/miled/wordpress-social-login
+*  (c) 2011-2014 Mohamed Mrassi and contributors | http://wordpress.org/plugins/wordpress-social-login/
 */
 
 /**
@@ -32,7 +32,7 @@ function wsl_component_components_setup()
 			<tr>
 				<th scope="col" class="manage-column column-label" style="width: 190px;"><?php _wsl_e( "Component", 'wordpress-social-login' ) ?></th>
 				<th scope="col" class="manage-column column-description"><?php _wsl_e( "Description", 'wordpress-social-login' ) ?></th>
-				<th scope="col" class="manage-column column-action" style="width: 120px;">&nbsp;</th>
+				<th scope="col" class="manage-column column-action" style="width: 140px;">&nbsp;</th>
 			</tr>
 		</thead>
 
@@ -40,38 +40,30 @@ function wsl_component_components_setup()
 			<tr>
 				<th scope="col" class="manage-column column-label" style="width: 190px;"><?php _wsl_e( "Component", 'wordpress-social-login' ) ?></th>
 				<th scope="col" class="manage-column column-description"><?php _wsl_e( "Description", 'wordpress-social-login' ) ?></th>
-				<th scope="col" class="manage-column column-action" style="width: 120px;">&nbsp;</th>
+				<th scope="col" class="manage-column column-action" style="width: 140px;">&nbsp;</th>
 			</tr>
 		</tfoot>
 
 		<tbody id="the-list"> 
 			<?php
-				$plugin_tr_class  = '';
-				$plugin_notices   = '';
-				$plugin_enablable = true;
+				foreach( $WORDPRESS_SOCIAL_LOGIN_COMPONENTS as $name => $settings )
+				{ 
+					$plugin_tr_class  = '';
+					$plugin_notices   = '';
+					$plugin_enablable = true;
 
-				foreach( $WORDPRESS_SOCIAL_LOGIN_COMPONENTS as $name => $settings ){ 
-					if( $name == "core" ){
+					if( $name == "core" )
+					{
 						continue;
 					}
 
 					$plugin_tr_class = $settings["enabled"] ? "active" : "inactive"; 
-
-					if( $name == "buddypress" ){
-						if( ! function_exists( 'bp_has_profile' ) ){
-							$plugin_enablable = false;
-
-							$plugin_tr_class = 'active update';
-
-							$plugin_notices = _wsl__( '<a href="https://buddypress.org/" target="_blank">BuddyPress</a> Plugin was not found on your website', 'wordpress-social-login' );
-						}
-					}
 			?>
 				<tr id="<?php echo $name ?>" class="<?php echo $name ?> <?php echo $plugin_tr_class ?>"> 
 					<td class="component-label" style="width: 190px;"> &nbsp;
 						<?php if( $settings["type"] == "core" ): ?>
 							<div class="icon16 icon-generic"></div>
-						<?php elseif( $settings["type"] == "plugin" ): ?>
+						<?php elseif( $settings["type"] == "addon" ): ?>
 							<div class="icon16 icon-plugins"></div>
 						<?php else: ?>
 							<div class="icon16 icon-appearance"></div>
@@ -81,24 +73,44 @@ function wsl_component_components_setup()
 					</td>
 					<td class="column-description">
 						<p><?php _wsl_e( $settings["description"], 'wordpress-social-login' ) ?></p>
-						
-						<?php if( $plugin_notices ): ?>
-							<p><em><?php echo $plugin_notices ?>.</em></p>
-						<?php endif; ?>
+						<?php
+							$meta = array();
+
+							if( isset( $settings["version"] ) )
+							{
+								$meta[] = sprintf( _wsl__( "Version %s", 'wordpress-social-login' ), $settings["version"] );
+							}
+
+							if( isset( $settings["author"] ) )
+							{
+								if( isset( $settings["author_url"] ) )
+								{
+									$meta[] = sprintf( _wsl__( 'By <a href="%s" target="_blank">%s</a>', 'wordpress-social-login' ), $settings["author_url"], $settings["author"] );
+								}
+								else
+								{
+									$meta[] = sprintf( _wsl__( 'By %s', 'wordpress-social-login' ), $settings["author"] );
+								}
+							}
+
+							if( isset( $settings["component_url"] ) )
+							{
+								$meta[] = sprintf( _wsl__( '<a href="%s" target="_blank">Visit component site</a>', 'wordpress-social-login' ), $settings["component_url"] );
+							}
+
+							if( $meta )
+							{
+								?><p><?php echo implode( ' | ', $meta  ); ?></p><?php 
+							}
+						?>
 					</td>
 					<td class="column-action" align="right" style="width: 120px;">
 						<p>
-							<?php if( $plugin_enablable ): ?>
-								<?php if( $settings["type"] == "core" && $settings["enabled"] ): ?> 
-									<a class="button-secondary" style="color:#000000" href="options-general.php?page=wordpress-social-login&wslp=<?php echo $name ?>"><?php _wsl_e( "View", 'wordpress-social-login' ) ?></a> 
-								<?php endif; ?>
-
-								<?php if( $settings["type"] != "core" ): ?>
-									<?php if( $settings["enabled"] ): ?> 
-										<a class="button-secondary" href="options-general.php?page=wordpress-social-login&wslp=components&disable=<?php echo $name ?>"><?php _wsl_e( "Disable", 'wordpress-social-login' ) ?></a>
-									<?php else: ?>
-										<a class="button-primary" style="color:#ffffff" href="options-general.php?page=wordpress-social-login&wslp=components&enable=<?php echo $name ?>"><?php _wsl_e( "Enable", 'wordpress-social-login' ) ?>&nbsp;</a>
-									<?php endif; ?>
+							<?php if( $plugin_enablable && $settings["type"] != "core" ): ?>
+								<?php if( $settings["enabled"] ): ?> 
+									<a class="button-secondary" href="options-general.php?page=wordpress-social-login&wslp=components&disable=<?php echo $name ?>"><?php _wsl_e( "Disable", 'wordpress-social-login' ) ?></a>
+								<?php else: ?>
+									<a class="button-primary" style="color:#ffffff" href="options-general.php?page=wordpress-social-login&wslp=components&enable=<?php echo $name ?>"><?php _wsl_e( "Enable", 'wordpress-social-login' ) ?>&nbsp;</a>
 								<?php endif; ?>
 							<?php endif; ?>
 							&nbsp;

@@ -214,6 +214,13 @@ class LightOpenID
             $response = substr($response, 0, strpos($response, "\r\n\r\n"));
         }
 
+        //-
+		if( defined( 'WORDPRESS_SOCIAL_LOGIN_DEBUG_API_CALLS' ) )
+		{
+			do_action( 'wsl_log_provider_api_call', 'OpenID', $url . ($method == 'GET' && $params ? '?' . $params : ''), $method, $params, curl_getinfo($curl), curl_getinfo($curl), $response );
+		}
+        //-
+
         if($method == 'HEAD' || $method == 'GET') {
             $header_response = $response;
 
@@ -879,7 +886,7 @@ class LightOpenID
             // No alias for the AX schema has been found,
             // so there is no AX data in the OP's response.
         }
-        
+
         return $result;
     }
 

@@ -1024,6 +1024,20 @@ abstract class BaseFacebook
         }
     }
 
+	//-
+	$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+	
+	if( $http_code != 200 )
+	{
+		Hybrid_Error::setApiError( $http_code . '. ' . preg_replace('/\s+/', ' ', $result ) );
+	}
+
+	if( defined( 'WORDPRESS_SOCIAL_LOGIN_DEBUG_API_CALLS' ) )
+	{
+		do_action( 'wsl_log_provider_api_call', 'OAuth2.Facebook', $opts[CURLOPT_URL], null, $opts[CURLOPT_POSTFIELDS], $http_code, curl_getinfo($ch), $result );
+	}
+	//-
+
     if ($result === false) {
       $e = new FacebookApiException(array(
         'error_code' => curl_errno($ch),
@@ -1036,6 +1050,8 @@ abstract class BaseFacebook
       throw $e;
     }
     curl_close($ch);
+
+
     return $result;
   }
 
@@ -1374,10 +1390,6 @@ abstract class BaseFacebook
     // uncomment this if you want to see the errors on the page
     // print 'error_log: '.$msg."\n";
     // @codeCoverageIgnoreEnd
-
-	//-
-	$_SESSION['WSL::FB_ERROR'] = $msg;
-	//-
   }
 
   /**

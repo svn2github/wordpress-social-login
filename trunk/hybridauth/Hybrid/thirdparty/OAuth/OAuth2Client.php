@@ -34,7 +34,7 @@ class OAuth2Client
 	public $curl_header              = array();
 	public $curl_useragent           = "OAuth/2 Simple PHP Client v0.1; HybridAuth http://hybridauth.sourceforge.net/";
 	public $curl_authenticate_method = "POST";
-        public $curl_proxy               = null;
+    public $curl_proxy               = null;
 
 	//--
 
@@ -84,7 +84,7 @@ class OAuth2Client
 		$response = $this->parseRequestResult( $response );
 
 		Hybrid_Logger::debug( "OAuth2Client::authenticate(). dump request response: ", $response );
-		
+
 		if( ! $response || ! isset( $response->access_token ) ){
 			throw new Exception( "The Authorization Service has return: " . $response->error );
 		}
@@ -195,7 +195,7 @@ class OAuth2Client
 
 	// -- utilities
 
-	private function request( $url, $params=false, $type="GET" )
+	function request( $url, $params=false, $type="GET" )
 	{
 		Hybrid_Logger::info( "Enter OAuth2Client::request( $url )" );
 		Hybrid_Logger::debug( "OAuth2Client::request(). dump request params: ", $params );
@@ -238,15 +238,21 @@ class OAuth2Client
 		curl_close ($ch);
 
 		//-
-		$_SESSION['WSL::HTTP_URL']  = $url;
-		$_SESSION['WSL::HTTP_CODE'] = $this->http_code; 
-		if( $this->http_code != 200 ) $_SESSION['WSL::HTTP_RESPONSE'] = $response;
+		if( $this->http_code != 200 )
+		{
+			Hybrid_Error::setApiError( $this->http_code . '. ' . preg_replace('/\s+/', ' ', $response ) );
+		}
+
+		if( defined( 'WORDPRESS_SOCIAL_LOGIN_DEBUG_API_CALLS' ) )
+		{
+			do_action( 'wsl_log_provider_api_call', 'OAuth2', $url, $type, $params, $this->http_code, $this->http_info, $response );
+		}
 		//-
 
 		return $response; 
 	}
 
-	private function parseRequestResult( $result )
+	function parseRequestResult( $result )
 	{
 		if( json_decode( $result ) ) return json_decode( $result );
 

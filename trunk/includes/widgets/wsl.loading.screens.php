@@ -2,8 +2,8 @@
 /*!
 * WordPress Social Login
 *
-* http://hybridauth.sourceforge.net/wsl/index.html | http://github.com/hybridauth/WordPress-Social-Login
-*    (c) 2011-2014 Mohamed Mrassi and contributors | http://wordpress.org/extend/plugins/wordpress-social-login/
+* http://miled.github.io/wordpress-social-login/ | https://github.com/miled/wordpress-social-login
+*  (c) 2011-2014 Mohamed Mrassi and contributors | http://wordpress.org/plugins/wordpress-social-login/
 */
 
 /**
@@ -94,6 +94,13 @@ if( ! function_exists( 'wsl_render_redirect_to_provider_loading_screen' ) )
 /**
 * Display a loading screen after a user come back from provider and while WSL is procession his profile, contacts, etc.
 *
+* If Authentication display is undefined or eq Popup 
+* > create a from with javascript in parent window and submit it to wp-login.php
+* > (with action=wordpress_social_authenticated), then close popup
+*
+* If Authentication display eq In Page
+* > create a from in page then submit it to wp-login.php (with action=wordpress_social_authenticated) 
+*
 * Note: 
 *   In case you want to customize the content generated, you may redefine this function
 */
@@ -101,7 +108,7 @@ if( ! function_exists( 'wsl_render_return_from_provider_loading_screen' ) )
 {
 	function wsl_render_return_from_provider_loading_screen( $provider, $authenticated_url, $redirect_to, $wsl_settings_use_popup )
 	{
-		$assets_base_url  = WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL . '/assets/img/'; 
+		$assets_base_url  = WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL . '/assets/img/';  
 ?>
 <!DOCTYPE html>
 	<head>
@@ -140,9 +147,6 @@ if( ! function_exists( 'wsl_render_return_from_provider_loading_screen' ) )
 			function init()
 			{
 				<?php
-					// if Authentication display is undefined or eq Popup 
-					// > create a from with javascript in parent window and submit it to wp-login.php
-					// > (with action=wordpress_social_authenticated), then close popup
 					if( $wsl_settings_use_popup == 1 || ! $wsl_settings_use_popup ){
 						?>
 							if( window.opener )
@@ -160,9 +164,6 @@ if( ! function_exists( 'wsl_render_return_from_provider_loading_screen' ) )
 							}
 						<?php
 					}
-
-					// if Authentication display eq In Page
-					// > create a from in page then submit it to wp-login.php (with action=wordpress_social_authenticated)
 					elseif( $wsl_settings_use_popup == 2 ){
 						?>
 							document.loginform.submit();
@@ -187,7 +188,7 @@ if( ! function_exists( 'wsl_render_return_from_provider_loading_screen' ) )
 		</table>
 
 		<form name="loginform" method="post" action="<?php echo $authenticated_url; ?>">
-			<input type="hidden" id="redirect_to" name="redirect_to" value="<?php echo $authenticated_url; ?>"> 
+			<input type="hidden" id="redirect_to" name="redirect_to" value="<?php echo esc_url( $redirect_to ); ?>"> 
 			<input type="hidden" id="provider" name="provider" value="<?php echo $provider ?>"> 
 			<input type="hidden" id="action" name="action" value="wordpress_social_authenticated">
 		</form>

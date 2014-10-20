@@ -48,10 +48,12 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model
 				$this->api->setAccessToken( $access_token );
 			}
 
-			$this->api->setAccessToken( $this->token("access_token") );
+			$this->api->setAccessToken( $this->token("access_token") ); 
 		}
-
-		$this->api->getUser();
+		else{
+			// fixme! this cal fb api twice 
+			$this->api->getUser();
+		}
 	}
 
 	/**
@@ -163,7 +165,7 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model
 			$data = $this->api->api('/me'); 
 		}
 		catch( FacebookApiException $e ){
-			throw new Exception( "User profile request failed! {$this->providerId} returned an error: $e", 6 );
+			throw new Exception( "User profile request failed! {$this->providerId} returned an error", 6 );
 		} 
 
 		// if the provider identifier is not received, we assume the auth has failed
@@ -185,9 +187,12 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model
         	$this->user->profile->language      = (array_key_exists('locale',$data))?$data['locale']:"";
 		$this->user->profile->description   = (array_key_exists('about',$data))?$data['about']:"";
 		$this->user->profile->email         = (array_key_exists('email',$data))?$data['email']:"";
-		$this->user->profile->emailVerified = (array_key_exists('email',$data))?$data['email']:"";
 		$this->user->profile->region        = (array_key_exists("hometown",$data)&&array_key_exists("name",$data['hometown']))?$data['hometown']["name"]:"";
-		
+
+		if( array_key_exists('verified',$data ) && $data['verified'] == 1 ){
+			$this->user->profile->emailVerified = $this->user->profile->email;
+		}
+
 		if(!empty($this->user->profile->region )){
 			$regionArr = explode(',',$this->user->profile->region );
 			if(count($regionArr) > 1){
@@ -195,7 +200,7 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model
 				$this->user->profile->country = trim($regionArr[1]);
 			}
 		}
-		
+
 		if( array_key_exists('birthday',$data) ) {
 			list($birthday_month, $birthday_day, $birthday_year) = explode( "/", $data['birthday'] );
 
@@ -242,7 +247,7 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model
 				$response = $this->api->api('/me/friends' . $apiCall); 
 			}
 			catch( FacebookApiException $e ){
-				throw new Exception( 'User contacts request failed! {$this->providerId} returned an error: $e' );
+				throw new Exception( 'User contacts request failed! {$this->providerId} returned an error' );
 			} 
 
 			// Prepare the next call if paging links have been returned
@@ -301,7 +306,7 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model
             }
 
             if( is_null( $access_token ) ){
-                throw new Exception( "Update user page failed, page not found or not writable!" );
+                throw new Exception( "Update user page failed, page not found or not writeable!" );
             }
 
             $status[ 'access_token' ] = $access_token;

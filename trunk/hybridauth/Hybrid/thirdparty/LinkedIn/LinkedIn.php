@@ -639,7 +639,7 @@ class LinkedIn {
 	 *             'oauth'     => The OAuth request string that was sent to LinkedIn	 
 	 *           )	 
 	 */
-	protected function fetch($method, $url, $data = NULL, $parameters = array()) {
+	function fetch($method, $url, $data = NULL, $parameters = array()) {
 	  // check for cURL
 	  if(!extension_loaded('curl')) {
 	    // cURL not present
@@ -709,11 +709,19 @@ class LinkedIn {
       $return_data['oauth']['header'] = $oauth_req->to_header(self::_API_OAUTH_REALM);
       $return_data['oauth']['string'] = $oauth_req->base_string;
 
-		//-
-		$_SESSION['WSL::HTTP_URL']  = $url;
-		$_SESSION['WSL::HTTP_CODE'] = curl_getinfo($handle, CURLINFO_HTTP_CODE); 
-		if( $_SESSION['WSL::HTTP_CODE'] != 200 ) $_SESSION['WSL::HTTP_RESPONSE'] = $return_data['linkedin'];
-		//-
+	//-
+	$http_code = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+
+	if( $http_code != 200 )
+	{
+		Hybrid_Error::setApiError( $http_code . '. ' . preg_replace('/\s+/', ' ', $return_data['linkedin'] ) );
+	}
+
+	if( defined( 'WORDPRESS_SOCIAL_LOGIN_DEBUG_API_CALLS' ) )
+	{
+		do_action( 'wsl_log_provider_api_call', 'OAuth1.LinkedIn', $url, $method, $data, $http_code, $this->http_info, $return_data['linkedin'] );
+	}
+	//-
         
       // check for throttling
       if(self::isThrottled($return_data['linkedin'])) {

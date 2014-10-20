@@ -2,8 +2,8 @@
 /*!
 * WordPress Social Login
 *
-* http://hybridauth.sourceforge.net/wsl/index.html | http://github.com/hybridauth/WordPress-Social-Login
-*    (c) 2011-2014 Mohamed Mrassi and contributors | http://wordpress.org/extend/plugins/wordpress-social-login/
+* http://miled.github.io/wordpress-social-login/ | https://github.com/miled/wordpress-social-login
+*  (c) 2011-2014 Mohamed Mrassi and contributors | http://wordpress.org/plugins/wordpress-social-login/
 */
 
 /**
@@ -28,8 +28,10 @@ if ( !defined( 'ABSPATH' ) ) exit;
 */
 function wsl_check_compatibilities()
 {
-	delete_option( 'wsl_settings_development_mode_enabled' );
+	global $wpdb;
 
+	delete_option( 'wsl_settings_development_mode_enabled' );
+	delete_option( 'wsl_settings_debug_mode_enabled' );
 	delete_option( 'wsl_settings_welcome_panel_enabled' );
 
 	if( ! get_option( 'wsl_settings_redirect_url' ) )
@@ -174,6 +176,12 @@ function wsl_check_compatibilities()
 	{ 
 		update_option( 'wsl_settings_buddypress_xprofile_map', '' );
 	}
+
+	# migrate steam users id to id64. Prior to 2.2
+	$sql = "UPDATE " . $wslusersprofiles . "
+			SET identifier = REPLACE( identifier, 'http://steamcommunity.com/openid/id/', '' )
+			WHERE provider = 'Steam' AND identifier like 'http://steamcommunity.com/openid/id/%' ";
+	$wpdb->query( $sql );
 }
 
 // --------------------------------------------------------------------

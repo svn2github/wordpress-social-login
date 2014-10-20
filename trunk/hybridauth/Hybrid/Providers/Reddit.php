@@ -46,7 +46,7 @@ class Hybrid_Providers_Reddit extends Hybrid_Provider_Model_OAuth2
 
 		// check for errors
 		if ( $error ){ 
-			throw new Exception( "Authentication failed! {$this->providerId} returned an error: $error", 5 );
+			throw new Exception( "Authentication failed! {$this->providerId} returned an error: " . htmlentities( $error ), 5 );
 		}
 
 		// try to authenticate user
@@ -56,12 +56,12 @@ class Hybrid_Providers_Reddit extends Hybrid_Provider_Model_OAuth2
 			$this->authenticate( $code ); 
 		}
 		catch( Exception $e ){
-			throw new Exception( "User profile request failed! {$this->providerId} returned an error: $e", 6 );
+			throw new Exception( "Authentication failed! {$this->providerId} returned an error", 5 );
 		}
 
 		// check if authenticated
 		if ( ! $this->api->access_token ){ 
-			throw new Exception( "Authentication failed! {$this->providerId} returned an invalid access token.", 5 );
+			throw new Exception( "Authentication failed! {$this->providerId} returned an invalid access_token", 5 );
 		}
 
 		// store tokens
@@ -188,7 +188,7 @@ class Hybrid_Providers_Reddit extends Hybrid_Provider_Model_OAuth2
 		$http_headers = array();
 		$http_headers['Authorization'] = 'Bearer ' . $this->api->access_token;
 		
-		$response = $this->request( "https://oauth.reddit.com/api/v1/me.json?access_token=" . $this->api->access_token, false, 'GET', $http_headers ); 
+		$response = $this->request( "https://oauth.reddit.com/api/v1/me.json?access_token=" . $this->api->access_token, array(), 'GET', $http_headers ); 
 		
 		$response = $this->parseRequestResult( $response );
 
@@ -200,6 +200,8 @@ class Hybrid_Providers_Reddit extends Hybrid_Provider_Model_OAuth2
 		$this->user->profile->displayName = @ $response->name; 
 		$this->user->profile->profileURL  = "https://www.reddit.com/user/" . $this->user->profile->identifier . "/";  
 
-		return $this->user->profile;
+		if( $this->user->profile->identifier ){
+			return $this->user->profile;
+		}
 	}
 }
