@@ -12,6 +12,8 @@ WordPress Social Login allow your visitors to comment and login with social netw
 
 == Description ==
 
+> WordPress Social Login Pre-release 2.2.3 is available and it includes few important changes. For details, please refer to https://wordpress.org/support/topic/wsl-223-pre-release-notes-potential-breaking-changes
+
 <strong>Wordpress Social Login</strong> allow your website readers and customers to register on using their existing social accounts IDs, eliminating the need to fill out registration forms and remember usernames and passwords. 
 
 Wordpress Social Login also allow you to import users contact list from Google Gmail, Facebook, Windows Live and LinkedIn.
@@ -63,12 +65,14 @@ The user guide and frequently asked questions can be found at http://hybridauth.
 
 == Screenshots ==
 
-1. **Comment** - Buttons for 3rd party services are also provided on the comment form.
-2. **Login** - On the login and registration form, buttons for 3rd party services are provided.
-3. **Setup** - To correctly setup these Identity Providers please carefully follow the help section of each one.
-4. **Widget** - WordPress Social Login widget customization
-5. **Bouncer** - WordPress Social Login advanced configuration
-6. **Components** - WordPress Social Login components manager
+1. WSL attempts to work with the default WordPress comment, login and registration forms.
+2. WSL come with a simple but flexible and fully customizable authentication widget.
+3. WSL widget can be easily integrated into most WordPress themes and many popular plugins using hooks and shortcodes.
+4. WSL social networks setup.
+5. WSL widget customization.
+6. WSL advanced configuration.
+7. WSL Buddypress Integration.
+8. WSL components and add-ons manager.
 
 == Changelog ==
 
