@@ -93,7 +93,6 @@ function wsl_database_migration_process()
 				city varchar(255) NOT NULL,
 				zip varchar(255) NOT NULL,
 				UNIQUE KEY id (id),
-				KEY idp_uid (provider,identifier),
 				KEY user_id (user_id)
 			)"; 
 		dbDelta( $sql ); 
