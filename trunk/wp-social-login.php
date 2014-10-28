@@ -39,10 +39,13 @@ Domain Path: /languages
 *  procedural PHP and will be kept that way.
 *
 *  If you have fixed, improved or translated something in WSL, Please consider contributing back to the project
-*  and the WordPress community by submitting a Pull Request at https://github.com/hybridauth/WordPress-Social-Login
+*  and the WordPress community by submitting a Pull Request at https://github.com/miled/wordpress-social-login
+*
+*  If you are here just looking for the hooks, then refer to the online Developer API
+*  http://miled.github.io/wordpress-social-login/documentation.html
 *
 *  If you want to translate this plugin into your language (or to improve the current translation), see
-*  wordpress-social-login/languages/readme.txt
+*  languages/readme.txt
 *
 *  Peace.
 *
@@ -64,9 +67,7 @@ $_SESSION["wsl::plugin"] = "WordPress Social Login " . $WORDPRESS_SOCIAL_LOGIN_V
 /**
 * This file might be used to :
 *     1. Redefine WSL constants, so you can move WSL folder around.
-*     2. Define wsl_load_plugin_textdomain(), in case you want to use a custom translation.
-*     3. Customize wsl_render_notice_page() and wsl_render_error_page().
-*     4. Customize wsl_render_redirect_to_provider_loading_screen() and wsl_render_return_from_provider_loading_screen().
+*     2. Define WSL Pluggable PHP Functions. See http://miled.github.io/wordpress-social-login/developer-api-functions.html
 *     5. Implement your WSL hooks.
 */
 if( file_exists( WP_PLUGIN_DIR . '/wp-social-login-custom.php' ) )
@@ -149,7 +150,7 @@ function wsl_add_plugin_row_meta( $links, $file )
 	if( $file == $this_plugin )
 	{
 		$wsl_links = array(
-			'<a href="http://miled.github.io/wordpress-social-login/">'             . __( "Manual" )            . '</a>',
+			'<a href="http://miled.github.io/wordpress-social-login/">'             . __( "Docs" )              . '</a>',
 			'<a href="http://miled.github.io/wordpress-social-login/faq.html">'     . __( "FAQ" )               . '</a>',
 			'<a href="http://miled.github.io/wordpress-social-login/support.html">' . __( "Suppot" )            . '</a>',
 			'<a href="https://github.com/miled/wordpress-social-login">'            . __( "Fork me on Github" ) . '</a>',
@@ -180,6 +181,26 @@ if( ! function_exists( 'wsl_load_plugin_textdomain' ) )
 
 add_action( 'plugins_loaded', 'wsl_load_plugin_textdomain' );
 
+// --------------------------------------------------------------------
+
+/**
+* _e() wrapper
+*/
+function _wsl_e( $text, $domain )
+{
+	echo __( $text, $domain );
+}
+
+// --------------------------------------------------------------------
+
+/**
+* __() wrapper
+*/
+function _wsl__( $text, $domain )
+{
+	return __( $text, $domain );
+}
+
 // -------------------------------------------------------------------- 
 
 /* includes */
@@ -199,7 +220,7 @@ require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/services/wsl.utilitie
 require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/services/wsl.watchdog.php'             ); // Logging agent
 
 # WSL Widget and GUIs generators
-require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/widgets/wsl.auth.widget.php'           ); // Authentication widget generators (where WSL widget/icons are displayed)
+require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/widgets/wsl.auth.widgets.php'          ); // Authentication widget generators (where WSL widget/icons are displayed)
 require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/widgets/wsl.complete.registration.php' ); // Force users to complete their profile after they register.
 require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/widgets/wsl.account.linking.php'       ); // Planned for WSL 2.3.
 require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/widgets/wsl.error.pages.php'           ); // Generate WSL notices end errors pages.

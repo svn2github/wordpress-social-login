@@ -7,8 +7,9 @@
 */
 
 /**
-* Authenticate users via social networks. 
+* Authenticate users via social networks.
 *
+* Ref: http://miled.github.io/wordpress-social-login/developer-api-authentication.html
 ** 
 * Side note: I don't usually over-comment codes, but this is the main WSL script and I had to since
 * many users with diffrent "skill levels" may want to understand how this piece of code works.
@@ -16,41 +17,40 @@
 * To sum things up, here is how WSL works (bit hard to explain, so bare with me):
 *
 * Let assume a user come to page at our website and he click on of the providers icons in order connect.
-* (for an actual example, see http://hybridauth.sourceforge.net/wsl/assets/img/wsl_redirections.png)
 *
-*   1. By clicking on an icon, the user will be redirected to wp-login.php (with specific args in the url: &action=wordpress_social_authenticate&provider=..)
-*   2. If &action=wordpress_social_authenticate is found in the current url [of wp-login.php], then WSL will display a loading screen,
-*   3. That loading screen will refresh it self adding &redirect_to_provider=ture to the current url which will trigger the next step,
-*   4. Instanciate Hybridauth main class, build the required config (keys, scopes, callback url, etc.) and initiate the auth process /hybridauth/?hauth.start=PROVIDER_ID,
-*   5. Hybridauth will redirect the user to the selected provider site to ask for his consent (authorisation to access his profile),
-*   6. If the user gives his authorisation for your application, the provider will redirect the user back to Hybridauth entry point /hybridauth/?hauth.done=PROVIDER_ID,
-*   7. Hybridauth will redirect the user to the given callback url. In callback url, WSL will display a second loading screen,
-*   8. This loading screen will generate and sumbmit a form with a hidden input action=wordpress_social_authenticated to the current url which will trigger the next step,
-*   9. WSL will grab the user profile from the provider, attempt to identify him and create a new WordPress user if he doesn't exist. In this step, and when enabled, WSL will import the user contacts and map his profile to buddypress,
-*  10. Finally, WSL will authenticate the user within WordPress (give him a sweet cookie) then redirect him back to where he come from
-*
+*  - If &action=wordpress_social_authenticate is found in the current url, then WSL will display a loading screen,
+*  - That loading screen will refresh it self adding &redirect_to_provider=ture to the url, which will trigger the next step,
+*  - Next, WSL will instantiate Hybridauth main class, build the required provider config then initiate the auth protocol /hybridauth/?hauth.start=PROVIDER_ID,
+*  - Hybridauth will redirect the user to the selected provider site to ask for his consent (authorisation to access his profile),
+*  - If the user gives his authorisation for your application, the provider will redirect the user back to Hybridauth entry point /hybridauth/?hauth.done=PROVIDER_ID,
+*  - Hybridauth will redirect the user to the given callback url.
+*  - In that callback url, WSL will display a second loading screen This loading screen will generate and submit a form with a hidden input &action= wordpress_social_authenticated to the current url which will trigger the second part of the auth process,
+*  - WSL will grab the user profile from the provider, attempt to identify him and create a new WordPress user if he doesn't exist. In this step, and when enabled, WSL will also import the user contacts and map his profile data to Buddypress xporfiles tables,
+*  - Finally, WSL will authenticate the user within WordPress (give him a sweet cookie) and redirect him back to Redirect URL
 **
 * Functions execution order is the following:
 *
-*     wsl_process_login()
-*     .    wsl_process_login_begin()
-*     .    .    wsl_render_redirect_to_provider_loading_screen()
-*     .    . 
-*     .    .    Hybrid_Auth::authenticate()
-*     .    .    .    wsl_process_login_render_error_page()
-*     .    .
-*     .    .    wsl_render_return_from_provider_loading_screen()
-*     .
-*     .    wsl_process_login_end()
-*     .    .    wsl_process_login_end_get_user_data()
-*     .    .    .    Hybrid_Auth::isConnectedWith()
-*     .    .    .    .    wsl_process_login_render_error_page()
-*     .    .    .
-*     .    .    .    wsl_process_login_complete_registration()
-*     .    .
-*     .    .    wsl_process_login_create_wp_user()
-*     .    .    wsl_process_login_update_wsl_user_data()
-*     .    .    wsl_process_login_authenticate_wp_user() 
+*     do_action('init')
+*     .       wsl_process_login()
+*     .       .       wsl_process_login_begin()
+*     .       .       .       wsl_render_redirect_to_provider_loading_screen()
+*     .       .       .       Hybrid_Auth::authenticate()
+*     .       .       .       wsl_render_return_from_provider_loading_screen()
+*     .       .
+*     .       .       wsl_process_login_end()
+*     .       .       .      wsl_process_login_end_get_user_data()
+*     .       .       .      .       wsl_process_login_request_user_social_profile()
+*     .       .       .      .       .       Hybrid_Auth::getUserProfile()
+*     .       .       .      .       wsl_process_login_complete_registration()
+*     .       .       .
+*     .       .       .      wsl_process_login_create_wp_user()
+*     .       .       .
+*     .       .       .      wsl_process_login_update_wsl_user_data()
+*     .       .       .      .       wsl_store_hybridauth_user_profile()
+*     .       .       .      .       wsl_buddypress_xprofile_mapping()
+*     .       .       .      .       wsl_store_hybridauth_user_contacts()
+*     .       .       .
+*     .       .       .      wsl_process_login_authenticate_wp_user()
 */
 
 // Exit if accessed directly
@@ -83,17 +83,32 @@ function wsl_process_login()
 		return false;
 	}
 
+	// authentication mode
+	$auth_mode = wsl_process_login_get_auth_mode();
+
 	// start loggin the auth process, if debug mode is enabled
 	wsl_watchdog_init();
 
-	// user already logged in?
-	if( is_user_logged_in() )
+	// halt, if mode login and user already logged in
+	if( 'login' == $auth_mode && is_user_logged_in() )
 	{
 		global $current_user;
 
 		get_currentuserinfo();
 
 		return wsl_process_login_render_notice_page( sprintf( _wsl__( "You are already logged in as %s. Do you want to <a href='%s'>log out</a>?", 'wordpress-social-login' ), $current_user->display_name, wp_logout_url( home_url() ) ) );
+	}
+
+	// halt, if mode link and user not logged in
+	if( 'link' == $auth_mode && ! is_user_logged_in() )
+	{
+		return wsl_process_login_render_notice_page( sprintf( _wsl__( "You have to be logged in to be able to link your existing account. Do you want to <a href='%s'>login</a>?", 'wordpress-social-login' ), wp_login_url( home_url() ) ) );
+	}
+
+	// halt, if mode test and not admin 
+	if( 'test' == $auth_mode && ! current_user_can('manage_options') )
+	{
+		return wsl_process_login_render_notice_page( _wsl__( 'You do not have sufficient permissions to access this page.', 'wordpress-social-login' ) );
 	}
 
 	// Bouncer :: Allow authentication?
@@ -176,66 +191,7 @@ function wsl_process_login_begin()
 		return wsl_process_login_render_notice_page( _wsl__( "Unknown or disabled provider.", 'wordpress-social-login' ) );
 	}
 
-	// build required configuration for this provider
-	$config = array();
-	$config["base_url"] = WORDPRESS_SOCIAL_LOGIN_HYBRIDAUTH_ENDPOINT_URL; 
-	$config["providers"] = array();
-	$config["providers"][$provider] = array();
-	$config["providers"][$provider]["enabled"] = true;
-	$config["providers"][$provider]["keys"] = array( 'id' => null, 'key' => null, 'secret' => null );
-
-	// provider application id ?
-	if( get_option( 'wsl_settings_' . $provider . '_app_id' ) )
-	{
-		$config["providers"][$provider]["keys"]["id"] = get_option( 'wsl_settings_' . $provider . '_app_id' );
-	}
-
-	// provider application key ?
-	if( get_option( 'wsl_settings_' . $provider . '_app_key' ) )
-	{
-		$config["providers"][$provider]["keys"]["key"] = get_option( 'wsl_settings_' . $provider . '_app_key' );
-	}
-
-	// provider application secret ?
-	if( get_option( 'wsl_settings_' . $provider . '_app_secret' ) )
-	{
-		$config["providers"][$provider]["keys"]["secret"] = get_option( 'wsl_settings_' . $provider . '_app_secret' );
-	}
-
-	// set custom endpoint?
-	if( in_array( strtolower( $provider ), array( 'live', 'dribbble' ) ) )
-	{
-		$config["providers"][$provider]["endpoint"] = WORDPRESS_SOCIAL_LOGIN_HYBRIDAUTH_ENDPOINT_URL . 'endpoints/' . strtolower( $provider ) . '.php';
-	}
-
-	// set default scope and display mode for facebook
-	if( strtolower( $provider ) == "facebook" )
-	{
-		$config["providers"][$provider]["scope"] = "email, user_about_me, user_birthday, user_hometown, user_website"; 
-		$config["providers"][$provider]["display"] = "popup";
-		$config["providers"][$provider]["trustForwarded"] = true;
-
-		// switch to fb::display 'page' if wsl auth in page
-		if( get_option( 'wsl_settings_use_popup') == 2 )
-		{
-			$config["providers"][$provider]["display"] = "page";
-		}
-	}
-
-	// set default scope for google
-	if( strtolower( $provider ) == "google" ){
-		$config["providers"][$provider]["scope"] = "https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read";  
-
-		// if contacts import enabled, we request an extra permission 'https://www.google.com/m8/feeds/'
-		if( get_option( 'wsl_settings_contacts_import_google' ) == 1 )
-		{
-			$config["providers"][$provider]["scope"] .= " https://www.google.com/m8/feeds/";
-		}
-	}
-
-	// HOOKABLE: allow to overwrite scopes (some people have asked for a way to lower the number of permissions requested)
-	$provider_scope = isset( $config["providers"][$provider]["scope"] ) ? $config["providers"][$provider]["scope"] : '' ; 
-	$config["providers"][$provider]["scope"] = apply_filters( 'wsl_hook_alter_provider_scope', $provider_scope, $provider );
+	$config = wsl_process_login_build_provider_config( $provider );
 
 	/* 3. Instantiate the class Hybrid_Auth and redirect the user to provider to ask for authorisation for this website */
 
@@ -269,17 +225,20 @@ function wsl_process_login_begin()
 	}
 
 	// HOOKABLE:
-	do_action( "wsl_hook_process_login_after_hybridauth_authenticate", $provider, $config );
+	do_action( "wsl_hook_process_login_after_hybridauth_authenticate", $provider, $config, $hybridauth, $adapter );
 
 	/* 4. Display a loading screen after user come back from provider as we redirect the user back to Widget::Redirect URL */
 
 	// get Widget::Authentication display
 	$wsl_settings_use_popup = get_option( 'wsl_settings_use_popup' );
 
+	// authentication mode
+	$auth_mode = wsl_process_login_get_auth_mode();
+
 	$redirect_to = isset( $_REQUEST[ 'redirect_to' ] ) ? $_REQUEST[ 'redirect_to' ] : site_url();
 
 	// build the authenticateD, which will make wsl_process_login() fire the next step wsl_process_login_end()
-	$authenticated_url = site_url( 'wp-login.php', 'login_post' ) . ( strpos( site_url( 'wp-login.php', 'login_post' ), '?' ) ? '&' : '?' ) . "action=wordpress_social_authenticated&provider=" . $provider;
+	$authenticated_url = site_url( 'wp-login.php', 'login_post' ) . ( strpos( site_url( 'wp-login.php', 'login_post' ), '?' ) ? '&' : '?' ) . "action=wordpress_social_authenticated&provider=" . $provider . '&mode=' . $auth_mode;
 
 	// display a loading screen
 	return wsl_render_return_from_provider_loading_screen( $provider, $authenticated_url, $redirect_to, $wsl_settings_use_popup );
@@ -307,33 +266,77 @@ function wsl_process_login_end()
 	// HOOKABLE: selected provider name
 	$provider = apply_filters( 'wsl_hook_process_login_alter_provider', wsl_process_login_get_selected_provider() );
 
+	// authentication mode
+	$auth_mode = wsl_process_login_get_auth_mode();
+
+	$is_new_user             = false; // is it a new or returning user
+	$user_id                 = ''   ; // wp user id 
+	$adapter                 = ''   ; // hybriauth adapter for the selected provider
+	$hybridauth_user_profile = ''   ; // hybriauth user profile 
+	$hybridauth_user_email   = ''   ; // user email as provided by the provider
+	$request_user_login      = ''   ; // username typed by users in Profile Completion
+	$request_user_email      = ''   ; // email typed by users in Profile Completion
+
 	// provider is enabled?
 	if( ! get_option( 'wsl_settings_' . $provider . '_enabled' ) )
 	{
 		return wsl_process_login_render_notice_page( _wsl__( "Unknown or disabled provider.", 'wordpress-social-login' ) );
 	}
 
-	// is it a new or returning user
-	$is_new_user = false;
-
-	// returns user data after he authenticate via hybridauth 
-	list
-	( 
-		$user_id                , // wp user_id if found in database
-		$adapter                , // hybriauth adapter for the selected provider
-		$hybridauth_user_profile, // hybriauth user profile 
-		$hybridauth_user_email  , // user email as provided by the provider
-		$request_user_login     , // username typed by users in Profile Completion
-		$request_user_email     , // email typed by users in Profile Completion
-	)
-	= wsl_process_login_end_get_user_data( $provider, $redirect_to );
-
-	// if no associated user were found in wslusersprofiles, create new WordPress user
-	if( ! $user_id )
+	if( 'test' == $auth_mode )
 	{
-		$user_id = wsl_process_login_create_wp_user( $provider, $hybridauth_user_profile, $request_user_login, $request_user_email );
+		$redirect_to = admin_url( 'options-general.php?page=wordpress-social-login&wslp=auth-test&provider=' . $provider );
 
-		$is_new_user = true;
+		return wp_safe_redirect( $redirect_to );
+	}
+
+	if( 'link' == $auth_mode )
+	{
+		// a social account cant be associated with more than one wordpress account.
+
+		$hybridauth_user_profile = wsl_process_login_request_user_social_profile( $provider );
+
+		$user_id = (int) wsl_get_stored_hybridauth_user_id_by_provider_and_provider_uid( $provider, $hybridauth_user_profile->identifier );
+
+		if( $user_id && $user_id != get_current_user_id() )
+		{
+			return wsl_process_login_render_notice_page( sprintf( _wsl__( "Your <b>%s ID</b> is already linked to another account on this website.", 'wordpress-social-login'), $provider ) );
+		}
+
+		$user_id = get_current_user_id();
+
+		// doesn't hurt to double check
+		if( ! $user_id )
+		{
+			return wsl_process_login_render_notice_page( _wsl__( "Sorry, we couldn't link your account.", 'wordpress-social-login' ) );
+		}
+	}
+	elseif( 'login' != $auth_mode )
+	{
+		return wsl_process_login_render_notice_page( _wsl__( 'Bouncer says no.', 'wordpress-social-login' ) ); 
+	}
+
+	if( 'login' == $auth_mode )
+	{
+		// returns user data after he authenticate via hybridauth 
+		list
+		( 
+			$user_id                ,
+			$adapter                ,
+			$hybridauth_user_profile,
+			$hybridauth_user_email  ,
+			$request_user_login     ,
+			$request_user_email     ,
+		)
+		= wsl_process_login_end_get_user_data( $provider, $redirect_to );
+
+		// if no associated user were found in wslusersprofiles, create new WordPress user
+		if( ! $user_id )
+		{
+			$user_id = wsl_process_login_create_wp_user( $provider, $hybridauth_user_profile, $request_user_login, $request_user_email );
+
+			$is_new_user = true;
+		}
 	}
 
 	// if user is found in wslusersprofiles but the associated WP user account no longer exist
@@ -344,7 +347,7 @@ function wsl_process_login_end()
 	{
 		wsl_delete_stored_hybridauth_user_data( $user_id );
 
-		return wsl_process_login_render_notice_page( sprintf( _wsl__( "Sorry, we couldn't connect you to <b>%s</b>. <a href=\"%s\">Please try again</a>.", 'wordpress-social-login' ), bloginfo('name'), site_url( 'wp-login.php', 'login_post' ) ) );
+		return wsl_process_login_render_notice_page( sprintf( _wsl__( "Sorry, we couldn't connect you. <a href=\"%s\">Please try again</a>.", 'wordpress-social-login' ), site_url( 'wp-login.php', 'login_post' ) ) );
 	}
 
 	// store user hybridauth profile (wslusersprofiles), contacts (wsluserscontacts) and buddypress mapping 
@@ -492,7 +495,7 @@ function wsl_process_login_end_get_user_data( $provider, $redirect_to )
 		}
 	}
 
-	/* 4 Deletegate detection of user id to custom functions / hooks */
+	/* 4 Deletegate detection of user id to custom filters hooks */
 
 	// HOOKABLE:
 	$user_id = apply_filters( 'wsl_hook_process_login_alter_user_id', $user_id, $provider, $hybridauth_user_profile );
@@ -533,7 +536,6 @@ function wsl_process_login_end_get_user_data( $provider, $redirect_to )
 				get_option( 'wsl_settings_bouncer_profile_completion_change_username' ) == 1
 		)
 		{
-			die( 'hiii') ;
 			do
 			{
 				list
@@ -712,15 +714,8 @@ function wsl_process_login_create_wp_user( $provider, $hybridauth_user_profile, 
 		$user_id = wp_insert_user( $userdata );
 	}
 
-	// update user metadata
-	if( $user_id && is_integer( $user_id ) )
-	{
-		update_user_meta( $user_id, 'wsl_current_provider'   , $provider );
-		update_user_meta( $user_id, 'wsl_current_user_image' , $hybridauth_user_profile->photoURL );
-	}
-
 	// do not continue without user_id
-	else
+	if( ! $user_id || ! is_integer( $user_id ) )
 	{
 		if( is_wp_error( $user_id ) )
 		{
@@ -790,7 +785,11 @@ function wsl_process_login_authenticate_wp_user( $user_id, $provider, $redirect_
 
 	// update some fields in usermeta for the current user
 	update_user_meta( $user_id, 'wsl_current_provider'   , $provider );
-	update_user_meta( $user_id, 'wsl_current_user_image' , $hybridauth_user_profile->photoURL );
+
+	if(  $hybridauth_user_profile->photoURL )
+	{
+		update_user_meta( $user_id, 'wsl_current_user_image' , $hybridauth_user_profile->photoURL );
+	}
 
 	# {{{ module Bouncer
 	# http://www.jfarthing.com/development/theme-my-login/user-moderation/
@@ -834,7 +833,7 @@ function wsl_process_login_authenticate_wp_user( $user_id, $provider, $redirect_
 		wp_set_auth_cookie( $user_id, true );
 
 		// let keep it std
-		do_action( 'wp_login', $wp_user->user_login );
+		do_action( 'wp_login', $wp_user->user_login, $wp_user );
 	}
 
 	// HOOKABLE: This action runs just before redirecting the user back to $redirect_to
@@ -859,16 +858,97 @@ function wsl_process_login_authenticate_wp_user( $user_id, $provider, $redirect_
 // --------------------------------------------------------------------
 
 /**
+*  Build required hybridauth configuration for the given provider
+*/
+function wsl_process_login_build_provider_config( $provider )
+{
+	$config = array();
+	$config["base_url"] = WORDPRESS_SOCIAL_LOGIN_HYBRIDAUTH_ENDPOINT_URL; 
+	$config["providers"] = array();
+	$config["providers"][$provider] = array();
+	$config["providers"][$provider]["enabled"] = true;
+	$config["providers"][$provider]["keys"] = array( 'id' => null, 'key' => null, 'secret' => null );
+
+	// provider application id ?
+	if( get_option( 'wsl_settings_' . $provider . '_app_id' ) )
+	{
+		$config["providers"][$provider]["keys"]["id"] = get_option( 'wsl_settings_' . $provider . '_app_id' );
+	}
+
+	// provider application key ?
+	if( get_option( 'wsl_settings_' . $provider . '_app_key' ) )
+	{
+		$config["providers"][$provider]["keys"]["key"] = get_option( 'wsl_settings_' . $provider . '_app_key' );
+	}
+
+	// provider application secret ?
+	if( get_option( 'wsl_settings_' . $provider . '_app_secret' ) )
+	{
+		$config["providers"][$provider]["keys"]["secret"] = get_option( 'wsl_settings_' . $provider . '_app_secret' );
+	}
+
+	// set custom endpoint?
+	if( in_array( strtolower( $provider ), array( 'live', 'dribbble' ) ) )
+	{
+		$config["providers"][$provider]["endpoint"] = WORDPRESS_SOCIAL_LOGIN_HYBRIDAUTH_ENDPOINT_URL . 'endpoints/' . strtolower( $provider ) . '.php';
+	}
+
+	// set default scope and display mode for facebook
+	if( strtolower( $provider ) == "facebook" )
+	{
+		// > do not reset this scope manually, use wsl filter 'hook wsl_hook_alter_provider_scope'
+		$config["providers"][$provider]["scope"] = "email, user_about_me, user_birthday, user_hometown, user_website";
+		$config["providers"][$provider]["display"] = "popup";
+		$config["providers"][$provider]["trustForwarded"] = true;
+
+		// switch to fb::display 'page' if wsl auth in page
+		if( get_option( 'wsl_settings_use_popup') == 2 )
+		{
+			$config["providers"][$provider]["display"] = "page";
+		}
+	}
+
+	// set default scope for google
+	if( strtolower( $provider ) == "google" )
+	{
+		// > do not reset this scope manually, use wsl filter 'hook wsl_hook_alter_provider_scope'
+		$config["providers"][$provider]["scope"] = "profile https://www.googleapis.com/auth/plus.profile.emails.read";
+
+		// if contacts import enabled, we request an extra permission 'https://www.google.com/m8/feeds/'
+		if( get_option( 'wsl_settings_contacts_import_google' ) == 1 && wsl_is_component_enabled( 'contacts' ) )
+		{
+			$config["providers"][$provider]["scope"] .= " https://www.google.com/m8/feeds/";
+		}
+	}
+
+	// HOOKABLE: allow to overwrite scopes
+	$provider_scope = isset( $config["providers"][$provider]["scope"] ) ? $config["providers"][$provider]["scope"] : '' ; 
+
+	$config["providers"][$provider]["scope"] = apply_filters( 'wsl_hook_alter_provider_scope', $provider_scope, $provider );
+
+	// HOOKABLE: allow to overwrite hybridauth config for the selected provider
+	$config["providers"][$provider] = apply_filters( 'wsl_hook_alter_provider_config', $config["providers"][$provider], $provider );
+
+	return $config;
+}
+
+// --------------------------------------------------------------------
+
+/**
 *  Grab the user profile from social network 
 */
 function wsl_process_login_request_user_social_profile( $provider )
 {
+	$adapter                 = null;
+	$config                  = null;
 	$hybridauth_user_profile = null;
 
 	try
 	{
 		// get idp adapter
 		$adapter = wsl_process_login_get_provider_adapter( $provider );
+
+		$config = $adapter->config;
 
 		// if user authenticated successfully with social network
 		if( $adapter->isUserConnected() )
@@ -907,8 +987,6 @@ function wsl_process_login_get_provider_adapter( $provider )
 
 	return Hybrid_Auth::getAdapter( $provider );
 }
-
-add_filter( 'wsl_process_login_get_provider_adapter', 'wsl_process_login_get_provider_adapter', 10, 1 );
 
 // --------------------------------------------------------------------
 
@@ -1037,7 +1115,7 @@ function wsl_process_login_render_notice_page( $message )
 // --------------------------------------------------------------------
 
 /**
-* Returns the selected provider from _REQUEST
+* Returns the selected provider from _REQUEST, default to null
 */
 function wsl_process_login_get_selected_provider()
 {
@@ -1047,13 +1125,23 @@ function wsl_process_login_get_selected_provider()
 // --------------------------------------------------------------------
 
 /**
+* Returns the selected auth mode from _REQUEST, default to login
+*/
+function wsl_process_login_get_auth_mode()
+{
+	return ( isset( $_REQUEST["mode"] ) ? sanitize_text_field( $_REQUEST["mode"] ) : 'login' );
+}
+
+// --------------------------------------------------------------------
+
+/**
 * Clear the stored data by hybridauth and wsl in php session
 */
 function wsl_process_login_clear_user_php_session()
 {
-	$_SESSION["HA::STORE"]        = array(); // used by hybridauth library. to clear as soon as the auth process end.
-	$_SESSION["HA::CONFIG"]       = array(); // used by hybridauth library. to clear as soon as the auth process end.
-	$_SESSION["wsl::userprofile"] = array(); // used by wsl to temporarily store the user profile so de don't make unnecessary calls to social apis.
+	$_SESSION["HA::STORE"]        = array(); // used by hybridauth library. to clear as soon as the auth process ends.
+	$_SESSION["HA::CONFIG"]       = array(); // used by hybridauth library. to clear as soon as the auth process ends.
+	$_SESSION["wsl::userprofile"] = array(); // used by wsl to temporarily store the user profile so we don't make unnecessary calls to social apis.
 }
 
 // --------------------------------------------------------------------

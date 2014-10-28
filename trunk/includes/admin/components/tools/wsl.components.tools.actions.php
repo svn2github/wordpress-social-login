@@ -14,6 +14,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 function wsl_component_tools_sections()
 {
 	$sections = array(
+		'auth_playground'    => 'wsl_component_tools_auth_playground'    ,
 		'diagnostics'        => 'wsl_component_tools_diagnostics'        ,
 		'system_information' => 'wsl_component_tools_system_information' ,
 		'repair_wsl_tables'  => 'wsl_component_tools_repair_wsl_tables'  ,
@@ -31,6 +32,26 @@ function wsl_component_tools_sections()
 
 	// HOOKABLE:
 	do_action( 'wsl_component_tools_sections' );
+}
+
+// --------------------------------------------------------------------	
+
+function wsl_component_tools_auth_playground()
+{
+?>
+<div class="stuffbox">
+	<h3>
+		<label><?php _wsl_e("Authentication Playground", 'wordpress-social-login') ?></label>
+	</h3>
+	<div class="inside"> 
+		<p>
+			<?php _wsl_e('Authentication Playground will let you authenticate with the enabled social networks without creating any new user account. This tool will also give you a direct access to social networks apis via a lightweight console', 'wordpress-social-login') ?>. 
+		</p>
+
+		<a class="button-primary"  href="<?php echo wp_nonce_url( 'options-general.php?page=wordpress-social-login&wslp=auth-test'); ?>"><?php _wsl_e("Go to the authentication playground", 'wordpress-social-login') ?></a>  
+	</div>
+</div>
+<?php
 }
 
 // --------------------------------------------------------------------	

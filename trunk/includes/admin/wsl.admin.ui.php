@@ -172,6 +172,12 @@ function wsl_admin_ui_header( $wslp = null )
 		}
 	?>
 
+	<div class="alignright">
+		<a style="font-size: 0.9em; text-decoration: none;" target="_blank" href="http://miled.github.io/wordpress-social-login/documentation.html">Docs</a> - 
+		<a style="font-size: 0.9em; text-decoration: none;" target="_blank" href="http://miled.github.io/wordpress-social-login/support.html">Support</a> - 
+		<a style="font-size: 0.9em; text-decoration: none;" target="_blank" href="https://github.com/miled/wordpress-social-login">Github</a>
+	</div>
+
 	<h1 <?php if( is_rtl() ) echo 'style="margin: 20px 0;"'; ?>>
 		<?php _wsl_e( 'WordPress Social Login', 'wordpress-social-login' ) ?>
 
@@ -181,6 +187,8 @@ function wsl_admin_ui_header( $wslp = null )
 	<h2 class="nav-tab-wrapper">
 		&nbsp;
 		<?php
+			$css_pull_right = "";
+
 			foreach( $WORDPRESS_SOCIAL_LOGIN_ADMIN_TABS as $name => $settings )
 			{
 				if( $settings["enabled"] && ( $settings["visible"] || $wslp == $name ) )
