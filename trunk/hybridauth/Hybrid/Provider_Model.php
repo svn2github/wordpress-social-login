@@ -53,7 +53,7 @@ abstract class Hybrid_Provider_Model
 
 	/**
 	 * the provider api client (optional)
-	 * @var String
+	 * @var object
 	 */
 	public $api        = NULL; 
 

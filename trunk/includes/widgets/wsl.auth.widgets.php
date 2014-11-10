@@ -22,9 +22,10 @@ if( !defined( 'ABSPATH' ) ) exit;
 /**
 * Generate the HTML content of WSL Widget
 *
-* Information:
-*   WSL Widget supported arguments are still experimental and might change in future versions.
+* Note:
+*   WSL shortcode arguments are still experimental and might change in future versions.
 *   Please, avoid using them until it's officially announced and documented.
+*   This feature is planned for WSL 2.3. Contributions to this are very welcome.
 *
 *   [wordpress_social_login
 *        auth_mode="login"
@@ -79,6 +80,10 @@ function wsl_render_auth_widget( $args = array() )
 	// HOOKABLE: This action runs just before generating the WSL Widget.
 	do_action( 'wsl_render_auth_widget_start' );
 
+// Depreciated and will be removed
+do_action( 'wsl_render_login_form_start' );
+// Depreciated and will be removed
+
 	GLOBAL $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG;
 
 	ob_start();
@@ -110,7 +115,7 @@ function wsl_render_auth_widget( $args = array() )
 	// > admin auth playground
 	if( $auth_mode == 'test' )
 	{
-		$authenticate_base_url = admin_url( 'options-general.php?page=wordpress-social-login&wslp=auth-test&action=wordpress_social_authenticate&mode=test&' );
+		$authenticate_base_url = site_url() . "/?action=wordpress_social_authenticate&mode=test&";
 	}
 
 	// > account linking
@@ -133,7 +138,6 @@ function wsl_render_auth_widget( $args = array() )
 	WordPress Social Login <?php echo wsl_get_version(); ?>.
 	http://wordpress.org/plugins/wordpress-social-login/
 -->
-
 <?php 
 	// Widget::Custom CSS
 	$widget_css = get_option( 'wsl_settings_authentication_widget_css' );
@@ -144,15 +148,16 @@ function wsl_render_auth_widget( $args = array() )
 	// show the custom widget css if not empty
 	if( ! empty( $widget_css ) )
 	{
+?>
+
+<style type="text/css">
+<?php
+	echo
+		preg_replace(
+			array( '%/\*(?:(?!\*/).)*\*/%s', '/\s{2,}/', "/\s*([;{}])[\r\n\t\s]/", '/\\s*;\\s*/', '/\\s*{\\s*/', '/;?\\s*}\\s*/' ),
+				array( '', ' ', '$1', ';', '{', '}' ),
+					$widget_css );
 ?> 
-<style>
-	<?php
-		echo
-			preg_replace(
-				array( '%/\*(?:(?!\*/).)*\*/%s', '/\s{2,}/', "/\s*([;{}])[\r\n\t\s]/", '/\\s*;\\s*/', '/\\s*{\\s*/', '/;?\\s*}\\s*/' ),
-					array( '', ' ', '$1', ';', '{', '}' ),
-						$widget_css );
-	?> 
 </style>
 <?php 
 	}
@@ -175,8 +180,8 @@ function wsl_render_auth_widget( $args = array() )
 	// display provider icons
 	foreach( $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG AS $item )
 	{
-		$provider_id   = isset( $item["provider_id"]   ) ? $item["provider_id"]   : '' ;
-		$provider_name = isset( $item["provider_name"] ) ? $item["provider_name"] : '' ;
+		$provider_id    = isset( $item["provider_id"]    ) ? $item["provider_id"]   : '' ;
+		$provider_name  = isset( $item["provider_name"]  ) ? $item["provider_name"] : '' ;
 
 		// provider enabled?
 		if( get_option( 'wsl_settings_' . $provider_id . '_enabled' ) )
@@ -191,7 +196,7 @@ function wsl_render_auth_widget( $args = array() )
 					continue;
 				}
 			}
-		
+
 			// build authentication url
 			$authenticate_url = $authenticate_base_url . "provider=" . $provider_id . "&redirect_to=" . urlencode( $current_page_url );
 
@@ -212,7 +217,7 @@ function wsl_render_auth_widget( $args = array() )
 			$provider_icon_markup = apply_filters( 'wsl_render_auth_widget_alter_provider_icon_markup', $provider_id, $provider_name, $authenticate_url );
 
 // Depreciated and will be removed
-$provider_icon_markup = apply_filters( 'wsl_render_login_form_alter_provider_icon_markup', $provider_id, $provider_name, $authenticate_url ); 
+$provider_icon_markup = apply_filters( 'wsl_render_login_form_alter_provider_icon_markup', $provider_icon_markup, $provider_name, $authenticate_url ); 
 // Depreciated and will be removed
 
 			if( $provider_icon_markup != $provider_id )
@@ -225,8 +230,8 @@ $provider_icon_markup = apply_filters( 'wsl_render_login_form_alter_provider_ico
 
 		<a rel="nofollow" href="<?php echo $authenticate_url; ?>" title="<?php echo sprintf( _wsl__("Connect with %s", 'wordpress-social-login'), $provider_name ) ?>" class="wp-social-login-provider wp-social-login-provider-<?php echo strtolower( $provider_id ); ?>" data-provider="<?php echo $provider_id ?>">
 			<?php if( $social_icon_set == 'none' ){ echo $provider_name; } else { ?><img alt="<?php echo $provider_name ?>" title="<?php echo sprintf( _wsl__("Connect with %s", 'wordpress-social-login'), $provider_name ) ?>" src="<?php echo $assets_base_url . strtolower( $provider_id ) . '.png' ?>" /><?php } ?>
-		</a>
 
+		</a>
 <?php 
 			}
 
@@ -244,30 +249,36 @@ $provider_icon_markup = apply_filters( 'wsl_render_login_form_alter_provider_ico
 		<style>#wp-social-login-connect-with{display:none;}</style>
 <?php
 	}
-
-	// provide popup url for hybridauth callback
-	if( $wsl_settings_use_popup == 1 )
-	{
-	?>
-
-		<input type="hidden" id="wsl_popup_base_url" value="<?php echo esc_url( $authenticate_base_url ) ?>" />
-		<input type="hidden" id="wsl_login_form_uri" value="<?php echo esc_url( site_url( 'wp-login.php', 'login_post' ) ); ?>" />
-
-	<?php
-	} 
 ?>
+
 	</div> 
 
 	<div class="wp-social-login-widget-clearing"></div>
-</div> 
 
-<!-- wsl_render_auth_widget -->
+</div>
 
 <?php
+	// provide popup url for hybridauth callback
+	if( $wsl_settings_use_popup == 1 )
+	{
+?>
+<input type="hidden" id="wsl_popup_base_url" value="<?php echo esc_url( $authenticate_base_url ) ?>" />
+<input type="hidden" id="wsl_login_form_uri" value="<?php echo esc_url( site_url( 'wp-login.php', 'login_post' ) ); ?>" />
+
+<?php
+	} 
+
 	// HOOKABLE: This action runs just after generating the WSL Widget.
 	do_action( 'wsl_render_auth_widget_end' );
 
-	// Display WSL debugging are bellow the widget.  
+// Depreciated and will be removed
+do_action( 'wsl_render_login_form_end' );
+// Depreciated and will be removed
+?>
+<!-- wsl_render_auth_widget -->
+
+<?php
+	// Display WSL debugging area bellow the widget.  
 	// wsl_display_dev_mode_debugging_area(); // ! keep this line commented unless you know what you are doing :) 
 
 	return ob_get_clean();
@@ -280,21 +291,26 @@ $provider_icon_markup = apply_filters( 'wsl_render_login_form_alter_provider_ico
 *
 * Ref: http://codex.wordpress.org/Function_Reference/add_action
 */
-function wsl_wordpress_social_login_action( $args = array() )
+function wsl_action_wordpress_social_login( $args = array() )
 {
 	echo wsl_render_auth_widget( $args );
 }
 
-add_action( 'wordpress_social_login', 'wsl_wordpress_social_login_action' );
+add_action( 'wordpress_social_login', 'wsl_action_wordpress_social_login' );
 
 // --------------------------------------------------------------------
 
 /**
 * WSL wordpress_social_login shortcode
 *
+* Note:
+*   WSL shortcode arguments are still experimental and might change in future versions.
+*   Please, avoid using 'restrict_content' until it's officially announced and documented.
+*   This feature is planned for WSL 2.3. Contributions to this are more than welcome.
+*
 * Ref: http://codex.wordpress.org/Function_Reference/add_shortcode
 */
-function wsl_wordpress_social_login_shortcode( $args = array(), $content = null )
+function wsl_shortcode_wordpress_social_login( $args = array(), $content = null )
 {
 	$restrict_content = isset( $args['restrict_content'] ) && $args['restrict_content'] ? true : false;
 
@@ -311,16 +327,17 @@ function wsl_wordpress_social_login_shortcode( $args = array(), $content = null 
 	return wsl_render_auth_widget( $args );
 }
 
-add_shortcode( 'wordpress_social_login', 'wsl_wordpress_social_login_shortcode' );
+add_shortcode( 'wordpress_social_login', 'wsl_shortcode_wordpress_social_login' );
 
 // --------------------------------------------------------------------
 
 /**
 * WSL wordpress_social_login_meta shortcode
 *
-* Information:
+* Note:
 *   This shortcode is experimental and might change in future versions.
 *   Please, avoid using it until it's officially announced and documented.
+*   This feature is planned for WSL 2.4. Contributions to this are quite welcome.
 *
 *   [wordpress_social_login_meta
 *        user_id="215"
@@ -329,7 +346,7 @@ add_shortcode( 'wordpress_social_login', 'wsl_wordpress_social_login_shortcode' 
 *        css_class="my_style_is_better"
 *   ]
 */
-function wordpress_social_login_meta_shortcode( $args = array() )
+function wsl_shortcode_wordpress_social_login_meta( $args = array() )
 {
 	// wordpress user id default to current user connected
 	$user_id = isset( $args['user_id'] ) && $args['user_id'] ? $args['user_id'] : get_current_user_id();
@@ -424,7 +441,7 @@ function wordpress_social_login_meta_shortcode( $args = array() )
 	return $return;
 }
 
-add_shortcode( 'wordpress_social_login_meta', 'wordpress_social_login_meta_shortcode' );
+add_shortcode( 'wordpress_social_login_meta', 'wsl_shortcode_wordpress_social_login_meta' );
 
 // --------------------------------------------------------------------
 
@@ -450,7 +467,8 @@ function wsl_render_auth_widget_in_comment_form()
 	}
 }
 
-add_action( 'comment_form_top', 'wsl_render_auth_widget_in_comment_form' );
+add_action( 'comment_form_top'              , 'wsl_render_auth_widget_in_comment_form' );
+add_action( 'comment_form_must_log_in_after', 'wsl_render_auth_widget_in_comment_form' );
 
 // --------------------------------------------------------------------
 
@@ -498,7 +516,7 @@ function wsl_add_stylesheets()
 {
 	if( ! wp_style_is( 'wsl-widget', 'registered' ) )
 	{
-		wp_register_style( "wsl-widget", WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL . "/assets/css/widget.css" ); 
+		wp_register_style( "wsl-widget", WORDPRESS_SOCIAL_LOGIN_PLUGIN_URL . "/assets/css/style.css" ); 
 	}
 
 	wp_enqueue_style( "wsl-widget" ); 

@@ -23,8 +23,8 @@
 
 			var width  = 1000;
 			var height = 600;
-			var top    = ( jQuery(window).height() / 2 ) - ( height / 2 ) - 50;
-			var left   = ( jQuery(window).width()  / 2 ) - ( width  / 2 );
+			var top    = ( screen.height / 2 ) - ( height / 2 ) - 50;
+			var left   = ( screen.width  / 2 ) - ( width  / 2 );
 
 			window.open( popupurl + 'provider=' + provider, 'hybridauth_social_sing_on', 'location=1,status=0,scrollbars=0,height=' + height + ',width=' + width + ',top=' + top + ',left=' + left);
 		});

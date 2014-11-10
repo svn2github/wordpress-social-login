@@ -130,6 +130,11 @@ function wsl_component_bouncer_setup_profile_completion()
 		<p>
 			<?php _wsl_e("Select required fields. If a social network doesn't return them, Bouncer will then ask your visitors to fill additional form to provide them when registering.", 'wordpress-social-login') ?> 
 		</p>
+		<!-- planned for 2.3
+		<p>
+			<?php _wsl_e("When <b>Hook extra registration fields</b> is set to Yes, Bounce will also add any extra registration fields from other plugins (eg: Newsletter, Register Plus Redux) .", 'wordpress-social-login') ?> 
+		</p>
+		-->
 		<p class="description">
 			<?php _wsl_e("You may activate <b>Profile Completion</b> for both <b>E-mail</b> and <b>Username</b>, but keep in mind, the idea behind <b>social login</b> is to avoid forms and to remove the hassle of registration", 'wordpress-social-login') ?>.
 		</p>
@@ -152,6 +157,17 @@ function wsl_component_bouncer_setup_profile_completion()
 				</select>
 			</td>
 		  </tr>
+		<!-- planned for 2.3
+		  <tr>
+			<td width="200" align="right"><strong><?php _wsl_e("Hook extra registration fields", 'wordpress-social-login') ?> :</strong></td>
+			<td>
+				<select name="wsl_settings_bouncer_profile_completion_hook_extra_fields">
+					<option <?php if( get_option( 'wsl_settings_bouncer_profile_completion_hook_extra_fields' ) == 1 ) echo "selected"; ?> value="1"><?php _wsl_e("Yes", 'wordpress-social-login') ?></option>
+					<option <?php if( get_option( 'wsl_settings_bouncer_profile_completion_hook_extra_fields' ) == 2 ) echo "selected"; ?> value="2"><?php _wsl_e("No", 'wordpress-social-login') ?></option> 
+				</select>
+			</td>
+		  </tr>
+		-->
 		</table>  
 	</div>
 </div>
@@ -177,7 +193,7 @@ function wsl_component_bouncer_setup_user_moderation()
 			<li><?php _wsl_e('<b>Admin Approval</b>: New users will need to be approved by an administrator before they may log in', 'wordpress-social-login') ?>.</li>
 		</ul> 
 		<p>
-			<?php _wsl_e('<b>Notes</b>', 'wordpress-social-login') ?>:
+			<b><?php _wsl_e('Notes', 'wordpress-social-login') ?>:</b>
 		</p> 
 		<p class="description">
 			1. <?php _wsl_e('Both <b>Admin Approval</b> and <b>E-mail Confirmation</b> requires <a href="http://wordpress.org/extend/plugins/theme-my-login/" target="_blank">Theme My Login Plugin</a> to be installed', 'wordpress-social-login') ?>.
@@ -191,11 +207,28 @@ function wsl_component_bouncer_setup_user_moderation()
 		<table width="100%" border="0" cellpadding="5" cellspacing="2" style="border-top:1px solid #ccc;">  
 		  <tr>
 			<td width="200" align="right"><strong><?php _wsl_e("User Moderation", 'wordpress-social-login') ?> :</strong></td>
-			<td> 
+			<td>
+				<?php
+					$users_moderation_level = array(
+						100 => "E-mail Confirmation &mdash; Yield to Theme My Login plugin",
+						102 => "Admin Approval &mdash; Yield to Theme My Login plugin",
+					);
+
+					$users_moderation_level = apply_filters( 'wsl_component_bouncer_setup_alter_users_moderation_level', $users_moderation_level );
+
+					$wsl_settings_bouncer_new_users_moderation_level = get_option( 'wsl_settings_bouncer_new_users_moderation_level' );
+				?>
+
 				<select name="wsl_settings_bouncer_new_users_moderation_level">
-					<option <?php if( get_option( 'wsl_settings_bouncer_new_users_moderation_level' ) == 1 )   echo "selected"; ?> value="1"><?php _wsl_e("None", 'wordpress-social-login') ?></option> 
-					<option <?php if( get_option( 'wsl_settings_bouncer_new_users_moderation_level' ) == 101 ) echo "selected"; ?> value="101"><?php _wsl_e("E-mail Confirmation &mdash; Yield to Theme My Login plugin", 'wordpress-social-login') ?></option> 
-					<option <?php if( get_option( 'wsl_settings_bouncer_new_users_moderation_level' ) == 102 ) echo "selected"; ?> value="102"><?php _wsl_e("Admin Approval &mdash; Yield to Theme My Login plugin", 'wordpress-social-login') ?></option> 
+					<option <?php if( $wsl_settings_bouncer_new_users_moderation_level == 1 )   echo "selected"; ?> value="1"><?php _wsl_e("None", 'wordpress-social-login') ?></option> 
+					<?php
+						foreach( $users_moderation_level as $level => $label )
+						{
+							?>
+								<option <?php if( $wsl_settings_bouncer_new_users_moderation_level == $level ) echo "selected"; ?>   value="<?php echo $level; ?>"><?php _wsl_e( $label, 'wordpress-social-login' ) ?></option>
+							<?php
+						}
+					?>
 				</select>
 			</td>
 		  </tr>
@@ -217,14 +250,14 @@ function wsl_component_bouncer_setup_membership_level()
 	<div class="inside"> 
 		<p>
 			<?php _wsl_e("Here you can define the default role for new users authenticating through WSL", 'wordpress-social-login') ?>.
-			<?php _wsl_e("Please, be extra carefull with this option, you ay be automatically giving someone elevated roles and capabilities", 'wordpress-social-login') ?>.
+			<?php _wsl_e("Please, be extra carefull with this option, you may be automatically giving someone elevated roles and capabilities", 'wordpress-social-login') ?>.
 			<?php _wsl_e('For more information about WordPress users roles and capabilities refer to <a href="http://codex.wordpress.org/Roles_and_Capabilities#Capability_vs._Role_Table" target="_blank">http://codex.wordpress.org/Roles_and_Capabilities</a>', 'wordpress-social-login') ?>.
 		</p>  
 		<p class="description">
-			<?php _wsl_e('<b>Notes:</b>', 'wordpress-social-login') ?>
+			<b><?php _wsl_e('Notes', 'wordpress-social-login') ?>:</b>
 			<br /><?php _wsl_e('1. If <b>User Moderation</b> is set to <code>Admin Approval</code>, then <b>Membership level</b> will be ignored', 'wordpress-social-login') ?>. 
 			<br /><?php _wsl_e('2. To assign the same default role as in your website <b>General Settings</b>, set this field to <code>Wordpress User Default Role</code>', 'wordpress-social-login') ?>.
-			<br /><?php _wsl_e('3. If you are not sure, leave this field to <code>No role for this site</code>', 'wordpress-social-login') ?>.
+			<br /><?php _wsl_e('3. If you are not sure, simply leave this field to <code>No role for this site</code>', 'wordpress-social-login') ?>.
 		</p> 
 		<table width="100%" border="0" cellpadding="5" cellspacing="2" style="border-top:1px solid #ccc;">
 		  <tr>
@@ -239,8 +272,10 @@ function wsl_component_bouncer_setup_membership_level()
 					<optgroup label="<?php _wsl_e("Be careful with these", 'wordpress-social-login') ?>:">
 						<?php
 							global $wp_roles;
+				
+							$users_membership_roles = apply_filters( 'wsl_component_bouncer_setup_alter_users_membership_roles', $wp_roles->role_names );
 
-							foreach ( $wp_roles->role_names as $role => $name )
+							foreach ( $users_membership_roles as $role => $name )
 							{
 						?>
 							<option value="<?php echo $role ?>"  <?php if( get_option( 'wsl_settings_bouncer_new_users_membership_default_role' ) == $role ) echo "selected"; ?> ><?php _wsl_e( $name, 'wordpress-social-login' ) ?></option>

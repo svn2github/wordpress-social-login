@@ -10,7 +10,8 @@
  * 
  * Hybrid_Endpoint class provides a simple way to handle the OpenID and OAuth endpoint.
  */
-class Hybrid_Endpoint {
+class Hybrid_Endpoint
+{
 	public static $request = NULL;
 	public static $initDone = FALSE;
 
@@ -149,6 +150,11 @@ class Hybrid_Endpoint {
 
 		$provider_id = trim( strip_tags( Hybrid_Endpoint::$request["hauth_done"] ) );
 
+		# check if page accessed directly
+		if( ! Hybrid_Auth::storage()->get( "hauth_session.$provider_id.hauth_endpoint" ) ) {
+			throw new Hybrid_Exception( "You cannot access this page directly." );
+		}
+
 		$hauth = Hybrid_Auth::setup( $provider_id );
 
 		if( ! $hauth ) {
@@ -177,10 +183,6 @@ class Hybrid_Endpoint {
 
 			# Init Hybrid_Auth
 			try {
-                if(!class_exists("Hybrid_Storage")){
-                    require_once realpath( dirname( __FILE__ ) )  . "/Storage.php";
-                }
-				
 				$storage = new Hybrid_Storage(); 
 
 				// Check if Hybrid_Auth session already exist

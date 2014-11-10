@@ -22,9 +22,11 @@ class Hybrid_Providers_LinkedIn extends Hybrid_Provider_Model
 		if ( ! $this->config["keys"]["key"] || ! $this->config["keys"]["secret"] ){
 			throw new Exception( "Your application key and secret are required in order to connect to {$this->providerId}.", 4 );
 		}
-		if ( ! class_exists('OAuthConsumer') ) {
+
+		if ( ! class_exists( 'OAuthConsumer', false ) ) {
 			require_once realpath( dirname( __FILE__ ) )  . "/../thirdparty/OAuth/OAuth.php";
 		}
+
 		require_once realpath( dirname( __FILE__ ) )  . "/../thirdparty/LinkedIn/LinkedIn.php";
 
 		$this->api = new LinkedIn( array( 'appKey' => $this->config["keys"]["key"], 'appSecret' => $this->config["keys"]["secret"], 'callbackUrl' => $this->endpoint ) );
@@ -50,6 +52,14 @@ class Hybrid_Providers_LinkedIn extends Hybrid_Provider_Model
 			Hybrid_Auth::redirect( LINKEDIN::_URL_AUTH . $response['linkedin']['oauth_token'] );
 		}
 		else{
+	 		if( isset( $response['linkedin']['oauth_problem'] ) ){
+		 		if( $response['linkedin']['oauth_problem'] == 'timestamp_refused' ){
+					throw new Exception( "Authentication failed! Your server time is not in sync with the {$this->providerId} servers. Acceptable timestamps: " . date("D, d M Y G:i:s", (int) $response['linkedin']['oauth_acceptable_timestamps'] ), 5 );
+				}
+
+				throw new Exception( "Authentication failed! {$this->providerId} returned an oauth_problem.", 5 );
+			}
+
 			throw new Exception( "Authentication failed! {$this->providerId} returned an invalid oauth_token", 5 );
 		}
 	}

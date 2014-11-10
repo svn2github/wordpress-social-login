@@ -47,13 +47,13 @@ function wsl_component_networks_sidebar_what_is_this()
 				<?php _wsl_e('<b>WordPress Social Login</b> allows your website visitors and customers to register on using their existing social account ID, eliminating the need to fill out registration forms and remember usernames and passwords', 'wordpress-social-login') ?>.
 			</p>
 			<p style="padding:0;margin:0 0 12px;">
-				<?php _wsl_e('<b>WordPress Social Login</b> come with useful <b><a href="options-general.php?page=wordpress-social-login&wslp=components">Components</a></b> or add-ons that can be essential for your needs', 'wordpress-social-login') ?>.
+				<?php _wsl_e('<b>WordPress Social Login</b> come with a number of useful <b><a href="options-general.php?page=wordpress-social-login&wslp=components">Components</a></b> or add-ons that can be essential for your needs', 'wordpress-social-login') ?>.
 			</p> 
 			<p style="padding:0;margin:0 0 12px;">
-				<?php _wsl_e('If you are still new to things, we recommend that you read the <b><a href="http://miled.github.io/wordpress-social-login" target="_blank">WSL user guide</a></b> and to make sure your server meet the minimum system requirements by running <b><a href="http://hybridauth.com/hawp4/wp-admin/options-general.php?page=wordpress-social-login&wslp=tools">WSL Diagnostics</a></b>', 'wordpress-social-login') ?>.
+				<?php _wsl_e('If you are still new to things, we recommend that you read the <b><a href="http://miled.github.io/wordpress-social-login/documentation.html" target="_blank">WSL Documentation</a></b> and to make sure your server meet the minimum system requirements by running <b><a href="http://hybridauth.com/hawp4/wp-admin/options-general.php?page=wordpress-social-login&wslp=tools">WSL Diagnostics</a></b>', 'wordpress-social-login') ?>.
 			</p>
 			<p style="padding:0;margin:0 0 12px;">
-				<?php _wsl_e('If you run into any issue, then refer to <b><a href="options-general.php?page=wordpress-social-login&wslp=help">Help &amp; Support</a></b> to konw how to reach me', 'wordpress-social-login') ?>.
+				<?php _wsl_e('If you run into any issue, then refer to <b><a href="http://miled.github.io/wordpress-social-login/support.html" target="_blank">Help &amp; Support</a></b>', 'wordpress-social-login') ?>.
 			</p> 
 		</div> 
 	</div> 
@@ -77,7 +77,7 @@ function wsl_component_networks_sidebar_add_more_idps()
 
 		<div style="padding:0 20px;">
 			<p style="padding:0;margin:0 0 12px;">
-				<?php _wsl_e('By default, we have enabled <b>Facebook</b>, <b>Google</b> and <b>Twitter</b>, however you may add even more. <b>Just Click</b> on the icons and we will guide you through', 'wordpress-social-login') ?>.
+				<?php _wsl_e('We have enabled <b>Facebook</b>, <b>Google</b> and <b>Twitter</b> by default, however you may add even more. <b>Just Click</b> on the icons and we will guide you through', 'wordpress-social-login') ?>.
 			</p>
 
 			<div style="width: 320px; padding: 10px; border: 1px solid #ddd; background-color: #fff;">
@@ -166,7 +166,7 @@ function wsl_component_networks_sidebar_basic_insights()
 								?>
 									<tr>
 										<td width="60%">
-											<img src="<?php echo $assets_base_url . strtolower( $item->provider ) . '.png' ?>" style="vertical-align:top;width:16px;height:16px;" /> <?php echo $item->provider; ?> 
+											<img src="<?php echo $assets_base_url . strtolower( $item->provider ) . '.png' ?>" style="vertical-align:top;width:16px;height:16px;" /> <?php _wsl_e($item->provider, 'wordpress-social-login') ?>
 										</td>
 										<td>
 											<?php echo $item->items; ?>

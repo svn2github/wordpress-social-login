@@ -3,7 +3,7 @@
 Plugin Name: WordPress Social Login
 Plugin URI: http://miled.github.io/wordpress-social-login/
 Description: Allow your visitors to comment and login with social networks such as Twitter, Facebook, Google, Yahoo and more.
-Version: 2.2.3-rc.2
+Version: 2.2.3
 Author: Miled
 Author URI: https://github.com/miled
 License: MIT License
@@ -24,28 +24,32 @@ Domain Path: /languages
 *
 *  If you want to contribute, please consider these general "guide lines":
 *
-*   - Don't hesitate to delete code that doesn't make sense or looks redundant.
+*   - Small patches will be always welcome. Large changes should be discussed ahead of time.
+*   - That said, don't hesitate to delete code that doesn't make sense or looks redundant.
 *   - Feel free to create new functions and files when needed.
-*   - Avoid using 'switch' and 'for'.
-*   - Avoid over-commenting.
+*   - Avoid over-commenting, unless you find it necessary.
+*   - Avoid using 'switch' and 'for'. I hate those.
 *
 *  Coding Style :
 *
 *   - Readable code.
-*   - Clear indentations (4 chars).
+*   - Clear indentations (tabs: 8-char indents).
 *   - Same name convention of WordPress: those long long and self-explanatory functions and variables.
 *
-*  To keep the code accessible to everyone and easy to maintain for me, WordPress Social Login is programmed in
+*  To keep the code accessible to everyone and easy to maintain, WordPress Social Login is programmed in
 *  procedural PHP and will be kept that way.
 *
 *  If you have fixed, improved or translated something in WSL, Please consider contributing back to the project
-*  and the WordPress community by submitting a Pull Request at https://github.com/miled/wordpress-social-login
+*  by submitting a Pull Request at https://github.com/miled/wordpress-social-login
 *
-*  If you are here just looking for the hooks, then refer to the online Developer API
+*  Grep's user, read below. Keywords stuffing:<add_action|do_action|add_filter|apply_filters>
+*  If you are here just looking for the hooks, then refer to the online Developer API. If it wasn't possible to
+*  achieve some required functionality in a proper way through the already available and documented WSL hooks,
+*  please ask for support before resorting to hacks. WSL internals are not to be used.
 *  http://miled.github.io/wordpress-social-login/documentation.html
 *
-*  If you want to translate this plugin into your language (or to improve the current translation), see
-*  languages/readme.txt
+*  If you want to translate this plugin into your language (or to improve the current translations), you can
+*  join in the ongoing effort at https://www.transifex.com/projects/p/wordpress-social-login/
 *
 *  Peace.
 *
@@ -57,6 +61,11 @@ if( !defined( 'ABSPATH' ) ) exit;
 // --------------------------------------------------------------------
 
 session_id() or session_start();
+
+global $WORDPRESS_SOCIAL_LOGIN_VERSION;
+global $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG;
+global $WORDPRESS_SOCIAL_LOGIN_COMPONENTS;
+global $WORDPRESS_SOCIAL_LOGIN_ADMIN_TABS;
 
 $WORDPRESS_SOCIAL_LOGIN_VERSION = "2.2.3";
 
@@ -92,9 +101,7 @@ defined( 'WORDPRESS_SOCIAL_LOGIN_HYBRIDAUTH_ENDPOINT_URL' )
 // --------------------------------------------------------------------
 
 /**
-* Check technical requirements before activating the plugin. 
-*
-* Wordpress 3.0 or newer required
+* Check for Wordpress 3.0
 */
 function wsl_activate()
 {
@@ -107,6 +114,26 @@ function wsl_activate()
 }
 
 register_activation_hook( __FILE__, 'wsl_activate' );
+
+// --------------------------------------------------------------------
+
+/**
+* Attempt to install/migrate/repair WSL upon activation
+*
+* Create wsl tables
+* Migrate old versions
+* Register default components
+*/
+function wsl_install()
+{
+	wsl_database_install();
+
+	wsl_update_compatibilities();
+
+	wsl_register_components();
+}
+
+register_activation_hook( __FILE__, 'wsl_install' );
 
 // --------------------------------------------------------------------
 
@@ -125,6 +152,7 @@ function wsl_add_plugin_action_links( $links, $file )
 	if( $file == $this_plugin )
 	{
 		$wsl_links  = '<a href="options-general.php?page=wordpress-social-login">' . __( "Settings" ) . '</a>';
+
 		array_unshift( $links, $wsl_links );
 	}
 
@@ -150,10 +178,9 @@ function wsl_add_plugin_row_meta( $links, $file )
 	if( $file == $this_plugin )
 	{
 		$wsl_links = array(
-			'<a href="http://miled.github.io/wordpress-social-login/">'             . __( "Docs" )              . '</a>',
-			'<a href="http://miled.github.io/wordpress-social-login/faq.html">'     . __( "FAQ" )               . '</a>',
-			'<a href="http://miled.github.io/wordpress-social-login/support.html">' . __( "Suppot" )            . '</a>',
-			'<a href="https://github.com/miled/wordpress-social-login">'            . __( "Fork me on Github" ) . '</a>',
+			'<a href="http://miled.github.io/wordpress-social-login/">'             . _wsl__( "Docs"             , 'wordpress-social-login' ) . '</a>',
+			'<a href="http://miled.github.io/wordpress-social-login/support.html">' . _wsl__( "Support"          , 'wordpress-social-login' ) . '</a>',
+			'<a href="https://github.com/miled/wordpress-social-login">'            . _wsl__( "Fork me on Github", 'wordpress-social-login' ) . '</a>',
 		);
 
 		return array_merge( $links, $wsl_links );
@@ -205,39 +232,31 @@ function _wsl__( $text, $domain )
 
 /* includes */
 
-# WSL Settings
-require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/settings/wsl.providers.php'            ); // List of provider supported by WSL (provided by hybridauth library) 
-require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/settings/wsl.database.php'             ); // Functions & utilities related to WSL database installation and migrations
+# WSL Setup & Settings
+require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/settings/wsl.providers.php'            ); // List of supported providers (mostly provided by hybridauth library) 
+require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/settings/wsl.database.php'             ); // Install/Uninstall WSL database tables
 require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/settings/wsl.initialization.php'       ); // Check WSL requirements and register WSL settings
-require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/settings/wsl.compatibilities.php'      ); // Check and upgrade WSL database/settings (for older WSL versions)
+require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/settings/wsl.compatibilities.php'      ); // Check and upgrade WSL database/settings (for older versions)
 
 # Services & Utilities
-require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/services/wsl.authentication.php'       ); // Authenticate users via social networks. <- that's the most important script.
-require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/services/wsl.mail.notification.php'    ); // Emails and notifications.
-require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/services/wsl.user.avatar.php'          ); // Displaying the user avatar when available on the comment section
+require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/services/wsl.authentication.php'       ); // Authenticate users via social networks. <- that's the most important script
+require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/services/wsl.mail.notification.php'    ); // Emails and notifications
+require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/services/wsl.user.avatar.php'          ); // Display users avatar
 require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/services/wsl.user.data.php'            ); // User data functions (database related)
-require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/services/wsl.utilities.php'            ); // Few utilities and functions 
-require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/services/wsl.watchdog.php'             ); // Logging agent
+require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/services/wsl.utilities.php'            ); // Unclassified functions & utilities
+require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/services/wsl.watchdog.php'             ); // WSL logging agent
 
-# WSL Widget and GUIs generators
+# WSL Widgets & Front-end interfaces 
 require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/widgets/wsl.auth.widgets.php'          ); // Authentication widget generators (where WSL widget/icons are displayed)
-require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/widgets/wsl.complete.registration.php' ); // Force users to complete their profile after they register.
-require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/widgets/wsl.account.linking.php'       ); // Planned for WSL 2.3.
-require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/widgets/wsl.error.pages.php'           ); // Generate WSL notices end errors pages.
-require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/widgets/wsl.loading.screens.php'       ); // Generate WSL loading screens.
+require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/widgets/wsl.complete.registration.php' ); // Force users to complete their profile after they register
+require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/widgets/wsl.users.gateway.php'         ); // Planned for WSL 2.3. Accounts linking + Profile Completion
+require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/widgets/wsl.error.pages.php'           ); // Generate WSL notices end errors pages
+require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/widgets/wsl.loading.screens.php'       ); // Generate WSL loading screens
 
-# WSL Admin UI
+# WSL Admin interfaces
 if( is_admin() )
 {
 	require_once( WORDPRESS_SOCIAL_LOGIN_ABS_PATH . '/includes/admin/wsl.admin.ui.php'        ); // The entry point to WSL Admin interfaces 
 }
-
-// --------------------------------------------------------------------
-
-/* hooks */
-
-// registers wsl_database_migration_hook() to be run when the WSL is activated.
-// this will create/update wslusersprofiles and wsluserscontacts and register/unregister few wp options 
-register_activation_hook( __FILE__, 'wsl_database_migration_hook' );
 
 // --------------------------------------------------------------------

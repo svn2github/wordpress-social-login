@@ -17,6 +17,8 @@ if( !defined( 'ABSPATH' ) ) exit;
 
 /**
 * Check WSL minimum requirements. Display fail page if they are not met.
+*
+* This function will only test the strict minimal
 */
 function wsl_check_requirements()
 {
@@ -64,10 +66,10 @@ $WORDPRESS_SOCIAL_LOGIN_ADMIN_TABS = ARRAY(
 	"contacts"     => array( "label" => _wsl__("Contacts"      , 'wordpress-social-login') , "visible" => true  , "component" => "contacts"      ),
 	"buddypress"   => array( "label" => _wsl__("BuddyPress"    , 'wordpress-social-login') , "visible" => true  , "component" => "buddypress"    ),
 
-	"help"         => array( "label" => _wsl__('Help'          , 'wordpress-social-login') , "visible" => true  , "component" => "core"           , "pull-right" => true , 'ico' => 'help.png'       ),
+	"help"         => array( "label" => _wsl__('Help'          , 'wordpress-social-login') , "visible" => true  , "component" => "core"           , "pull-right" => true , 'ico' => 'info.png'       ),
 	"tools"        => array( "label" => _wsl__("Tools"         , 'wordpress-social-login') , "visible" => true  , "component" => "core"           , "pull-right" => true , 'ico' => 'tools.png'      ),
 	"watchdog"     => array( "label" => _wsl__("Log viewer"    , 'wordpress-social-login') , "visible" => false , "component" => "core"           , "pull-right" => true , 'ico' => 'debug.png'      ),
-	"auth-test"    => array( "label" => _wsl__("Auth test"     , 'wordpress-social-login') , "visible" => false , "component" => "core"           , "pull-right" => true , 'ico' => 'magic.png'      ),
+	"auth-paly"    => array( "label" => _wsl__("Auth test"     , 'wordpress-social-login') , "visible" => false , "component" => "core"           , "pull-right" => true , 'ico' => 'magic.png'      ),
 	"components"   => array( "label" => _wsl__("Components"    , 'wordpress-social-login') , "visible" => true  , "component" => "core"           , "pull-right" => true , 'ico' => 'components.png' ),
 );
 
@@ -198,16 +200,30 @@ function wsl_register_setting()
 	// idps credentials
 	foreach( $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG AS $item )
 	{
-		$provider_id          = isset( $item["provider_id"]       ) ? $item["provider_id"]       : null; 
+		$provider_id          = isset( $item["provider_id"]       ) ? $item["provider_id"]       : null;
 		$require_client_id    = isset( $item["require_client_id"] ) ? $item["require_client_id"] : null;
 		$require_registration = isset( $item["new_app_link"]      ) ? $item["new_app_link"]      : null;
+		$default_api_scope    = isset( $item["default_api_scope"] ) ? $item["default_api_scope"] : null;
+
+		/**
+		* @fixme
+		*
+		* Here we should only register enabled providers settings. postponed. patches are welcome.
+		***
+			$default_network = isset( $item["default_network"] ) ? $item["default_network"] : null;
+
+			if( ! $default_network || get_option( 'wsl_settings_' . $provider_id . '_enabled' ) != 1 .. )
+			{
+				..
+			}
+		*/
 
 		register_setting( 'wsl-settings-group', 'wsl_settings_' . $provider_id . '_enabled' );
 
 		// require application?
 		if( $require_registration )
 		{
-			// key or id ?
+			// api key or id ?
 			if( $require_client_id )
 			{
 				register_setting( 'wsl-settings-group', 'wsl_settings_' . $provider_id . '_app_id' ); 
@@ -217,7 +233,19 @@ function wsl_register_setting()
 				register_setting( 'wsl-settings-group', 'wsl_settings_' . $provider_id . '_app_key' ); 
 			}
 
+			// api secret
 			register_setting( 'wsl-settings-group', 'wsl_settings_' . $provider_id . '_app_secret' ); 
+
+			// api scope?
+			if( $default_api_scope )
+			{
+				if( ! get_option( 'wsl_settings_' . $provider_id . '_app_scope' ) )
+				{
+					update_option( 'wsl_settings_' . $provider_id . '_app_scope', $default_api_scope );
+				}
+
+				register_setting( 'wsl-settings-group', 'wsl_settings_' . $provider_id . '_app_scope' );
+			}
 		}
 	}
 
@@ -241,14 +269,14 @@ function wsl_register_setting()
 	register_setting( 'wsl-settings-group-bouncer'          , 'wsl_settings_bouncer_registration_enabled'                     ); 
 	register_setting( 'wsl-settings-group-bouncer'          , 'wsl_settings_bouncer_authentication_enabled'                   ); 
 
+	register_setting( 'wsl-settings-group-bouncer'          , 'wsl_settings_bouncer_accounts_linking_enabled'                 ); // Planned for 2.3
+
 	register_setting( 'wsl-settings-group-bouncer'          , 'wsl_settings_bouncer_profile_completion_require_email'         );
-	register_setting( 'wsl-settings-group-bouncer'          , 'wsl_settings_bouncer_profile_completion_change_email'          );
 	register_setting( 'wsl-settings-group-bouncer'          , 'wsl_settings_bouncer_profile_completion_change_username'       );
+	register_setting( 'wsl-settings-group-bouncer'          , 'wsl_settings_bouncer_profile_completion_hook_extra_fields'     ); // Planned for 2.3
 
 	register_setting( 'wsl-settings-group-bouncer'          , 'wsl_settings_bouncer_new_users_moderation_level'               );
 	register_setting( 'wsl-settings-group-bouncer'          , 'wsl_settings_bouncer_new_users_membership_default_role'        );
-
-	register_setting( 'wsl-settings-group-bouncer'          , 'wsl_settings_bouncer_accounts_linking_enabled'                 );  // Planned for 2.3
 
 	register_setting( 'wsl-settings-group-bouncer'          , 'wsl_settings_bouncer_new_users_restrict_domain_enabled'        );
 	register_setting( 'wsl-settings-group-bouncer'          , 'wsl_settings_bouncer_new_users_restrict_domain_list'           );
@@ -265,8 +293,6 @@ function wsl_register_setting()
 
 	register_setting( 'wsl-settings-group-debug'            , 'wsl_settings_debug_mode_enabled' ); 
 	register_setting( 'wsl-settings-group-development'      , 'wsl_settings_development_mode_enabled' ); 
-
-	add_option( 'wsl_settings_welcome_panel_enabled' ); 
 }
 
 // --------------------------------------------------------------------
