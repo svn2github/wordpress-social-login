@@ -60,7 +60,7 @@ if( !defined( 'ABSPATH' ) ) exit;
 
 // --------------------------------------------------------------------
 
-session_id() or session_start();
+@session_start();
 
 global $WORDPRESS_SOCIAL_LOGIN_VERSION;
 global $WORDPRESS_SOCIAL_LOGIN_PROVIDERS_CONFIG;
