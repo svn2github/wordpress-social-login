@@ -37,7 +37,7 @@ class WSL_Test_Install extends WP_UnitTestCase
 	function test_options_created()
 	{
 		$test = get_option( 'wsl_settings_redirect_url' );
-		$this->assertEquals( site_url(), $test );
+		$this->assertEquals( home_url(), $test );
 
 		$test = get_option( 'wsl_settings_buddypress_xprofile_map' );
 		$this->assertEquals( '', $test );
@@ -65,13 +65,6 @@ class WSL_Test_Install extends WP_UnitTestCase
 
 		$test = get_option( 'wsl_settings_Twitter_enabled' );
 		$this->assertEquals( 1, $test );
-	}
-
-	// so I don't forget.. to be removed 
-	function test_linking_account_disabled()
-	{
-		$test = get_option( 'wsl_settings_bouncer_accounts_linking_enabled' ) ? 1 : null;
-		$this->assertNull( $test );
 	}
 
 	function test_devmode_disabled()
