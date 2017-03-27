@@ -1,6 +1,12 @@
 <?php
 
-require_once realpath( dirname( __FILE__ ) )  . "/../thirdparty/Facebook/autoload.php";
+$facebook_autoloader = dirname( __FILE__ ) . "/../thirdparty/Facebook/autoload.php";
+
+if( ! file_exists($facebook_autoloader) ){
+	die( "Error: couldn't include Facebook autoloader." );
+}
+
+require_once $facebook_autoloader;
 
 use Facebook\Exceptions\FacebookSDKException;
 use Facebook\Facebook as FacebookSDK;
