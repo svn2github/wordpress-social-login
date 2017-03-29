@@ -18,7 +18,7 @@ Wordpress Social Login also allow you to import users contact list from Google G
 
 Wordpress Social Login gives you absolute control over users access to your website and comes a list of rules and restrictions for you to setup.
 
-Wordpress Social Login comprehensive user guide and the frequently asked questions can be found at [http://miled.github.io/wordpress-social-login/](http://miled.github.io/wordpress-social-login/) 
+Wordpress Social Login comprehensive User's Guide and FAQ can be found at [http://miled.github.io/wordpress-social-login/](http://miled.github.io/wordpress-social-login/) 
 
 <strong>Easy to customize and integrate</strong> <br>
 Wordpress Social Login come with a simple but flexible and fully customizable authentication widget. And if you are a developer or designer then you can customize it to your heart's content.
